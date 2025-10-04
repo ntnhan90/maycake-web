@@ -1,26 +1,35 @@
-'use client'
+import { Metadata } from "next";
 import { Fragment } from "react";
-import { Col, Row, Image } from "react-bootstrap";
-import Link from "next/link";
+import { Col, Row, Image , Button} from "react-bootstrap";
+import { getAssetPath } from "@/helper/assetPath";
+
+export const metadata: Metadata = {
+  title: "404 error ",
+  description: "Dasher - Responsive Bootstrap 5 Admin Dashboard",
+};
 
 const Error404 =() =>{
     return(
         <Fragment>
-            <Row>
-                <Col sm={12}>
+            <Row className="justify-content-center">
+                <Col>
                     <div className="text-center">
-                        <div className="mb-3">
-                        <Image   src="/images/error/404-error-img.png"
-                            alt=""   className="img-fluid"
+                        <div>
+                        <Image
+                            src={getAssetPath("/images/svg/404.svg")}
+                            alt="Image"
+                            className="img-fluid"
                         />
                         </div>
-                        <h1 className="display-4 fw-bold">Oops! the page not found.</h1>
-                        <p className="mb-4">
+
+                        <h1 className="display-4">Oops! the page not found.</h1>
+                        <p className="mb-6 fs-5">
                         Or simply leverage the expertise of our consultation team.
                         </p>
-                        <Link href="/" className="btn btn-primary">
+
+                        <Button href="/" variant="primary" size="lg">
                         Go Home
-                        </Link>
+                        </Button>
                     </div>
                 </Col>
             </Row>
