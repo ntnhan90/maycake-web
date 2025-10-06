@@ -116,3 +116,12 @@ export const generateSlugUrl = ({ name, id }: { name: string; id: number }) => {
 export const getIdFromSlugUrl = (slug: string) => {
   return Number(slug.split('-i.')[1])
 }
+
+export function capitalizedWord(str: string) {
+  return str.replace(/-|\b\w/g, (match) => {
+    if (match === "-") {
+      return " ";
+    }
+    return match.toUpperCase();
+  });
+}

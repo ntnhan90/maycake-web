@@ -6072,3 +6072,36 @@ body {
 .accordion-button.collapsed {
   background: blue
 }
+
+.nav-lb-tab .nav-item {
+    margin-right: 2rem;
+}
+.nav-lb-tab .nav-item .nav-link {
+    border-bottom: 1px solid rgba(0, 0, 0, 0);
+    border-radius: 0;
+    padding: 16px 0;
+    margin-bottom: -1px;
+    font-weight: 500;
+    color: var(--ds-gray-600);
+    white-space: nowrap;
+}
+.nav-lb-tab .nav-item .nav-link.active, .nav-lb-tab .nav-item .nav-link:hover {
+    background-color: rgba(0, 0, 0, 0);
+    border-bottom: 1px solid #00a76f;
+    color: #00a76f;
+}
+.bg-gray-200 {
+    --ds-bg-opacity: 1;
+    background-color: #f4f6f8 !important;
+}
+.text-gray-600 {
+    --ds-text-opacity: 1;
+    color: #637381 !important;
+}
+@media (max-width: 1600px) {
+    .nav-lb-tab {
+        overflow-x: scroll;
+        flex-wrap: nowrap;
+        overflow-y: hidden;
+    }
+}
