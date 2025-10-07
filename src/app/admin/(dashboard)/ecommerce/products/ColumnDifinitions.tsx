@@ -59,7 +59,7 @@ export const productListColumns: ColumnDef<ProductListType>[] = [
 				</div>
       		);
     	},
- 	 },
+ 	},
 	{
 		accessorKey: "category",
 		header: "Category",

@@ -14,7 +14,7 @@ export default function RootLayout({
   }>) {
     return (
         <html lang='en' suppressHydrationWarning={true}>
-            <body>
+            <body cz-shortcut-listen="true" >
                 <ThemeProvider attribute='class' defaultTheme='system' enableSystem disableTransitionOnChange>
                     {children}
                 </ThemeProvider>
