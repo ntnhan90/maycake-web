@@ -139,7 +139,7 @@ function TanstackTable<TData>({
                         <tr
                             key={row.id}
                             onClick={
-                            onRowClick ? () => onRowClick(row.original) : undefined
+                                onRowClick ? () => onRowClick(row.original) : undefined
                             }
                             style={onRowClick ? { cursor: "pointer" } : undefined}
                         >

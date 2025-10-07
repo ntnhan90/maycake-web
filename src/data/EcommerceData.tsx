@@ -10,7 +10,7 @@ export const productListData: ProductListType[] = [
     id: uuid(),
     name: "Transparent Sunglasses",
     category: "Accessories",
-    addedDate: "19 July, 2025",
+    addedDate: "18 July, 2025",
     price: "$65.29",
     quantity: 235,
     status: "Active",

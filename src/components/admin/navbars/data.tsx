@@ -5,7 +5,7 @@ const DashboardMenu = [
 		id: uuid(),
 		title: 'Dashboard',
 		icon: 'fas fa-home',
-		link: '/admin/dashboard'
+		link: '/admin'
 	},
     {
 		id: uuid(),
@@ -94,7 +94,7 @@ const DashboardMenu = [
 		id: uuid(),
 		title: 'Login',
 		icon: 'fas fa-user-shield',
-		link: '/admin/login'
+		link: '/admin/sign-in'
 	},
 	{
 		id: uuid(),
