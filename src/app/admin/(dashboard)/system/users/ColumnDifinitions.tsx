@@ -1,9 +1,9 @@
 //import node module libraries
-import { Fragment } from "react";
+//import { Fragment } from "react";
 import { ColumnDef } from "@tanstack/react-table";
-import { IconEdit, IconEye, IconTrash } from "@tabler/icons-react";
-import { Badge, Button, Image } from "react-bootstrap";
-import Link from "next/link";
+//import { IconEdit, IconEye, IconTrash } from "@tabler/icons-react";
+//import { Badge, Button, Image } from "react-bootstrap";
+//import Link from "next/link";
 
 //import custom types
 import { UserType } from "@/types/UserType";
@@ -11,6 +11,27 @@ import { UserType } from "@/types/UserType";
 export const userListColumns: ColumnDef<UserType>[] = [
     {
 		accessorKey: "category",
-		header: "Category",
+		header: "Username",
 	},
+	{
+		accessorKey: "category",
+		header: "Email",
+	},
+	{
+		accessorKey: "category",
+		header: "Phone",
+	},
+	{
+		accessorKey: "category",
+		header: "Created At",
+	},
+	{
+		accessorKey: "category",
+		header: "Status",
+	},
+	{
+		accessorKey: "category",
+		header: "Operation",
+	},
+
 ]

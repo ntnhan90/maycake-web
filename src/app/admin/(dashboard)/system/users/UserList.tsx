@@ -20,22 +20,15 @@ const UserListing = () => {
 						</Row>
 					</CardHeader>
 
-					{/* Product List Table 
-					<TanstackTable
-						data={productListData}
-						columns={productListColumns}
+					 <TanstackTable
+						data={userListData}
+						columns={userListColumns}
 						pagination={true}
 						isSortable
 					/>
-                    */}
 				</Card>
 			</Col>
-            <TanstackTable
-				data={userListData}
-				columns={userListColumns}
-				pagination={true}
-				isSortable
-			/>
+           
 		</Row>
 	)
 }
