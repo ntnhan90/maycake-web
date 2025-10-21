@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { Fragment } from "react";
 import { Col, Row, Image , Button} from "react-bootstrap";
-import { getAssetPath } from "@/helper/assetPath";
+import { getAssetPath } from "@/lib/assetPath";
 
 export const metadata: Metadata = {
   title: "404 error ",

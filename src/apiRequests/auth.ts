@@ -2,12 +2,13 @@ import http from '@/lib/http'
 import {
     LoginBodyType,
     LoginResType,
-    LogoutBodyType,
-    RefreshTokenBodyType,
-    RefreshTokenResType
  } from '@/schema/auth.schema'
 
 const authApiRequest ={
-
+    sLogin: (body: LoginBodyType) => http.post<LoginResType>('/admin/login', body),
+    login: (body: LoginBodyType) =>
+        http.post<LoginResType>('/api/auth/login', body, {
+            baseUrl: ''
+        }),
 }
 export default authApiRequest

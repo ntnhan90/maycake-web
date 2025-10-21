@@ -3,7 +3,7 @@ import { v4 as uuid } from "uuid";
 
 //import custom types
 import { ProductListType } from "@/types/EcommerceType";
-import { getAssetPath } from "@/helper/assetPath";
+import { getAssetPath } from "@/lib/assetPath";
 
 export const productListData: ProductListType[] = [
   {
