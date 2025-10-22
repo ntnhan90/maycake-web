@@ -6,9 +6,9 @@ import { IconDotsVertical } from "@tabler/icons-react";
 import { Image, Badge, Dropdown } from "react-bootstrap";
 
 //import custom types
-import { BlogPost } from "@/types/BlogType";
+import { BlogPostType } from "@/types/BlogType";
 
-export const blogListColumns: ColumnDef<BlogPost>[] = [
+export const blogListColumns: ColumnDef<BlogPostType>[] = [
   {
     accessorKey: "post_title",
     header: "Blog Title",

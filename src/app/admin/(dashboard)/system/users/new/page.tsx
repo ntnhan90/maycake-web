@@ -41,7 +41,7 @@ export default function AdminCreateUsers(){
                 <h1 className="mb-3 h2">User</h1>
                 <BreadcrumbExample />
             </div>
-             <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="row">
                     <div className="col-md-9">
                         <div className="card">

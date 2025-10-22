@@ -20,7 +20,7 @@ export default function AdminBlogPosts(){
                         <BreadcrumbExample />
                     </div>
                     <div>
-                        <Button  href="#"  variant="primary" className="d-md-flex align-items-center gap-1">
+                        <Button href="/admin/blog/posts/new"  variant="primary" className="d-md-flex align-items-center gap-1">
                             <i className="fas fa-plus"></i>
                             New Post
                         </Button>

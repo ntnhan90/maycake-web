@@ -1,82 +1,126 @@
 //import node modules libraries
+"use client"
 import { Fragment } from "react";
-import Feedback from "react-bootstrap/Feedback";
 import {
   Row,
   Col,
-  Image,
   Card,
   CardBody,
   Form,
-  FormLabel,
-  FormControl,
-  Button,
 } from "react-bootstrap";
-import { Metadata } from "next";
-import Link from "next/link";
+import { useForm ,SubmitHandler} from "react-hook-form"
+import { useState } from "react";
 
 
-
-import { getAssetPath } from "@/helper/assetPath";
-
-export const metadata: Metadata = {
-  title: "Sign In | Dasher - Responsive Bootstrap 5 Admin Dashboard",
-  description: "Dasher - Responsive Bootstrap 5 Admin Dashboard",
-};
+type FormValues = {
+    firstName: string
+    lastName: string
+    email:string
+    userName:string
+    password:string
+    confirmPassword:string
+}
 
 const SignIn = () => {
-  return (
-    <Fragment>
-        <Row className="mb-5">
-            <Col xl={{ span: 4, offset: 4 }} md={12}>
-                <div className="text-center">
-                    <Link href="/" className="fs-2 fw-bold d-flex align-items-center gap-2 justify-content-center mb-6"
-                    >
-                    <Image src={getAssetPath("/images/brand/logo/logo-icon.svg")} alt="Dasher" />
-                    <span>Dasher</span>
-                    </Link>
-                    <h1 className="mb-1">Welcome Back</h1>
-                
-                </div>
-            </Col>
-        </Row>
+    const [showPassword, setShowPassword] = useState(false);
+        
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
 
-        <Row className="justify-content-center">
-            <Col xl={5} lg={6} md={8}>
-                <Card className="card-lg mb-6">
-                    <CardBody className="p-6">
-                        <Form className="mb-6">
-                            <div className="mb-3">
-                                <FormLabel htmlFor="signinEmailInput">
-                                    Email <span className="text-danger">*</span>
-                                </FormLabel>
-                                <FormControl type="email" id="signinEmailInput" />
-                                    <Feedback type="invalid">Please enter email.</Feedback>
-                            </div>
-                            <div className="mb-3">
-                                <FormLabel htmlFor="formSignUpPassword">Password</FormLabel>
-                                <div className="password-field position-relative">
-                                <FormControl  type="password"  id="formSignUpPassword"  className="fakePassword"  />
-                                <span>
-                                </span>
-                            </div>
-                            <Feedback type="invalid">Please enter password.</Feedback>
-                            </div>
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<FormValues>()
+    
+    const onSubmit: SubmitHandler<FormValues> = (data) => {
+        console.log(data)
+    }
+
+    return (
+        <Fragment>
+            <Row className="mb-5">
+                <Col xl={{ span: 4, offset: 4 }} md={12}>
+                    <div className="text-center">
+                        <h1 className="mb-1">Welcome Back</h1>
+                    </div>
+                </Col>
+            </Row>
+
+            <Row className="justify-content-center">
+                <Col xl={5} lg={6} md={8}>
+                    <Card className="card-lg mb-6">
+                        <CardBody className="p-6">
+                            <form onSubmit={handleSubmit(onSubmit)}>
+                                <Row className="mb-3">
+                                    <Form.Group >
+                                        <Form.Label>Email</Form.Label>
+                                        <input
+                                            type="email"
+                                            className="form-control"
+                                            {...register("email", {
+                                            required: "Email is required",
+                                            pattern: {
+                                                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                                                message: "Invalid email address",
+                                            },
+                                            })}
+                                            placeholder="Email"
+                                        />
+                                            
+                                        {errors.email  && (
+                                            <span className="form-error">{errors.email.message}</span>
+                                        )}
+                                    </Form.Group>
+                                </Row>              
+                                <Row className="mb-3">
+                                    <Form.Group >
+                                        <Form.Label>Password</Form.Label>
+                                        <div className="input-icon">
+                                            <input
+                                                id="password"
+                                                type={showPassword ? 'text' : 'password'}
+                                                className="form-control" placeholder="Enter password "
+                                                {...register("password",  { 
+                                                    required: "This field is required" ,
+                                                    minLength: {
+                                                        value: 6,
+                                                        message: 'Password must be at least 6 characters',
+                                                    },
+                                                } )} 
+                                            />
+                                            <span className="input-icon-addon">
+                                                <i 
+                                                    className={showPassword ? 'fa fa-eye' : 'fa fa-eye-slash'  }
+                                                    onClick={togglePasswordVisibility}>
+                                                </i>
+                                            </span>
+                                        </div>
+                                        {errors.password && (
+                                            <span className="form-error">{errors.password.message}</span>
+                                        )}
+                                        
+                                    </Form.Group>
+                                </Row>
+                            
+                                <div className="d-grid">
+                                    <button type="submit" className="btn btn-primary mt-4">Sign In</button>
+                                </div>
+                                <style jsx>{`
+                                    form .form-error {
+                                        color: red;
+                                    }
+                                `}</style>
+                            </form>
+
                         
-                            <div className="d-grid">
-                            <Button variant="primary" type="button">
-                                Sign In
-                            </Button>
-                            </div>
-                        </Form>
-
-                    
-                    </CardBody>
-                </Card>
-            </Col>
-        </Row>
-    </Fragment>
-  );
+                        </CardBody>
+                    </Card>
+                </Col>
+            </Row>
+        </Fragment>
+    );
 };
 
 export default SignIn;
