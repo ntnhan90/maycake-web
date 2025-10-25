@@ -1,10 +1,22 @@
-import type { NextConfig } from "next";
+/* eslint-disable @typescript-eslint/no-require-imports */
+const path = require('path')
 
-const nextConfig: NextConfig = {
-  eslint: {
-    ignoreDuringBuilds: true,
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  reactStrictMode: true,
+  swcMinify: true,
+  sassOptions: {
+    includePaths: [path.join(__dirname, 'styles')],
   },
-  /* config options here */
-};
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'img.pokemondb.net',
+        port: '',
+      },
+    ],
+  },
+}
 
-export default nextConfig;
+module.exports = nextConfig
