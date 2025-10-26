@@ -2,7 +2,7 @@ import React from 'react'
 import Feedback from 'react-bootstrap/Feedback'
 
 export default function FormError(props: { messages?: string[] }) {
-  const { messages } = props
+    const { messages } = props
 
-  return messages && <Feedback type="invalid">{messages.join(' ')}</Feedback>
+    return messages && <Feedback type="invalid">{messages.join(' ')}</Feedback>
 }
