@@ -4,7 +4,7 @@ import {
 import Register from '@/app/(authentication)/register/register'
 import { getDictionary } from '@/locales/dictionary'
 
-export default async function Page() {
+export default async function RegisterPage() {
     const dict = await getDictionary()
 
     return (

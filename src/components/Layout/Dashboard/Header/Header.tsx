@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import { Container } from 'react-bootstrap'
 import HeaderSidebarToggler from '@/components/Layout/Dashboard/Header/HeaderSidebarToggler'
-import HeaderFeaturedNav from '@/components/Layout/Dashboard/Header/HeaderFeaturedNav'
 import HeaderNotificationNav from '@/components/Layout/Dashboard/Header/HeaderNotificationNav'
 import HeaderProfileNav from '@/components/Layout/Dashboard/Header/HeaderProfileNav'
 import Breadcrumb from '@/components/Layout/Dashboard/Breadcrumb/Breadcrumb'

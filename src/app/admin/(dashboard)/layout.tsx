@@ -12,26 +12,26 @@ export default function Layout({
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <SidebarProvider>
-      <SidebarOverlay />
-      <Sidebar>
-        <SidebarNav />
-      </Sidebar>
+    return (
+        <SidebarProvider>
+            <SidebarOverlay />
+            <Sidebar>
+                <SidebarNav />
+            </Sidebar>
 
-      <div className="wrapper d-flex flex-column min-vh-100">
-        <Header />
+            <div className="wrapper d-flex flex-column min-vh-100">
+                <Header />
 
-        <div className="body flex-grow-1 px-sm-2 mb-4">
-          <Container fluid="lg">
-            {children}
-          </Container>
-        </div>
+                <div className="body flex-grow-1 px-sm-2 mb-4">
+                    <Container fluid="lg">
+                        {children}
+                    </Container>
+                </div>
 
-        <Footer />
-      </div>
+                <Footer />
+            </div>
 
-      <SidebarOverlay />
-    </SidebarProvider>
-  )
+            <SidebarOverlay />
+        </SidebarProvider>
+    )
 }

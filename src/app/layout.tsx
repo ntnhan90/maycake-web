@@ -21,22 +21,21 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const dictionary = await getDictionary()
+    const dictionary = await getDictionary()
 
-  const gaMeasurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID ?? ''
-  const vercelAnalytics = process.env.NEXT_PUBLIC_VERCEL_ANALYTICS === 'true'
+    const gaMeasurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID ?? ''
+    const vercelAnalytics = process.env.NEXT_PUBLIC_VERCEL_ANALYTICS === 'true'
 
-  return (
-    <html lang="en" data-bs-theme={getTheme()}>
-      <body>
-        <ProgressBar />
-        <DictionaryProvider dictionary={dictionary}>
-          {children}
-        </DictionaryProvider>
-        {vercelAnalytics && <Analytics />}
-      </body>
-      {gaMeasurementId !== '' && <GoogleAnalytics gaId={gaMeasurementId} />}
-     
-    </html>
-  )
+    return (
+        <html lang="en" data-bs-theme={getTheme()}>
+            <body>
+                <ProgressBar />
+                <DictionaryProvider dictionary={dictionary}>
+                {children}
+                </DictionaryProvider>
+                {vercelAnalytics && <Analytics />}
+            </body>
+            {gaMeasurementId !== '' && <GoogleAnalytics gaId={gaMeasurementId} />}
+        </html>
+    )
 }
