@@ -1,3 +1,4 @@
+import '@/styles/globals.scss'
 import { Container } from 'react-bootstrap'
 import React from 'react'
 import SidebarProvider from '@/components/Layout/Dashboard/SidebarProvider'
@@ -12,26 +13,26 @@ export default function Layout({
 }: {
   children: React.ReactNode;
 }) {
-    return (
-        <SidebarProvider>
-            <SidebarOverlay />
-            <Sidebar>
-                <SidebarNav />
-            </Sidebar>
+  return (
+    <SidebarProvider>
+        <SidebarOverlay />
+        <Sidebar>
+            <SidebarNav />
+        </Sidebar>
 
-            <div className="wrapper d-flex flex-column min-vh-100">
-                <Header />
+        <div className="wrapper d-flex flex-column min-vh-100">
+            <Header />
 
-                <div className="body flex-grow-1 px-sm-2 mb-4">
-                    <Container fluid="lg">
-                        {children}
-                    </Container>
-                </div>
-
-                <Footer />
+            <div className="body flex-grow-1 px-sm-2 mb-4">
+            <Container fluid="lg">
+                {children}
+            </Container>
             </div>
 
-            <SidebarOverlay />
-        </SidebarProvider>
-    )
+            <Footer />
+        </div>
+
+        <SidebarOverlay />
+    </SidebarProvider>
+  )
 }
