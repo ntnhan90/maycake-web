@@ -42,5 +42,47 @@
   "PathnamesPage": {
     "description": "<p>Auch die Pfadnamen sind internationalisiert.</p><p>Wenn du die Standardsprache Englisch verwendest, siehst du <code>/en/pathnames</code> in der Adressleiste des Browsers auf dieser Seite.</p><p>Wenn du die Sprache auf Deutsch änderst, wird die URL entsprechend lokalisiert (<code>/de/pfadnamen</code>).</p>",
     "title": "Pfadnamen"
+  },
+  "sidebar": {
+    "items": {
+      "dashboard": "ダッシュボード",
+      "sample": "サンプル",
+      "components": "コンポーネント",
+      "login": "ログイン",
+      "register": "登録",
+      "error404": "エラー 404",
+      "error500": "エラー 500",
+      "docs": "ドキュメント",
+      "try_core_ui_pro": "CoreUI PRO を試す",
+      "base": "ベース",
+      "forms": "フォーム",
+      "icons": "アイコン",
+      "notifications": "通知",
+      "extras": "エクストラ",
+      "pages": "ページ",
+      "ecommerce": "Thương mại điện tử",
+      "report" : "Report",
+      "order" : "Order",
+      "products" : "Products",
+      "products_categories" : "Products Categories",
+      "products_tags" : "Products Tags",
+      "products_atributes" : "Products Atributes",
+      "products_collections" : "Bộ sưu tập",
+      "products_labels" : "Nhãn sản phẩm",
+      "reviews" : "Nhận xét",
+      "discount" : "Giảm giá",
+      "customers" : "Khách hàng",
+      "blog" : "Blog",
+      "post" : "Bài viết",
+      "blog_categories" : "Blog Categories",
+      "blog_tag" : "Blog Tags",
+      "payments" : "Thanh toán",
+      "contact" : "Liên hệ",
+      "faqs" :" FAQs",
+      "faqs_categories" :" FAQs Categories",
+      "media" : "Thư viện",
+      "settings" : "Cài đặt",
+      "admin" : "Admin"
+    }
   }
 }

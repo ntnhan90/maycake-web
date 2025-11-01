@@ -5,37 +5,69 @@ import {
 } from "@fortawesome/free-solid-svg-icons"
 export default function FHeader() {
     return (
-        <div className="container-fluid px-0 d-none d-lg-block">
-            <div className="row gx-0">
-                <div className="col-lg-4 text-center bg-second py-3">
-                    <div className="d-inline-flex align-items-center justify-content-center">
-                        <i className="bi bi-envelope fs-1 text-primary me-3"></i>
-                        <div className="text-start">
-                            <h6 className="text-uppercase mb-1">Email Us</h6>
-                            <span>info@example.com</span>
-                        </div>
+        <header id="header" className="header fixed-top">
+            <div className="topbar d-flex align-items-center dark-background">
+                <div className="container d-flex justify-content-center justify-content-md-between">
+                    <div className="contact-info d-flex align-items-center">
+                        <i className="bi bi-envelope d-flex align-items-center">
+                            <a href="mailto:contact@example.com">contact@example.com</a>
+                        </i>
+                        <i className="bi bi-phone d-flex align-items-center ms-4">
+                            <span>+1 5589 55488 55</span>
+                        </i>
                     </div>
-                </div>
-                <div className="col-lg-4 text-center bg-pri border-inner py-3">
-                    <div className="d-inline-flex align-items-center justify-content-center">
-                        <a href="index.html" className="navbar-brand">
-                            <h1 className="m-0 text-uppercase text-white">
-                                <FontAwesomeIcon className="nav-icon ms-n3" icon={faCakeCandles} />
-                                CakeZone
-                            </h1>
+                    <div className="social-links d-none d-md-flex align-items-center">
+                        <a href="#" className="twitter">
+                            <i className="bi bi-twitter-x"></i>
+                        </a>
+                        <a href="#" className="facebook">
+                            <i className="bi bi-facebook"></i>
+                        </a>
+                        <a href="#" className="instagram">
+                            <i className="bi bi-instagram"></i>
+                        </a>
+                        <a href="#" className="linkedin">
+                            <i className="bi bi-linkedin"></i>
                         </a>
                     </div>
                 </div>
-                <div className="col-lg-4 text-center bg-second py-3">
-                    <div className="d-inline-flex align-items-center justify-content-center">
-                        <FontAwesomeIcon className="fs-1 text-pri me-3" icon={faPhoneVolume} />
-                        <div className="text-start">
-                            <h6 className="text-uppercase mb-1">Call Us</h6>
-                            <span>+012 345 6789</span>
-                        </div>
-                    </div>
+            </div>
+            <div className="branding d-flex align-items-cente">
+                <div className="container position-relative d-flex align-items-center justify-content-between">
+                    <a href="index.html" className="logo d-flex align-items-center">
+                        <h1 className="sitename">Platia</h1>
+                    </a>
+                    <nav id="navmenu" className="navmenu">
+                        <ul>
+                            <li><a href="#hero" className="active">Home</a></li>
+                            <li><a href="#about">About</a></li>
+                            <li><a href="#menu">Menu</a></li>
+                            <li><a href="#book-a-table">Book a Table</a></li>
+                            <li><a href="#chefs">Chefs</a></li>
+                            <li><a href="#events">Events</a></li>
+                            <li className="dropdown"><a href="#"><span>Dropdown</span> <i className="bi bi-chevron-down toggle-dropdown"></i></a>
+                            <ul>
+                                <li><a href="#">Dropdown 1</a></li>
+                                <li className="dropdown"><a href="#"><span>Deep Dropdown</span> <i className="bi bi-chevron-down toggle-dropdown"></i></a>
+                                <ul>
+                                    <li><a href="#">Deep Dropdown 1</a></li>
+                                    <li><a href="#">Deep Dropdown 2</a></li>
+                                    <li><a href="#">Deep Dropdown 3</a></li>
+                                    <li><a href="#">Deep Dropdown 4</a></li>
+                                    <li><a href="#">Deep Dropdown 5</a></li>
+                                </ul>
+                                </li>
+                                <li><a href="#">Dropdown 2</a></li>
+                                <li><a href="#">Dropdown 3</a></li>
+                                <li><a href="#">Dropdown 4</a></li>
+                            </ul>
+                            </li>
+                            <li><a href="#contact">Contact</a></li>
+                        </ul>
+                        <i className="mobile-nav-toggle d-xl-none bi bi-list"></i>
+                    </nav>
                 </div>
             </div>
-        </div>
+        </header>
     )
 }

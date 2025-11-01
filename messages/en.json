@@ -42,5 +42,47 @@
   "PathnamesPage": {
     "description": "<p>The pathnames are internationalized too.</p><p>If you're using the default language English, you'll see <code>/en/pathnames</code> in the browser address bar on this page.</p><p>If you change the locale to German, the URL is localized accordingly (<code>/de/pfadnamen</code>).</p>",
     "title": "Pathnames"
+  },
+  "sidebar": {
+    "items": {
+      "dashboard": "Dashboard",
+      "sample": "Sample",
+      "components": "Components",
+      "login": "Login",
+      "register": "Register",
+      "error404": "Error 404",
+      "error500": "Error 500",
+      "docs": "Docs",
+      "try_core_ui_pro": "Try CoreUI PRO",
+      "base": "Base",
+      "forms": "Forms",
+      "icons": "Icons",
+      "notifications": "Notifications",
+      "extras": "Extras",
+      "pages": "Pages",
+      "ecommerce": "Ecommerce",
+      "report" : "Report",
+      "order" : "Order",
+      "products" : "Products",
+      "products_categories" : "Products Categories",
+      "products_tags" : "Products Tags",
+      "products_atributes" : "Products Atributes",
+      "products_collections" : "Products Collections",
+      "products_labels" : "Products labels",
+      "reviews" : "Reviews",
+      "discount" : "Discounts",
+      "customers" : "Customers",
+      "blog" : "Blog",
+      "post" : "Post",
+      "blog_categories" : "Blog Categories",
+      "blog_tag" : "Blog Tags",
+      "payments" : "Payments",
+      "contact" : "Contact",
+      "faqs" :" FAQs",
+      "faqs_categories" :" FAQs Categories",
+      "media" : "Media",
+      "settings" : "Setting",
+      "admin" : "Admin"
+    }
   }
 }

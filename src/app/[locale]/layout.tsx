@@ -4,7 +4,6 @@ import {getTranslations, setRequestLocale} from 'next-intl/server';
 import {clsx} from 'clsx';
 import {Inter} from 'next/font/google';
 import {routing} from '@/i18n/routing';
-import Navigation from '@/components/Navigation';
 
 const inter = Inter({subsets: ['latin']});
 
@@ -42,7 +41,7 @@ export default async function LocaleLayout({
 
 	return (
 		<html className="h-full" lang={locale}>
-			<body className={clsx(inter.className, 'flex h-full flex-col')}>
+			<body>
 				<NextIntlClientProvider>
 				{children}
 				</NextIntlClientProvider>
