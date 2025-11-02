@@ -40,8 +40,8 @@ export default async function LocaleLayout({
   	setRequestLocale(locale);
 
 	return (
-		<html className="h-full" lang={locale}>
-			<body>
+		<html lang={locale}>
+			<body className='index-page'>
 				<NextIntlClientProvider>
 				{children}
 				</NextIntlClientProvider>

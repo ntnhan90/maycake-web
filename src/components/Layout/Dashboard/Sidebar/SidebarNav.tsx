@@ -47,47 +47,47 @@ export default function SidebarNav() {
     
     return (
         <ul className="list-unstyled">
-            <SidebarNavItem icon={faHome} href="/">
+            <SidebarNavItem icon={faHome} href="/admin">
                 {t('items.dashboard')}
                 <small className="ms-auto"><Badge bg="info" className="ms-auto">NEW</Badge></small>
             </SidebarNavItem>
-            <SidebarNavItem icon={faCode} href="/pokemons">
+            <SidebarNavItem icon={faCode} href="/admin/pokemons">
                 {t('items.sample')}
                 <small className="ms-auto"><Badge bg="danger" className="ms-auto">DEMO</Badge></small>
             </SidebarNavItem>
 
             <SidebarNavGroup toggleIcon={faCartPlus} toggleText= {t('items.ecommerce')}>
-                <SidebarNavItem href="#" icon={faChartArea}>{t('items.report')} </SidebarNavItem>
-                <SidebarNavItem href="#" icon={faBasketShopping}>{t('items.products')}  </SidebarNavItem>
-                <SidebarNavItem href="#" icon={faCube}>{t('items.products')} </SidebarNavItem>
-                <SidebarNavItem href="#" icon={faArchive}>{t('items.products_categories')}  </SidebarNavItem>
-                <SidebarNavItem href="#" icon={faTag}>{t('items.products_tags')}   </SidebarNavItem>
-                <SidebarNavItem href="#" icon={faGrip}>{t('items.products_atributes')}   </SidebarNavItem>
-                <SidebarNavItem href="#" icon={faGrip}>{t('items.products_collections')}   </SidebarNavItem>
-                <SidebarNavItem href="#" icon={faTags}>{t('items.products_labels')} </SidebarNavItem>
-                <SidebarNavItem href="#" icon={faFile}> {t('items.reviews')}   </SidebarNavItem>
-                <SidebarNavItem href="#" icon={faPercent}>{t('items.discount')}   </SidebarNavItem>
-                <SidebarNavItem href="#" icon={faUsers}>{t('items.customers')} </SidebarNavItem>
+                <SidebarNavItem href="/admin/ecommerce/reports" icon={faChartArea}>{t('items.reports')} </SidebarNavItem>
+                <SidebarNavItem href="/admin/ecommerce/orders" icon={faBasketShopping}>{t('items.orders')}  </SidebarNavItem>
+                <SidebarNavItem href="/admin/ecommerce/products" icon={faCube}>{t('items.products')} </SidebarNavItem>
+                <SidebarNavItem href="/admin/ecommerce/product-categories" icon={faArchive}>{t('items.products_categories')}  </SidebarNavItem>
+                <SidebarNavItem href="/admin/ecommerce/product-tags" icon={faTag}>{t('items.products_tags')}   </SidebarNavItem>
+                <SidebarNavItem href="/admin/ecommerce/product-attributes" icon={faGrip}>{t('items.products_atributes')}   </SidebarNavItem>
+                <SidebarNavItem href="/admin/ecommerce/product-collections" icon={faGrip}>{t('items.products_collections')}   </SidebarNavItem>
+                <SidebarNavItem href="/admin/ecommerce/product-labels" icon={faTags}>{t('items.products_labels')} </SidebarNavItem>
+                <SidebarNavItem href="/admin/ecommerce/reviews" icon={faFile}> {t('items.reviews')}   </SidebarNavItem>
+                <SidebarNavItem href="/admin/ecommerce/discounts" icon={faPercent}>{t('items.discounts')}   </SidebarNavItem>
+                <SidebarNavItem href="/admin/ecommerce/customers" icon={faUsers}>{t('items.customers')} </SidebarNavItem>
             </SidebarNavGroup>
 
             <SidebarNavGroup toggleIcon={faNewspaper} toggleText= {t('items.blog')}>
-                <SidebarNavItem href="#">{t('items.post')}</SidebarNavItem>
-                <SidebarNavItem href="#">{t('items.blog_categories')}</SidebarNavItem>
-                <SidebarNavItem href="#">{t('items.blog_tag')}</SidebarNavItem>
+                <SidebarNavItem href="/admin/blog/posts">{t('items.posts')}</SidebarNavItem>
+                <SidebarNavItem href="/admin/blog/categoroes">{t('items.blog_categories')}</SidebarNavItem>
+                <SidebarNavItem href="/admin/blog/tags">{t('items.blog_tag')}</SidebarNavItem>
             </SidebarNavGroup>
 
-            <SidebarNavItem icon={faCcPaypal} href="#">{t('items.payments')} </SidebarNavItem>
+            <SidebarNavItem icon={faCcPaypal} href="/admin/payments">{t('items.payments')} </SidebarNavItem>
 
-            <SidebarNavItem icon={faEnvelope} href="#">{t('items.contact')} </SidebarNavItem>
+            <SidebarNavItem icon={faEnvelope} href="/admin/contact">{t('items.contact')} </SidebarNavItem>
 
             <SidebarNavGroup toggleIcon={faFileLines} toggleText= {t('items.faqs')}>
-                <SidebarNavItem href="#">{t('items.faqs')}</SidebarNavItem>
-                <SidebarNavItem href="#">{t('items.faqs_categories')}</SidebarNavItem>
+                <SidebarNavItem href="/admin/faqs">{t('items.faqs')}</SidebarNavItem>
+                <SidebarNavItem href="/admin/faqs-categories">{t('items.faqs_categories')}</SidebarNavItem>
             </SidebarNavGroup>
 
-            <SidebarNavItem icon={faImage} href="#">{t('items.media')} </SidebarNavItem>
-            <SidebarNavItem icon={faGear} href="#">{t('items.settings')} </SidebarNavItem>
-            <SidebarNavItem icon={faUserGear} href="#">{t('items.admin')} </SidebarNavItem>
+            <SidebarNavItem icon={faImage} href="/admin/media">{t('items.media')} </SidebarNavItem>
+            <SidebarNavItem icon={faGear} href="/admin/settings">{t('items.settings')} </SidebarNavItem>
+            <SidebarNavItem icon={faUserGear} href="/admin/system">{t('items.admin')} </SidebarNavItem>
 
             <SidebarNavTitle>{t('items.extras')}</SidebarNavTitle>
             <SidebarNavGroup toggleIcon={faStar} toggleText={t('items.pages')} >

@@ -1,5 +1,6 @@
 import '@/styles/frontend/style.css'
 import { Container } from 'react-bootstrap'
+import FHeader from '@/components/Layout/Frontend/Header/FHeader';
 
 export default function Layout({
   children,
@@ -8,9 +9,10 @@ export default function Layout({
 }) {
     return (
         <>
-            <Container fluid="lg">
-                {children}
-            </Container>
+            <FHeader />
+            <main className='main'>
+
+            </main>
         </>
     )
 }

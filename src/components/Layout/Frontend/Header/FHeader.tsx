@@ -1,71 +1,176 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { 
     faCakeCandles,
-    faPhoneVolume
+    faPhoneVolume,
+    faEnvelope, faCheck
 } from "@fortawesome/free-solid-svg-icons"
 export default function FHeader() {
     return (
-        <header id="header" className="header fixed-top">
-            <div className="topbar d-flex align-items-center dark-background">
-                <div className="container d-flex justify-content-center justify-content-md-between">
-                    <div className="contact-info d-flex align-items-center">
-                        <i className="bi bi-envelope d-flex align-items-center">
-                            <a href="mailto:contact@example.com">contact@example.com</a>
-                        </i>
-                        <i className="bi bi-phone d-flex align-items-center ms-4">
-                            <span>+1 5589 55488 55</span>
-                        </i>
-                    </div>
-                    <div className="social-links d-none d-md-flex align-items-center">
-                        <a href="#" className="twitter">
-                            <i className="bi bi-twitter-x"></i>
-                        </a>
-                        <a href="#" className="facebook">
-                            <i className="bi bi-facebook"></i>
-                        </a>
-                        <a href="#" className="instagram">
-                            <i className="bi bi-instagram"></i>
-                        </a>
-                        <a href="#" className="linkedin">
-                            <i className="bi bi-linkedin"></i>
-                        </a>
+        <header id="header" className="header position-relative">
+            <div className="top-bar py-2">
+                <div className="container-fluid container-xl">
+                    <div className="row align-items-center">
+                        <div className="col-md-4 d-none">
+                            <div className="top-bar-item">
+                                <span>Need help? Call us: </span>
+                                <a href="tel:+1234567890">+1 (234) 567-890</a>
+                            </div>
+                        </div>
+
+
+                        <div className="col-md-4 d-none">
+                            <div className="d-flex justify-content-end">
+                                <div className="top-bar-item dropdown me-3">
+                                    <a href="#" className="dropdown-toggle" data-bs-toggle="dropdown">
+                                        <i className="bi bi-translate me-2"></i>EN
+                                    </a>
+                                    <ul className="dropdown-menu">
+                                        <li>
+                                            <a className="dropdown-item" href="#">
+                                            <FontAwesomeIcon className="selected-icon" icon={faCheck} />English
+                                            </a>
+                                        </li>
+                                        <li><a className="dropdown-item" href="#">Español</a></li>
+                                        <li><a className="dropdown-item" href="#">Français</a></li>
+                                        <li><a className="dropdown-item" href="#">Deutsch</a></li>
+                                    </ul>
+                                </div>
+                                <div className="top-bar-item dropdown">
+                                    <a href="#" className="dropdown-toggle" data-bs-toggle="dropdown">
+                                    <i className="bi bi-currency-dollar me-2"></i>USD
+                                    </a>
+                                    <ul className="dropdown-menu">
+                                        <li>
+                                            <a className="dropdown-item" href="#">
+                                                <FontAwesomeIcon className="selected-icon" icon={faCheck} />USD
+                                            </a>
+                                        </li>
+                                        <li><a className="dropdown-item" href="#">EUR</a></li>
+                                        <li><a className="dropdown-item" href="#">GBP</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div className="branding d-flex align-items-cente">
-                <div className="container position-relative d-flex align-items-center justify-content-between">
-                    <a href="index.html" className="logo d-flex align-items-center">
-                        <h1 className="sitename">Platia</h1>
-                    </a>
-                    <nav id="navmenu" className="navmenu">
-                        <ul>
-                            <li><a href="#hero" className="active">Home</a></li>
-                            <li><a href="#about">About</a></li>
-                            <li><a href="#menu">Menu</a></li>
-                            <li><a href="#book-a-table">Book a Table</a></li>
-                            <li><a href="#chefs">Chefs</a></li>
-                            <li><a href="#events">Events</a></li>
-                            <li className="dropdown"><a href="#"><span>Dropdown</span> <i className="bi bi-chevron-down toggle-dropdown"></i></a>
+
+            <div className="main-header">
+                <div className="container-fluid container-xl">
+                    <div className="d-flex py-3 align-items-center justify-content-between">
+                        <a href="index.html" className="logo d-flex align-items-center">
+                            <h1 className="sitename">eStore</h1>
+                        </a>
+
+                        <form className="search-form desktop-search-form">
+                            <div className="input-group">
+                                <input type="text" className="form-control" placeholder="Search for products"/>
+                                <button className="btn" type="submit">
+                                    <i className="bi bi-search"></i>
+                                </button>
+                            </div>
+                        </form>
+
+                        <div className="header-actions d-flex align-items-center justify-content-end">
+                            <button className="header-action-btn mobile-search-toggle d-xl-none" type="button" data-bs-toggle="collapse" data-bs-target="#mobileSearch" aria-expanded="false" aria-controls="mobileSearch">
+                                <i className="bi bi-search"></i>
+                            </button>
+
+                            <div className="dropdown account-dropdown">
+                                <button className="header-action-btn" data-bs-toggle="dropdown">
+                                    <i className="bi bi-person"></i>
+                                </button>
+                                <div className="dropdown-menu">
+                                    <div className="dropdown-header">
+                                        <h6>Welcome to <span className="sitename">eStore</span></h6>
+                                        <p className="mb-0">Access account &amp; manage orders</p>
+                                    </div>
+                                    <div className="dropdown-body">
+                                        <a className="dropdown-item d-flex align-items-center" href="account.html">
+                                            <i className="bi bi-person-circle me-2"></i>
+                                            <span>My Profile</span>
+                                        </a>
+                                        <a className="dropdown-item d-flex align-items-center" href="account.html">
+                                            <i className="bi bi-bag-check me-2"></i>
+                                            <span>My Orders</span>
+                                        </a>
+                                        <a className="dropdown-item d-flex align-items-center" href="account.html">
+                                            <i className="bi bi-heart me-2"></i>
+                                            <span>My Wishlist</span>
+                                        </a>
+                                        <a className="dropdown-item d-flex align-items-center" href="account.html">
+                                            <i className="bi bi-gear me-2"></i>
+                                            <span>Settings</span>
+                                        </a>
+                                    </div>
+                                    <div className="dropdown-footer">
+                                        <a href="login-register.html" className="btn btn-primary w-100 mb-2">Sign In</a>
+                                        <a href="login-register.html" className="btn btn-outline-primary w-100">Register</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <a href="account.html" className="header-action-btn d-none d-md-block">
+                                <i className="bi bi-heart"></i>
+                                <span className="badge">0</span>
+                            </a>
+
+                            <a href="cart.html" className="header-action-btn">
+                                <i className="bi bi-cart3"></i>
+                                <span className="badge">3</span>
+                            </a>
+
+                            <i className="mobile-nav-toggle d-xl-none bi bi-list me-0"></i>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="header-nav">
+                <div className="container-fluid container-xl">
+                    <div className="position-relative">
+                        <nav id="navmenu" className="navmenu">
                             <ul>
-                                <li><a href="#">Dropdown 1</a></li>
-                                <li className="dropdown"><a href="#"><span>Deep Dropdown</span> <i className="bi bi-chevron-down toggle-dropdown"></i></a>
-                                <ul>
-                                    <li><a href="#">Deep Dropdown 1</a></li>
-                                    <li><a href="#">Deep Dropdown 2</a></li>
-                                    <li><a href="#">Deep Dropdown 3</a></li>
-                                    <li><a href="#">Deep Dropdown 4</a></li>
-                                    <li><a href="#">Deep Dropdown 5</a></li>
-                                </ul>
+                                <li><a href="index.html" className="active">Home</a></li>
+                                <li><a href="about.html">About</a></li>
+                                <li><a href="category.html">Category</a></li>
+                                <li><a href="product-details.html">Product Details</a></li>
+                                <li><a href="cart.html">Cart</a></li>
+                                <li><a href="checkout.html">Checkout</a></li>
+                                <li className="dropdown"><a href="#"><span>Dropdown</span> <i className="bi bi-chevron-down toggle-dropdown"></i></a>
+                                    <ul>
+                                        <li><a href="#">Dropdown 1</a></li>
+                                        <li className="dropdown"><a href="#"><span>Deep Dropdown</span> <i className="bi bi-chevron-down toggle-dropdown"></i></a>
+                                            <ul>
+                                            <li><a href="#">Deep Dropdown 1</a></li>
+                                            <li><a href="#">Deep Dropdown 2</a></li>
+                                            <li><a href="#">Deep Dropdown 3</a></li>
+                                            <li><a href="#">Deep Dropdown 4</a></li>
+                                            <li><a href="#">Deep Dropdown 5</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="#">Dropdown 2</a></li>
+                                        <li><a href="#">Dropdown 3</a></li>
+                                        <li><a href="#">Dropdown 4</a></li>
+                                    </ul>
                                 </li>
-                                <li><a href="#">Dropdown 2</a></li>
-                                <li><a href="#">Dropdown 3</a></li>
-                                <li><a href="#">Dropdown 4</a></li>
+                                <li><a href="contact.html">Contact</a></li>
                             </ul>
-                            </li>
-                            <li><a href="#contact">Contact</a></li>
-                        </ul>
-                        <i className="mobile-nav-toggle d-xl-none bi bi-list"></i>
-                    </nav>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <div className="collapse" id="mobileSearch">
+                <div className="container">
+                    <form className="search-form">
+                        <div className="input-group">
+                            <input type="text" className="form-control" placeholder="Search for products" />
+                            <button className="btn" type="submit">
+                            <i className="bi bi-search"></i>
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </header>
