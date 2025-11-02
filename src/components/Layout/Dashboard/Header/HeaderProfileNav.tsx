@@ -67,7 +67,7 @@ export default async function HeaderProfileNav() {
 			</DropdownToggle>
 			<DropdownMenu className="pt-0">
 			<DropdownHeader className="fw-bold rounded-top">{dict.profile.account.title}</DropdownHeader>
-			<Link href="#" passHref legacyBehavior>
+			<Link href="#" passHref >
 				<DropdownItem>
 				<ItemWithIcon icon={faBell}>
 					{dict.profile.account.items.updates}
@@ -75,7 +75,7 @@ export default async function HeaderProfileNav() {
 				</ItemWithIcon>
 				</DropdownItem>
 			</Link>
-			<Link href="#" passHref legacyBehavior>
+			<Link href="#" passHref >
 				<DropdownItem>
 				<ItemWithIcon icon={faEnvelopeOpen}>
 					{dict.profile.account.items.messages}
@@ -83,7 +83,7 @@ export default async function HeaderProfileNav() {
 				</ItemWithIcon>
 				</DropdownItem>
 			</Link>
-			<Link href="#" passHref legacyBehavior>
+			<Link href="#" passHref >
 				<DropdownItem>
 				<ItemWithIcon icon={faListCheck}>
 					{dict.profile.account.items.tasks}
@@ -91,7 +91,7 @@ export default async function HeaderProfileNav() {
 				</ItemWithIcon>
 				</DropdownItem>
 			</Link>
-			<Link href="#" passHref legacyBehavior>
+			<Link href="#" passHref >
 				<DropdownItem>
 				<ItemWithIcon icon={faMessage}>
 					{dict.profile.account.items.comments}
@@ -102,24 +102,24 @@ export default async function HeaderProfileNav() {
 
 			<DropdownHeader className="fw-bold">{dict.profile.settings.title}</DropdownHeader>
 
-			<Link href="#" passHref legacyBehavior>
+			<Link href="#" passHref >
 				<DropdownItem>
 				<ItemWithIcon icon={faUser}>{dict.profile.settings.items.profile}</ItemWithIcon>
 				</DropdownItem>
 			</Link>
-			<Link href="#" passHref legacyBehavior>
+			<Link href="#" passHref >
 				<DropdownItem>
 				<ItemWithIcon icon={faGear}>{dict.profile.settings.items.settings}</ItemWithIcon>
 				</DropdownItem>
 			</Link>
-			<Link href="#" passHref legacyBehavior>
+			<Link href="#" passHref >
 				<DropdownItem>
 				<ItemWithIcon icon={faCreditCard}>
 					{dict.profile.settings.items.payments}
 				</ItemWithIcon>
 				</DropdownItem>
 			</Link>
-			<Link href="#" passHref legacyBehavior>
+			<Link href="#" passHref >
 				<DropdownItem>
 				<ItemWithIcon icon={faFile}>{dict.profile.settings.items.profile}</ItemWithIcon>
 				</DropdownItem>
@@ -127,7 +127,7 @@ export default async function HeaderProfileNav() {
 
 			<DropdownDivider />
 
-			<Link href="#" passHref legacyBehavior>
+			<Link href="#" passHref >
 				<DropdownItem>
 				<ItemWithIcon icon={faLock}>{dict.profile.lock_account}</ItemWithIcon>
 				</DropdownItem>

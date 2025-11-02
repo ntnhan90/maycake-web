@@ -82,7 +82,7 @@ export default function PokemonList(props: Props) {
 
                 <DropdownMenu>
                   <DropdownItem href="#/action-1">{dict.action.info}</DropdownItem>
-                  <Link href={`pokemons/${pokemon.id}/edit`} passHref legacyBehavior>
+                  <Link href={`pokemons/${pokemon.id}/edit`} passHref >
                     <DropdownItem>{dict.action.edit}</DropdownItem>
                   </Link>
                   <DropdownItem

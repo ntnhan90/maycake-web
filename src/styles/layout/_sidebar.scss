@@ -24,14 +24,14 @@ $sidebar-overlay-z-index: 1025;
   --sidebar-background: #{$sidebar-background};
   --sidebar-brand-background: #{$sidebar-brand-background};
   --sidebar-toggler-background: #{$sidebar-toggler-background};
-  --sidebar-border-color: #{$sidebar-border-color}
+  --sidebar-border-color: #{$sidebar-border-color};
 }
 
 @include color-mode(dark) {
   --sidebar-background: #{$sidebar-background-dark};
   --sidebar-brand-background: #{$sidebar-brand-background-dark};
   --sidebar-toggler-background: #{$sidebar-toggler-background-dark};
-  --sidebar-border-color: #{$sidebar-border-color-dark}
+  --sidebar-border-color: #{$sidebar-border-color-dark};
 }
 
 .sidebar {

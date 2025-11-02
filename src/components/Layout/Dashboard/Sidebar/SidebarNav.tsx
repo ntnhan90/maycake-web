@@ -82,7 +82,7 @@ export default function SidebarNav() {
 
             <SidebarNavGroup toggleIcon={faFileLines} toggleText= {t('items.faqs')}>
                 <SidebarNavItem href="/admin/faqs">{t('items.faqs')}</SidebarNavItem>
-                <SidebarNavItem href="/admin/faqs-categories">{t('items.faqs_categories')}</SidebarNavItem>
+                <SidebarNavItem href="/admin/faqs/categories">{t('items.faqs_categories')}</SidebarNavItem>
             </SidebarNavGroup>
 
             <SidebarNavItem icon={faImage} href="/admin/media">{t('items.media')} </SidebarNavItem>
