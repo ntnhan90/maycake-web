@@ -1,8 +1,12 @@
 import {Locale, useTranslations} from 'next-intl';
 import {setRequestLocale} from 'next-intl/server';
 import {use} from 'react';
+import { Metadata } from 'next'
 
-
+export const metadata: Metadata = {
+    title: 'Payments',
+    description: 'The best restaurant in the world'
+}
 export default function PaymentsPage({params}: PageProps<'/[locale]'>) {
     const {locale} = use(params);
 

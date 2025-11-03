@@ -47,11 +47,11 @@ export default function SidebarNav() {
     
     return (
         <ul className="list-unstyled">
-            <SidebarNavItem icon={faHome} href="/admin">
+            <SidebarNavItem icon={faHome} href="/">
                 {t('items.dashboard')}
                 <small className="ms-auto"><Badge bg="info" className="ms-auto">NEW</Badge></small>
             </SidebarNavItem>
-            <SidebarNavItem icon={faCode} href="/admin/pokemons">
+            <SidebarNavItem icon={faCode} href="/pokemons">
                 {t('items.sample')}
                 <small className="ms-auto"><Badge bg="danger" className="ms-auto">DEMO</Badge></small>
             </SidebarNavItem>

@@ -24,14 +24,14 @@ export default function SidebarNavItem(props: Props) {
 	} = useSidebar()
 
 	return (
-		<NavItem>
-			<Link href={href} passHref >
-				<NavLink className="px-3 py-2 d-flex align-items-center" onClick={() => setIsShowSidebar(false)}>
+		<li className='nav-itme'>
+			<NavLink className="px-3 py-2 d-flex align-items-center" href={href}>
 				{icon ? <FontAwesomeIcon className="nav-icon ms-n3" icon={icon} />
 					: <span className="nav-icon ms-n3" />}
 				{children}
-				</NavLink>
-			</Link>
-		</NavItem>
+			</NavLink>
+
+		</li>
+		
   	)
 }
