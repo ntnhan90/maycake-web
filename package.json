@@ -6,7 +6,8 @@
     "dev": "next dev -p 4000",
     "build": "next build --turbopack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "build-css": "sass --quiet-deps src:dist"
   },
   "dependencies": {
     "@formatjs/intl-localematcher": "^0.6.2",

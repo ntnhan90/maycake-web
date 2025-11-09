@@ -1,3 +1,4 @@
+/*
 import Form from '@/components/Page/Pokemon/Form/Form'
 import { Pokemon } from '@/models/pokemon'
 import { Resource } from '@/models/resource'
@@ -79,3 +80,4 @@ export default async function PokemonForm(props: Props) {
     <Form types={types} eggGroups={eggGroups} pokemon={pokemon} />
   )
 }
+*/
