@@ -1,4 +1,3 @@
-/*
 'use client'
 
 import { useFormState, useFormStatus } from 'react-dom'
@@ -234,4 +233,3 @@ export default function Form(props: Props) {
     </BSForm>
   )
 }
-*/

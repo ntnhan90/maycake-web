@@ -9,22 +9,22 @@ type Props = {
 }
 
 export default function Pagination(props: Props) {
-	const {
-		meta: {
-			from,
-			to,
-			total,
-			per_page: perPage,
-			last_page: lastPage,
-			current_page: currentPage,
-		},
-	} = props
+  const {
+    meta: {
+      from,
+      to,
+      total,
+      per_page: perPage,
+      last_page: lastPage,
+      current_page: currentPage,
+    },
+  } = props
 
-	return (
-		<div className="row align-items-center justify-content-center">
-			<Summary from={from} to={to} total={total} />
-			<RowsPerPage perPage={perPage} />
-			<Paginate currentPage={currentPage} lastPage={lastPage} />
-		</div>
-  	)
+  return (
+    <div className="row align-items-center justify-content-center">
+      <Summary from={from} to={to} total={total} />
+      <RowsPerPage perPage={perPage} />
+      <Paginate currentPage={currentPage} lastPage={lastPage} />
+    </div>
+  )
 }

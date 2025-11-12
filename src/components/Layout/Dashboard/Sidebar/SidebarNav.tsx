@@ -1,112 +1,116 @@
 import {
-    faAddressCard, 
-    faFileLines, 
-    faStar,
+  faAddressCard, faBell, faFileLines, faStar,
 } from '@fortawesome/free-regular-svg-icons'
 import {
-    faHome,
-    faBug,
-    faCode,
-    faRightToBracket,
-    faCartPlus,
-    faChartArea,
-    faBasketShopping,
-    faCube,
-    faArchive,
-    faTag,
-    faTags,
-    faGrip,
-    faUsers,
-    faFile,
-    faPercent,
-    faNewspaper,
-    faEnvelope,
-    faImage,
-    faGear,
-    faUserGear
+  faBug,
+  faCalculator,
+  faChartPie,
+  faCode,
+  faDroplet,
+  faGauge,
+  faLayerGroup,
+  faLocationArrow,
+  faPencil,
+  faPuzzlePiece,
+  faRightToBracket,
 } from '@fortawesome/free-solid-svg-icons'
-import { faCcPaypal } from '@fortawesome/free-brands-svg-icons'
-import { PropsWithChildren } from 'react'
+import React, { PropsWithChildren } from 'react'
 import { Badge } from 'react-bootstrap'
 import SidebarNavGroup from '@/components/Layout/Dashboard/Sidebar/SidebarNavGroup'
 import SidebarNavItem from '@/components/Layout/Dashboard/Sidebar/SidebarNavItem'
 import { getDictionary } from '@/locales/dictionary'
-import {useLocale, useTranslations} from 'next-intl';
 
 const SidebarNavTitle = (props: PropsWithChildren) => {
-    const { children } = props
+  const { children } = props
 
-    return (
-        <li className="nav-title px-3 py-2 mt-3 text-uppercase fw-bold">{children}</li>
-    )
+  return (
+    <li className="nav-title px-3 py-2 mt-3 text-uppercase fw-bold">{children}</li>
+  )
 }
 
-export default function SidebarNav() {
-    
-    const t = useTranslations('sidebar');
-    
-    return (
-        <ul className="list-unstyled">
-            <SidebarNavItem icon={faHome} href="/">
-                {t('items.dashboard')}
-                <small className="ms-auto"><Badge bg="info" className="ms-auto">NEW</Badge></small>
-            </SidebarNavItem>
-            <SidebarNavItem icon={faCode} href="/pokemons">
-                {t('items.sample')}
-                <small className="ms-auto"><Badge bg="danger" className="ms-auto">DEMO</Badge></small>
-            </SidebarNavItem>
+export default async function SidebarNav() {
+  const dict = await getDictionary()
+  return (
+    <ul className="list-unstyled">
+      <SidebarNavItem icon={faGauge} href="/">
+        {dict.sidebar.items.dashboard}
+        <small className="ms-auto"><Badge bg="info" className="ms-auto">NEW</Badge></small>
+      </SidebarNavItem>
+      <SidebarNavItem icon={faCode} href="/pokemons">
+        {dict.sidebar.items.sample}
+        <small className="ms-auto"><Badge bg="danger" className="ms-auto">DEMO</Badge></small>
+      </SidebarNavItem>
+      <SidebarNavTitle>{dict.sidebar.items.theme}</SidebarNavTitle>
+      <SidebarNavItem icon={faDroplet} href="#">{dict.sidebar.items.colors}</SidebarNavItem>
+      <SidebarNavItem icon={faPencil} href="#">{dict.sidebar.items.typography}</SidebarNavItem>
+      <SidebarNavTitle>{dict.sidebar.items.components}</SidebarNavTitle>
 
-            <SidebarNavGroup toggleIcon={faCartPlus} toggleText= {t('items.ecommerce')}>
-                <SidebarNavItem href="/admin/ecommerce/reports" icon={faChartArea}>{t('items.reports')} </SidebarNavItem>
-                <SidebarNavItem href="/admin/ecommerce/orders" icon={faBasketShopping}>{t('items.orders')}  </SidebarNavItem>
-                <SidebarNavItem href="/admin/ecommerce/products" icon={faCube}>{t('items.products')} </SidebarNavItem>
-                <SidebarNavItem href="/admin/ecommerce/product-categories" icon={faArchive}>{t('items.products_categories')}  </SidebarNavItem>
-                <SidebarNavItem href="/admin/ecommerce/product-tags" icon={faTag}>{t('items.products_tags')}   </SidebarNavItem>
-                <SidebarNavItem href="/admin/ecommerce/product-attributes" icon={faGrip}>{t('items.products_atributes')}   </SidebarNavItem>
-                <SidebarNavItem href="/admin/ecommerce/product-collections" icon={faGrip}>{t('items.products_collections')}   </SidebarNavItem>
-                <SidebarNavItem href="/admin/ecommerce/product-labels" icon={faTags}>{t('items.products_labels')} </SidebarNavItem>
-                <SidebarNavItem href="/admin/ecommerce/reviews" icon={faFile}> {t('items.reviews')}   </SidebarNavItem>
-                <SidebarNavItem href="/admin/ecommerce/discounts" icon={faPercent}>{t('items.discounts')}   </SidebarNavItem>
-                <SidebarNavItem href="/admin/ecommerce/customers" icon={faUsers}>{t('items.customers')} </SidebarNavItem>
-            </SidebarNavGroup>
+      <SidebarNavGroup toggleIcon={faPuzzlePiece} toggleText={dict.sidebar.items.base}>
+        <SidebarNavItem href="#">{dict.sidebar.items.accordion}</SidebarNavItem>
+        <SidebarNavItem href="#">{dict.sidebar.items.breadcrumb}</SidebarNavItem>
+        <SidebarNavItem href="#">{dict.sidebar.items.cards}</SidebarNavItem>
+        <SidebarNavItem href="#">{dict.sidebar.items.carousel}</SidebarNavItem>
+        <SidebarNavItem href="#">{dict.sidebar.items.collapse}</SidebarNavItem>
+        <SidebarNavItem href="#">{dict.sidebar.items.list_group}</SidebarNavItem>
+        <SidebarNavItem href="#">{dict.sidebar.items.navs}</SidebarNavItem>
+        <SidebarNavItem href="#">{dict.sidebar.items.pagination}</SidebarNavItem>
+        <SidebarNavItem href="#">{dict.sidebar.items.popovers}</SidebarNavItem>
+        <SidebarNavItem href="#">{dict.sidebar.items.progress}</SidebarNavItem>
+        <SidebarNavItem href="#">{dict.sidebar.items.scrollspy}</SidebarNavItem>
+        <SidebarNavItem href="#">{dict.sidebar.items.spinners}</SidebarNavItem>
+        <SidebarNavItem href="#">{dict.sidebar.items.tables}</SidebarNavItem>
+        <SidebarNavItem href="#">{dict.sidebar.items.tabs}</SidebarNavItem>
+        <SidebarNavItem href="#">{dict.sidebar.items.tooltips}</SidebarNavItem>
+      </SidebarNavGroup>
 
-            <SidebarNavGroup toggleIcon={faNewspaper} toggleText= {t('items.blog')}>
-                <SidebarNavItem href="/admin/blog/posts">{t('items.posts')}</SidebarNavItem>
-                <SidebarNavItem href="/admin/blog/categoroes">{t('items.blog_categories')}</SidebarNavItem>
-                <SidebarNavItem href="/admin/blog/tags">{t('items.blog_tag')}</SidebarNavItem>
-            </SidebarNavGroup>
+      <SidebarNavGroup toggleIcon={faLocationArrow} toggleText={dict.sidebar.items.buttons}>
+        <SidebarNavItem href="#">{dict.sidebar.items.buttons}</SidebarNavItem>
+        <SidebarNavItem href="#">{dict.sidebar.items.buttons_group}</SidebarNavItem>
+        <SidebarNavItem href="#">{dict.sidebar.items.dropdowns}</SidebarNavItem>
+      </SidebarNavGroup>
 
-            <SidebarNavItem icon={faCcPaypal} href="/admin/payments">{t('items.payments')} </SidebarNavItem>
+      <SidebarNavItem icon={faChartPie} href="#">{dict.sidebar.items.charts}</SidebarNavItem>
 
-            <SidebarNavItem icon={faEnvelope} href="/admin/contact">{t('items.contact')} </SidebarNavItem>
+      <SidebarNavGroup toggleIcon={faFileLines} toggleText={dict.sidebar.items.forms}>
+        <SidebarNavItem href="#">{dict.sidebar.items.form_control}</SidebarNavItem>
+        <SidebarNavItem href="#">{dict.sidebar.items.select}</SidebarNavItem>
+        <SidebarNavItem href="#">{dict.sidebar.items.checks_and_radios}</SidebarNavItem>
+        <SidebarNavItem href="#">{dict.sidebar.items.range}</SidebarNavItem>
+        <SidebarNavItem href="#">{dict.sidebar.items.input_group}</SidebarNavItem>
+        <SidebarNavItem href="#">{dict.sidebar.items.floating_labels}</SidebarNavItem>
+        <SidebarNavItem href="#">{dict.sidebar.items.layout}</SidebarNavItem>
+        <SidebarNavItem href="#">{dict.sidebar.items.validation}</SidebarNavItem>
+      </SidebarNavGroup>
 
-            <SidebarNavGroup toggleIcon={faFileLines} toggleText= {t('items.faqs')}>
-                <SidebarNavItem href="/admin/faqs">{t('items.faqs')}</SidebarNavItem>
-                <SidebarNavItem href="/admin/faqs/categories">{t('items.faqs_categories')}</SidebarNavItem>
-            </SidebarNavGroup>
+      <SidebarNavGroup toggleIcon={faStar} toggleText={dict.sidebar.items.icons}>
+        <SidebarNavItem href="#">{dict.sidebar.items.core_ui_icons}</SidebarNavItem>
+        <SidebarNavItem href="#">{dict.sidebar.items.core_ui_icons_brand}</SidebarNavItem>
+        <SidebarNavItem href="#">{dict.sidebar.items.core_ui_icons_flag}</SidebarNavItem>
+      </SidebarNavGroup>
 
-            <SidebarNavItem icon={faImage} href="/admin/media">{t('items.media')} </SidebarNavItem>
-            <SidebarNavItem icon={faGear} href="/admin/settings">{t('items.settings')} </SidebarNavItem>
-            <SidebarNavItem icon={faUserGear} href="/admin/system">{t('items.admin')} </SidebarNavItem>
+      <SidebarNavGroup toggleIcon={faBell} toggleText={dict.sidebar.items.notifications}>
+        <SidebarNavItem href="#">{dict.sidebar.items.alerts}</SidebarNavItem>
+        <SidebarNavItem href="#">{dict.sidebar.items.badge}</SidebarNavItem>
+        <SidebarNavItem href="#">{dict.sidebar.items.modals}</SidebarNavItem>
+        <SidebarNavItem href="#">{dict.sidebar.items.toasts}</SidebarNavItem>
+      </SidebarNavGroup>
 
-            <SidebarNavTitle>{t('items.extras')}</SidebarNavTitle>
-            <SidebarNavGroup toggleIcon={faStar} toggleText={t('items.pages')} >
-                <SidebarNavItem icon={faRightToBracket} href="login">{t('items.login')} </SidebarNavItem>
-                <SidebarNavItem icon={faAddressCard} href="register">{t('items.register')} </SidebarNavItem>
-                <SidebarNavItem icon={faBug} href="#">{t('items.error404')} </SidebarNavItem>
-                <SidebarNavItem icon={faBug} href="#">{t('items.error500')} </SidebarNavItem>
-            </SidebarNavGroup>
-            <SidebarNavItem icon={faFileLines} href="#">{t('items.docs')}</SidebarNavItem>
-            
-            {/*
+      <SidebarNavItem icon={faCalculator} href="#">
+        {dict.sidebar.items.widgets}
+        <small className="ms-auto"><Badge bg="info">NEW</Badge></small>
+      </SidebarNavItem>
 
-            <SidebarNavItem icon={faUserGear} href="#">
-                {dict.sidebar.items.admin}
-                <small className="ms-auto"><Badge bg="info">NEW</Badge></small>
-            </SidebarNavItem>
+      <SidebarNavTitle>{dict.sidebar.items.extras}</SidebarNavTitle>
 
+      <SidebarNavGroup toggleIcon={faStar} toggleText={dict.sidebar.items.pages}>
+        <SidebarNavItem icon={faRightToBracket} href="login">{dict.sidebar.items.login}</SidebarNavItem>
+        <SidebarNavItem icon={faAddressCard} href="register">{dict.sidebar.items.register}</SidebarNavItem>
+        <SidebarNavItem icon={faBug} href="#">{dict.sidebar.items.error404}</SidebarNavItem>
+        <SidebarNavItem icon={faBug} href="#">{dict.sidebar.items.error500}</SidebarNavItem>
+      </SidebarNavGroup>
 
-             */}
-        </ul>
-    )
+      <SidebarNavItem icon={faFileLines} href="#">{dict.sidebar.items.docs}</SidebarNavItem>
+      <SidebarNavItem icon={faLayerGroup} href="https://coreui.io/pro/">{dict.sidebar.items.try_core_ui_pro}</SidebarNavItem>
+    </ul>
+  )
 }

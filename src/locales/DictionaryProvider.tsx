@@ -11,11 +11,11 @@ type Dictionary = Awaited<ReturnType<typeof getDictionary>>
 export const DictionaryContext = createContext<Dictionary | null>(null)
 
 export default function DictionaryProvider({
-    dictionary,
-    children,
+  dictionary,
+  children,
 }: {
-    dictionary: Dictionary;
-    children: React.ReactNode;
+  dictionary: Dictionary;
+  children: React.ReactNode;
 }) {
-    return <DictionaryContext.Provider value={dictionary}>{children}</DictionaryContext.Provider>
+  return <DictionaryContext.Provider value={dictionary}>{children}</DictionaryContext.Provider>
 }

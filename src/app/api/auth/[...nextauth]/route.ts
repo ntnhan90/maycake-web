@@ -1,5 +1,5 @@
-import NextAuth,{ User } from "next-auth";
-import { authOptions } from "../options";
+import NextAuth, { User } from 'next-auth'
+import { authOptions } from '@/app/api/auth/option'
 
 declare module 'next-auth' {
   interface User {
