@@ -22,29 +22,21 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const dictionary = await getDictionary()
+  	const dictionary = await getDictionary()
 
-  const gaMeasurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID ?? ''
-  const vercelAnalytics = process.env.NEXT_PUBLIC_VERCEL_ANALYTICS === 'true'
-  const googleAdsenseId = process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_ID ?? ''
+	const gaMeasurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID ?? ''
+	//const googleAdsenseId = process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_ID ?? ''
 
-  return (
-    <html lang="en" data-bs-theme={getTheme()}>
-      <body>
-        <ProgressBar />
-        <DictionaryProvider dictionary={dictionary}>
-          {children}
-        </DictionaryProvider>
-        {vercelAnalytics && <Analytics />}
-      </body>
-      {gaMeasurementId !== '' && <GoogleAnalytics gaId={gaMeasurementId} />}
-      {googleAdsenseId !== '' && (
-        <Script
-          async
-          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${googleAdsenseId}`}
-          crossOrigin="anonymous"
-        />
-      )}
-    </html>
-  )
+	return (
+		<html lang="en" data-bs-theme={getTheme()}>
+			<body>
+				<ProgressBar />
+				<DictionaryProvider dictionary={dictionary}>
+				{children}
+				</DictionaryProvider>
+			</body>
+			{gaMeasurementId !== '' && <GoogleAnalytics gaId={gaMeasurementId} />}
+			
+		</html>
+	)
 }

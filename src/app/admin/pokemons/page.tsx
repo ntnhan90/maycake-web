@@ -2,7 +2,7 @@ import React from 'react'
 import { newResource, ResourceCollection } from '@/models/resource'
 import { Pokemon } from '@/models/pokemon'
 import { SearchParams } from '@/types/next'
-import Index from '@/app/(dashboard)/pokemons/index'
+import Index from '@/app/admin/pokemons/index'
 import serverFetch from '@/utils/server-fetch'
 import { getLocale } from '@/locales/dictionary'
 
