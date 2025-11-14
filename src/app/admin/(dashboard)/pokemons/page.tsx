@@ -2,7 +2,7 @@ import React from 'react'
 import { newResource, ResourceCollection } from '@/models/resource'
 import { Pokemon } from '@/models/pokemon'
 import { SearchParams } from '@/types/next'
-import Index from '@/app/(dashboard)/pokemons/index'
+import Index from '@/app/admin/(dashboard)/pokemons/index'
 import serverFetch from '@/utils/server-fetch'
 import { getLocale } from '@/locales/dictionary'
 
@@ -40,7 +40,7 @@ const fetchPokemons = async (searchParams: SearchParams) => {
     method: 'GET',
   })
   const pokemons: Pokemon[] = await res.json()
-
+  //console.log(pokemons) 
   const total = Number(res.headers.get('x-total-count')) ?? 0
   const pokemonResource: ResourceCollection<Pokemon> = newResource(pokemons, total, page, perPage)
 
@@ -55,7 +55,6 @@ const fetchPokemons = async (searchParams: SearchParams) => {
 
 export default async function Page({ searchParams }: { searchParams: SearchParams }) {
   const props = await fetchPokemons(searchParams)
-
   return (
     <Index props={props} />
   )

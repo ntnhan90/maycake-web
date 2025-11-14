@@ -57,7 +57,7 @@ export default function Index(props: Props) {
   const { data: pokemonResource } = useSWR(url.toString(), fetcher, {
     fallbackData: pokemonResourceFallback,
   })
-
+ 
   return (
     <Card>
       <Card.Header>{dict.pokemons.title}</Card.Header>

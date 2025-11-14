@@ -1,15 +1,18 @@
-
-import {use} from 'react';
 import React from 'react'
-import { newResource, ResourceCollection } from '@/models/resource'
-import serverFetch from '@/utils/server-fetch'
-import { SearchParams } from '@/types/next'
-import LabelsLists from './LabelsLists';
+import Lists from './lists';
 import { Metadata } from 'next';
+import { getLocale } from '@/locales/dictionary'
 
-export default function EcomLabelsPage() {
-    console.log("params")
+export const metadata: Metadata = {
+    title: "Post List | Dasher - Responsive Bootstrap 5 Admin Dashboard",
+    description: "Dasher - Responsive Bootstrap 5 Admin Dashboard",
+};
+
+export default async function EcomLabelsPage() {
+    
     return (
-        <LabelsLists />
+        <>
+            <Lists />
+        </>
     );
 }

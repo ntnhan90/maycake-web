@@ -348,5 +348,8 @@
             "settings" : "Setting",
             "admin" : "Admin"
         }
+    },
+    "form":{
+        "create": "Create"
     }
 }

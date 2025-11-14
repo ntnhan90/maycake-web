@@ -33,7 +33,7 @@ export default async function middleware(request: NextRequest, event: NextFetchE
       {
       // Matches the pages config in `[...nextauth]`
         pages: {
-          signIn: '/login',
+          signIn: '/admin/login',
         },
       },
     )(request as NextRequestWithAuth, event)

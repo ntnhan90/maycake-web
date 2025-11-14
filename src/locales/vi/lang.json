@@ -348,5 +348,8 @@
             "settings" : "Cài đặt",
             "admin" : "Admin"
         }
+    },
+    "form":{
+        "create": "Tạo"
     }
 }

@@ -44,11 +44,11 @@ export default async function SidebarNav() {
     const dict = await getDictionary()
     return (
         <ul className="list-unstyled">
-            <SidebarNavItem icon={faHome} href="/">
+            <SidebarNavItem icon={faHome} href="/admin">
                 {dict.sidebar.items.dashboard}
                 <small className="ms-auto"><Badge bg="info" className="ms-auto">NEW</Badge></small>
             </SidebarNavItem>
-            <SidebarNavItem icon={faCode} href="/pokemons">
+            <SidebarNavItem icon={faCode} href="/admin.pokemons">
                 {dict.sidebar.items.sample}
                 <small className="ms-auto"><Badge bg="danger" className="ms-auto">DEMO</Badge></small>
             </SidebarNavItem>
