@@ -6,17 +6,12 @@ import { faEllipsisVertical } from '@fortawesome/free-solid-svg-icons'
 import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { ProductLabelsModels } from '@/models/productLabelsModels'
 import THSort from '@/components/TableSort/THSort'
-import PokemonTypeLabel from '@/components/Page/Pokemon/PokemonTypeLabel'
 import useDictionary from '@/locales/dictionary-hook'
 
-type Props = {
-  label: ProductLabelsModels[];
-}
 
-export default function PokemonList(props: Props) {
-    const { label } = props
+
+export default function PokemonList() {
     const dict = useDictionary()
 
     return (

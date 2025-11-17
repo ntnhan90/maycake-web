@@ -30,8 +30,17 @@ zh.init({
   },
 })
 
+const vi = i18next.createInstance()
+vi.init({
+  lng: 'vi',
+  resources: {
+    vi: { zod: enTranslation },
+  },
+})
+
 const zodMap = {
   en: makeZodI18nMap({ t: en.t }),
+  vi: makeZodI18nMap({t: vi.t}),
   ja: makeZodI18nMap({ t: ja.t }),
   zh: makeZodI18nMap({ t: zh.t }),
 }
