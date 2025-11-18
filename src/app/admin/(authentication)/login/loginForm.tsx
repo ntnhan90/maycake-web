@@ -1,128 +1,94 @@
 'use client'
 
-import {
-  Alert, Button, Col, Form, FormControl, InputGroup, Row,
-} from 'react-bootstrap'
+import { Button, Col, FormControl, InputGroup, Row,} from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-regular-svg-icons'
 import { faLock } from '@fortawesome/free-solid-svg-icons'
-import { useState } from 'react'
 import Link from 'next/link'
 import InputGroupText from 'react-bootstrap/InputGroupText'
-import { signIn } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
 import useDictionary from '@/locales/dictionary-hook'
+import { useForm } from 'react-hook-form'
+import { LoginBody, LoginBodyType } from '@/models/authModels'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useLoginMutation } from '@/queries/useAuth'
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
+import { handleErrorApi } from '@/utils/lib'
 
-export default function LoginForm({ callbackUrl }: { callbackUrl: string }) {
-    const [submitting, setSubmitting] = useState(false)
-    const [error, setError] = useState('')
-    const router = useRouter()
+export default function LoginForm() {
     const dict = useDictionary()
-
-    const login = async (formData: FormData) => {
-        setSubmitting(true)
-
+    const loginMutation = useLoginMutation()
+    const form = useForm<LoginBodyType>({
+        resolver:zodResolver(LoginBody),
+        defaultValues:{
+            email:'',
+            password: ''
+        }
+    })
+    const router = useRouter()
+    
+    const onSubmit = async(data: LoginBodyType) =>{
+        // Khi nhấn submit thì React hook form sẽ validate cái form bằng zod schema ở client trước
+        // Nếu không pass qua vòng này thì sẽ không gọi api
+        if(loginMutation.isPending) return
         try {
-            const res = await signIn('credentials', {
-                username: formData.get('username'),
-                password: formData.get('password'),
-                redirect: false,
-                callbackUrl,
+            const result = await loginMutation.mutateAsync(data)
+            if (!result) throw new Error("Login fail");
+            console.log("router:", router);
+            toast.info("Information");
+
+            router.push("/admin/")
+
+        } catch (error:any) {
+            console.log(error)
+            handleErrorApi({
+                error,
+                setError: form.setError
             })
-
-            if (!res) {
-                setError('Login failed')
-                return
-            }
-
-            const { ok, url, error: err } = res
-
-            if (!ok) {
-                if (err) {
-                    setError(err)
-                    return
-                }
-
-                setError('Login failed')
-                return
-            }
-
-            if (url) {
-                router.push(url)
-            }
-        } catch (err) {
-            if (err instanceof Error) {
-                setError(err.message)
-            }
-        } finally {
-            setSubmitting(false)
         }
     }
 
     return (
         <>
-            <Alert
-                variant="danger"
-                show={error !== ''}
-                onClose={() => setError('')}
-                dismissible
-            >
-                {error}
-            </Alert>
-            <Form action={login}>
-                <InputGroup className="mb-3">
-                <InputGroupText>
-                    <FontAwesomeIcon
-                    icon={faUser}
-                    fixedWidth
+            <form onSubmit={form.handleSubmit(onSubmit, (err) =>{
+                console.log(err)
+            })} 
+            
+                className="space-y-4">
+                <div>
+                    <input
+                    {...form.register("email")}
+                    placeholder="Email"
+                    className="border px-2 py-1"
                     />
-                </InputGroupText>
-                <FormControl
-                    name="username"
-                    required
-                    disabled={submitting}
-                    placeholder={dict.login.form.username}
-                    aria-label="Username"
-                    defaultValue="Username"
-                />
-                </InputGroup>
+                    {form.formState.errors.email && (
+                    <p className="text-red-500 text-sm">
+                        {form.formState.errors.email.message}
+                    </p>
+                    )}
+                </div>
 
-                <InputGroup className="mb-3">
-                <InputGroupText>
-                    <FontAwesomeIcon
-                    icon={faLock}
-                    fixedWidth
-                    />
-                </InputGroupText>
-                <FormControl
+                <div>
+                    <input
+                    {...form.register("password")}
                     type="password"
-                    name="password"
-                    required
-                    disabled={submitting}
-                    placeholder={dict.login.form.password}
-                    aria-label="Password"
-                    defaultValue="Password"
-                />
-                </InputGroup>
+                    placeholder="Password"
+                    className="border px-2 py-1"
+                    />
+                    {form.formState.errors.password && (
+                    <p className="text-red-500 text-sm">
+                        {form.formState.errors.password.message}
+                    </p>
+                    )}
+                </div>
 
-                <Row className="align-items-center">
-                <Col xs={6}>
-                    <Button
-                    className="px-4"
-                    variant="primary"
+                <button
                     type="submit"
-                    disabled={submitting}
-                    >
-                    {dict.login.form.submit}
-                    </Button>
-                </Col>
-                <Col xs={6} className="text-end">
-                    <Link className="px-0" href="#">
-                    {dict.login.forgot_password}
-                    </Link>
-                </Col>
-                </Row>
-            </Form>
+                    className="bg-blue-600 text-white px-4 py-2 rounded"
+                >
+                    Login
+                </button>
+            </form>
         </>
     )
 }

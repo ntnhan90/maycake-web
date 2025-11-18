@@ -18,28 +18,28 @@ type EntityErrorPayload = {
     }[]
 }
 
-export class HttpError extends Error{
+export class HttpError extends Error {
+  status: number
+  payload: {
+    message: string
+    [key: string]: any
+  }
+  constructor({
+    status,
+    payload,
+    message = 'Lỗi HTTP'
+  }: {
     status: number
-    payload:{
-        message:string
-        [key:string]:any
-    }
-    constructor({
-        status,
-        payload,
-        message = "Error Http"
-    }:{
-        status:number,
-        payload:any,
-        message?: string
-    }){
-        super(message)
-        this.status = status
-        this.payload = payload
-    }
+    payload: any
+    message?: string
+  }) {
+    super(message)
+    this.status = status
+    this.payload = payload
+  }
 }
 
-export class EntityError extends HttpError{
+export class EntityError extends HttpError {
     status: typeof ENTITY_ERROR_STATUS
     payload: EntityErrorPayload
     constructor({
@@ -54,6 +54,7 @@ export class EntityError extends HttpError{
         this.payload = payload
     }
 }
+
 let clientLogoutRequest: null | Promise<any> = null
 const isClient = typeof window !== 'undefined'
 type CustomOptions = Omit<RequestInit, 'method'> & {

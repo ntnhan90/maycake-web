@@ -2,6 +2,11 @@ import http from "@/utils/http";
 import { LoginBodyType, LoginResType, LogoutBodyType, RefreshTokenBodyType, RefreshTokenResType } from "@/models/authModels";
 
 const authApiRequest = {
+    refreshTokenRequest: null as Promise<{
+        status: number
+        payload: RefreshTokenResType
+    }> | null,
+
     sLogin: (body:LoginBodyType) => http.post<LoginResType>('/admin/login', body),
     login: (body:LoginBodyType) => http.post<LoginResType>('/api/auth/login', body,{
         baseUrl: ''
@@ -18,7 +23,17 @@ const authApiRequest = {
 
     sRefreshToken: (body: RefreshTokenBodyType) =>http.post<RefreshTokenResType>('/auth/refresh-token', body),  
     async refreshToken(){
-
+        if (this.refreshTokenRequest) {
+            return this.refreshTokenRequest
+        }
+        this.refreshTokenRequest = http.post<RefreshTokenResType>(
+            '/api/auth/refresh-token',
+            null,
+            {  baseUrl: '' }
+        )
+        const result = await this.refreshTokenRequest
+        this.refreshTokenRequest = null
+        return result
     },
 
     setTokenToCookie:(body:{accessToken:string; refreshToken: string }) => http.post('api/auth/token',body,{ baseUrl: ''})

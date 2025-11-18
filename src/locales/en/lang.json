@@ -25,11 +25,11 @@
         "description": "Create your account",
         "register_now": "Register Now!",
         "form": {
-        "username": "Username",
-        "email": "Email",
-        "password": "Password",
-        "confirm_password": "Confirm Password",
-        "submit": "Create Account"
+            "username": "Username",
+            "email": "Email",
+            "password": "Password",
+            "confirm_password": "Confirm Password",
+            "submit": "Create Account"
         }
     },
     "action": {

@@ -28,10 +28,10 @@ export default async function LoginPage({ searchParams }: { searchParams: Search
                 <Row>
                     <Col md={12} className="bg-white dark:bg-dark border p-5">
                         <div>
-                        <h1>{dict.login.title}</h1>
-                        <p className="text-black-50 dark:text-gray-500">{dict.login.description}</p>
+                            <h1>{dict.login.title}</h1>
+                            <p className="text-black-50 dark:text-gray-500">{dict.login.description}</p>
 
-                        <LoginForm callbackUrl={getCallbackUrl()} />
+                            <LoginForm  />
                         </div>
                 </Col>
                

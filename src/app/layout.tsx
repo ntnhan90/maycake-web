@@ -9,7 +9,7 @@ import { getDictionary } from '@/locales/dictionary'
 import getTheme from '@/themes/theme'
 import { GoogleAnalytics } from '@next/third-parties/google'
 import ToastProvider from '@/components/Toast/ToastProvider'
-
+import AppProvider from '@/components/app-provider'
 // You change this configuration value to false so that the Font Awesome core SVG library
 // will not try and insert <style> elements into the <head> of the page.
 // Next.js blocks this from happening anyway so you might as well not even try.
@@ -29,11 +29,13 @@ export default async function RootLayout({
 	return (
 		<html lang="en" data-bs-theme={getTheme()}>
 			<body>
-				<ProgressBar />
-				<DictionaryProvider dictionary={dictionary}>
-				{children}
-				</DictionaryProvider>
-				<ToastProvider />
+				<AppProvider>
+					<ProgressBar />
+					<DictionaryProvider dictionary={dictionary}>
+					{children}
+					</DictionaryProvider>
+					<ToastProvider />
+				</AppProvider>
 			</body>
 			{gaMeasurementId !== '' && <GoogleAnalytics gaId={gaMeasurementId} />}
 			
