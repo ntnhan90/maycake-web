@@ -8,7 +8,7 @@ import Link from 'next/link'
 import InputGroupText from 'react-bootstrap/InputGroupText'
 import useDictionary from '@/locales/dictionary-hook'
 import { useForm } from 'react-hook-form'
-import { LoginBody, LoginBodyType } from '@/models/authModels'
+import { LoginBody, LoginBodyType } from '@/models/authModel'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useLoginMutation } from '@/queries/useAuth'
 import { useRouter } from "next/navigation";

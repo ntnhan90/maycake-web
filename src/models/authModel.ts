@@ -1,9 +1,5 @@
 import z from 'zod'
-export const Role = {
-    Admin: 'Admin',
-    Franchise: 'Franchise',
-    Store: 'Store'
-} as const
+import { Role } from "@/types/jwt.type";
 
 export const LoginBody = z.object({
     email: z.string().min(1, { message: 'required' }).email({

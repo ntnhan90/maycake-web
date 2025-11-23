@@ -84,7 +84,7 @@ export default async function SidebarNav() {
 
             <SidebarNavItem icon={faImage} href="/admin/media"> {dict.sidebar.items.media}</SidebarNavItem>
             <SidebarNavItem icon={faGear} href="/admin/settings"> {dict.sidebar.items.settings}</SidebarNavItem>
-            <SidebarNavItem icon={faUserGear} href="/admin/system">{dict.sidebar.items.admin}</SidebarNavItem>
+            <SidebarNavItem icon={faUserGear} href="/admin/systems">{dict.sidebar.items.admin}</SidebarNavItem>
 
             <SidebarNavTitle>{dict.sidebar.items.extras}</SidebarNavTitle>
             <SidebarNavGroup toggleIcon={faStar} toggleText={dict.sidebar.items.pages}>

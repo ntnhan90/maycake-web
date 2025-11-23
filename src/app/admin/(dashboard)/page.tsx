@@ -41,9 +41,7 @@ import SessionChart from '@/components/Page/Dashboard/SessionChart'
 import TrafficChart from '@/components/Page/Dashboard/TrafficChart'
 import { getDictionary } from '@/locales/dictionary'
 import { Metadata } from 'next'
-import { useRouter } from 'next/navigation'
-import { useLogoutMutation } from '@/queries/useAuth'
-import { handleErrorApi } from '@/utils/lib'
+
 
 export const metadata: Metadata = {
     title: "Admin Dashboard | Dasher - Responsive Bootstrap 5 Admin Dashboard",
@@ -52,20 +50,7 @@ export const metadata: Metadata = {
 
 export default async function Page() {
     const dict = await getDictionary()
-    const logoutMutation = useLogoutMutation()
-    const router = useRouter()
-
-    const logout = async() => {
-        if(logoutMutation.isPending) return
-        try {
-            await logoutMutation.mutateAsync()
-            router.push('/')
-        } catch (error) {
-            handleErrorApi({
-                error
-            })
-        }
-    }
+   
     return (
         <div>
             <div className="row">

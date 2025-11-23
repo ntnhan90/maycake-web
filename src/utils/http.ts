@@ -6,7 +6,7 @@ import {
     setAccessTokenToLocalStorage,
     setRefreshTokenToLocalStorage
 } from "./lib"
-import { LoginResType } from "@/models/authModels"
+import { LoginResType } from "@/models/authModel"
 const ENTITY_ERROR_STATUS = 422
 const AUTHENTICATION_ERROR_STATUS = 401
 

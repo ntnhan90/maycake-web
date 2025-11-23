@@ -1,5 +1,5 @@
 import authApiRequest from "@/apiRequests/auth"
-import { LoginBodyType } from "@/models/authModels"
+import { LoginBodyType } from "@/models/authModel"
 import { HttpError } from "@/utils/http"
 import { cookies } from "next/headers"
 import jwt from "jsonwebtoken"

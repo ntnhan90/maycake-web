@@ -12,14 +12,19 @@ const decodeToken = (token:string) => {
     return jwt.decode(token) as TokenPayload
 }
 
-const adminPaths = ['/admin',]
-const isAdminLoginPage = '/admin/login';
-const onlyOwnerPaths = ['/admin/accounts']
-const privatePaths = [...adminPaths]
-const unAuthPaths = ['/login', '/admin/login']
-const loginPaths = ['/login', '/admin/login']
+
 
 export default async function middleware(request: NextRequest, event: NextFetchEvent) {
+    const { pathname , searchParams} = request.nextUrl
+    
+    const adminPaths = ['/admin',]
+    const isAdminLoginPage = pathname === '/admin/login';
+    const onlyOwnerPaths = ['/admin/accounts']
+    const privatePaths = [...adminPaths]
+    const unAuthPaths = ['/login', '/admin/login']
+    const loginPaths = ['/login', '/admin/login']
+
+
     const headers = { 'accept-language': request.headers.get('accept-language') ?? '' }
     const languages = new Negotiator({ headers }).languages()
     const locales = getLocales()
@@ -27,7 +32,7 @@ export default async function middleware(request: NextRequest, event: NextFetchE
     const locale = match(languages, locales, defaultLocale)
     const response = NextResponse.next()
 
-    const { pathname , searchParams} = request.nextUrl
+    
 
     const accessToken = request.cookies.get('accessToken')?.value
     const refreshToken = request.cookies.get('refreshToken')?.value
