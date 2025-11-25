@@ -34,8 +34,7 @@ export default function LoginForm() {
         try {
             const result = await loginMutation.mutateAsync(data)
             if (!result) throw new Error("Login fail");
-            console.log("router:", router);
-            toast.info("Information");
+            toast.info("Login success");
 
             router.push("/admin/")
 

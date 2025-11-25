@@ -1,7 +1,7 @@
 import React from 'react'
 import Lists from './lists';
 import { Metadata } from 'next';
-import { ProLabelListResType } from '@/models/product/labelsModels';
+import { ProLabelListResType } from '@/models/product/labelsModel';
 import labelsApiRequest from '@/apiRequests/product/labelsApi';
 
 export const metadata: Metadata = {
