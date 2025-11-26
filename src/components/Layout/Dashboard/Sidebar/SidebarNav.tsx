@@ -69,7 +69,7 @@ export default async function SidebarNav() {
 
             <SidebarNavGroup toggleIcon={faNewspaper} toggleText= {dict.sidebar.items.blog}>
                 <SidebarNavItem href="/admin/blog/posts">{dict.sidebar.items.posts}</SidebarNavItem>
-                <SidebarNavItem href="/admin/blog/categoroes">{dict.sidebar.items.blog_categories}</SidebarNavItem>
+                <SidebarNavItem href="/admin/blog/categories">{dict.sidebar.items.blog_categories}</SidebarNavItem>
                 <SidebarNavItem href="/admin/blog/tags">{dict.sidebar.items.blog_tag}</SidebarNavItem>
             </SidebarNavGroup>
 

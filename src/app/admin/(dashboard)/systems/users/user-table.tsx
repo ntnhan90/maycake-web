@@ -8,30 +8,10 @@ import TanstackTable from "@/components/table/TanstackTable"
 import { userListColumns } from "./userListColumn"
 import { useGetAccountList } from "@/queries/useAccount"
 
-export const userListData: AccountResType[] = [
-    {
-        id: 1,
-        username: "ntnhan90",
-        email: "ntnhan90@gmail.com",
-        //role: z.enum([Role.Admin, Role.Franchise, Role.Store]),
-        avatar_id: "1",
-        isActive: 1
-    },
-    {
-        id: 1,
-        username: "ntnhan90",
-        email: "ntnhan90@gmail.com",
-        //role: z.enum([Role.Admin, Role.Franchise, Role.Store]),
-        avatar_id: "1",
-        isActive: 1
-    },
-];
-
-
 export default function UserTable(){
     const accountListQuery = useGetAccountList()
     const data = accountListQuery.data?.payload.data ?? []
-    
+   // console.log(data)
     return(
         <div className="row">
             <div className="col">

@@ -5,8 +5,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-regular-svg-icons'
 import { faLock } from '@fortawesome/free-solid-svg-icons'
 import Link from 'next/link'
-import InputGroupText from 'react-bootstrap/InputGroupText'
-import useDictionary from '@/locales/dictionary-hook'
 import { useForm } from 'react-hook-form'
 import { LoginBody, LoginBodyType } from '@/models/authModel'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -16,7 +14,6 @@ import { toast } from "react-toastify";
 import { handleErrorApi } from '@/utils/lib'
 
 export default function LoginForm() {
-    const dict = useDictionary()
     const loginMutation = useLoginMutation()
     const form = useForm<LoginBodyType>({
         resolver:zodResolver(LoginBody),
@@ -52,7 +49,6 @@ export default function LoginForm() {
             <form onSubmit={form.handleSubmit(onSubmit, (err) =>{
                 console.log(err)
             })} 
-            
                 className="space-y-4">
                 <div>
                     <input

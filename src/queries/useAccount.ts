@@ -8,9 +8,30 @@ export const useAccountProfile = () =>{
         queryFn: accountApiRequest.me
     })
 }
+
 export const useGetAccountList = () =>{
     return useQuery({
         queryKey: ['user'],
         queryFn: accountApiRequest.list
+    })
+}
+
+export const useGetAccount = (id: number) =>{
+    return useQuery({
+        queryKey: ['user', id],
+        queryFn: () => accountApiRequest.get(id),
+        enabled: !!id,
+    })
+}
+
+export const useAddAccountMutation =() =>{
+    const queryClient = useQueryClient()
+    return useMutation({
+        mutationFn: accountApiRequest.add,
+        onSuccess:() =>{
+            queryClient.invalidateQueries({
+                queryKey: ['accounts']
+            })
+        }
     })
 }

@@ -1,12 +1,16 @@
 import { Card , Container , Nav} from 'react-bootstrap';
-import UserForm from '../userForm';
-import UserFormWrapper from './action';
+import UserCreateForm from './userCreateForm';
+import { Metadata } from "next";
+export const metadata: Metadata = {
+    title: "Create User | Maycake",
+    description: "Dasher - Responsive Bootstrap 5 Admin Dashboard",
+};
 
 export default function CreateUserPage() {
     return (
         <Container>
-            <Card className="mb-4">
-                <UserFormWrapper  />
+            <Card className="mb-4 border-0">
+                <UserCreateForm  />
             </Card>
         </Container>
     );
