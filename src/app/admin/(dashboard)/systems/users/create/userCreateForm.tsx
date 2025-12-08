@@ -8,6 +8,7 @@ import { Card, CardBody , CardHeader, Button} from "react-bootstrap";
 import { CreateAccountBody,CreateAccountBodyType} from "@/models/accountModel";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 export default function UserCreateForm() {
     const [file, setFile] = useState<File | null>(null)
@@ -32,15 +33,9 @@ export default function UserCreateForm() {
     const router = useRouter()
     const addAccountMutation = useAddAccountMutation()
     const onSubmit = async (data: CreateAccountBodyType) => {
-
         if (addAccountMutation.isPending) return
         try {
-            let body = {
-                ...data,
-                first_name: "imageUrl",
-                last_name: "imageUrl"
-
-            }
+            let body = data
             const result = await addAccountMutation.mutateAsync(body)
             reset({
                 username:  "",
@@ -48,6 +43,7 @@ export default function UserCreateForm() {
                 password: "",           // không fill password
                 confirmPassword: "",
             })
+            toast.success("add success");
             router.push("/admin/systems/users")
         } catch (error) {
             console.error(error)

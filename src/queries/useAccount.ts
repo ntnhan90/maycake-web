@@ -30,7 +30,7 @@ export const useAddAccountMutation =() =>{
         mutationFn: accountApiRequest.add,
         onSuccess:() =>{
             queryClient.invalidateQueries({
-                queryKey: ['accounts']
+                queryKey: ['user']
             })
         }
     })

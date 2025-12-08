@@ -1,5 +1,9 @@
-import {use} from 'react';
+import { Metadata } from 'next';
 
+export const metadata: Metadata = {
+    title: "Contact Admin",
+    description: "Dasher - Responsive Bootstrap 5 Admin Dashboard",
+};
 
 export default function ContactPage() {
 

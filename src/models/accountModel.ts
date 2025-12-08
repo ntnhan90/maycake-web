@@ -38,30 +38,36 @@ export const CreateAccountBody = z.object({
 })
 export type CreateAccountBodyType = z.TypeOf<typeof CreateAccountBody>
 
-export const UpdateAccountBody = z .object({
-    username: z.string().trim().min(2).max(256),
-    email: z.string().email(),
-    first_name: z.string().min(2),
-    last_name: z.string().min(2),
-    //  avatar: z.string().url().optional(),
-    password: z.string().min(6).max(100).optional(),
-    confirmPassword: z.string().min(6).max(100).optional(),
-    // role: z.enum([Role.Owner, Role.Employee]).optional().default(Role.Employee)
+
+export const UpdateAccountBody = z.object({
+    username: z.string().min(3, "Username too short"),
+    email: z.string().email("Invalid email"),
+
+    first_name: z.string().min(1, "Required"),
+    last_name: z.string().min(1, "Required"),
+
+    password: z
+        .string()
+        .min(6, "Password min 6 chars")
+        .or(z.literal(""))
+        .transform(v => (v === "" ? undefined : v))
+        .optional(),
+
+
+    confirmPassword: z
+        .string()
+        .min(6, "Password min 6 chars")
+        .or(z.literal(""))
+        .transform(v => (v === "" ? undefined : v))
+        .optional(),
 })
-.strict()
-.superRefine(({ confirmPassword, password }, ctx) => {
-    if (!password || !confirmPassword) {
+.superRefine((data, ctx) => {
+    if (data.password && data.password !== data.confirmPassword) {
         ctx.addIssue({
-        code: 'custom',
-        message: 'Hãy nhập mật khẩu mới và xác nhận mật khẩu mới',
-        path: ['changePassword']
-        })
-    } else if (confirmPassword !== password) {
-        ctx.addIssue({
-        code: 'custom',
-        message: 'Mật khẩu không khớp',
-        path: ['confirmPassword']
-        })
+            path: ["confirmPassword"],
+            code: "custom",
+            message: "Passwords do not match",
+        });
     }
-})
-export type UpdateAccountBodyType = z.TypeOf<typeof UpdateAccountBody>
+});
+export type UpdateAccountBodyType = z.infer<typeof UpdateAccountBody>;

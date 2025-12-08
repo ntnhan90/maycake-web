@@ -1,5 +1,10 @@
 import { Card , CardBody, CardHeader, Container, Row} from 'react-bootstrap';
+import { Metadata } from 'next';
 
+export const metadata: Metadata = {
+    title: "Setting Admin",
+    description: "Dasher - Responsive Bootstrap 5 Admin Dashboard",
+};
 
 export default function SettingsPage() {
     return (
@@ -48,6 +53,46 @@ export default function SettingsPage() {
                                     </a>
                                 </div>
                                 <small className="text-secondary">View and update your media settings.</small>
+                            </div>
+                        </div>
+                    </Row>
+                </CardBody>
+            </Card>
+
+            <Card className="mb-4">
+                <CardHeader>
+                    <h5 className='card-title'>Ecommerce</h5>
+                </CardHeader>
+                <CardBody>
+                    <Row className='g-3'>
+                        <div className="col-12 col-md-4">
+                            <div className="col">
+                                <div className="d-block mb-1 panel-section-item-title">
+                                    <a className="text-decoration-none text-primary" href="/admin/settings/currencies">
+                                    Currencies
+                                    </a>
+                                </div>
+                                <small className="text-secondary">View and update currency settings</small>
+                            </div>
+                        </div>
+                        <div className="col-12 col-md-4">
+                            <div className="col">
+                                <div className="d-block mb-1 panel-section-item-title">
+                                    <a className="text-decoration-none text-primary" href="/admin/settings/tax">
+                                    Tax
+                                    </a>
+                                </div>
+                                <small className="text-secondary">View and update tax settings.</small>
+                            </div>
+                        </div>
+                        <div className="col-12 col-md-4">
+                            <div className="col">
+                                <div className="d-block mb-1 panel-section-item-title">
+                                    <a className="text-decoration-none text-primary" href="#">
+                                    Shipping
+                                    </a>
+                                </div>
+                                <small className="text-secondary">View and update shipping settings.</small>
                             </div>
                         </div>
                     </Row>

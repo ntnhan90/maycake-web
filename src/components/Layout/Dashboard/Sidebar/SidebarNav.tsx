@@ -48,10 +48,6 @@ export default async function SidebarNav() {
                 {dict.sidebar.items.dashboard}
                 <small className="ms-auto"><Badge bg="info" className="ms-auto">NEW</Badge></small>
             </SidebarNavItem>
-            <SidebarNavItem icon={faCode} href="/admin.pokemons">
-                {dict.sidebar.items.sample}
-                <small className="ms-auto"><Badge bg="danger" className="ms-auto">DEMO</Badge></small>
-            </SidebarNavItem>
 
             <SidebarNavGroup toggleIcon={faCartPlus} toggleText={dict.sidebar.items.ecommerce}>
                 <SidebarNavItem href="/admin/ecommerce/reports" icon={faChartArea}>{dict.sidebar.items.reports}</SidebarNavItem>

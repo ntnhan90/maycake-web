@@ -1,14 +1,24 @@
 "use client";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useAddAccountMutation ,useGetAccount} from "@/queries/useAccount"
-import { Card, CardBody , CardHeader, Button} from "react-bootstrap";
-import { AccountResType, UpdateAccountBody ,UpdateAccountBodyType} from "@/models/accountModel";
+import { useGetAccount} from "@/queries/useAccount"
+import { Card, CardBody , CardHeader, Button, Form} from "react-bootstrap";
+import {  UpdateAccountBody ,UpdateAccountBodyType} from "@/models/accountModel";
 import { useState, useEffect } from "react";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-regular-svg-icons";
 export default function UserEditForm({id}:{id?:number}) {
     let userData = null;
     const [show, setShow] = useState(false)
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConPassword, setShowConPassword] = useState(false);   
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
+
+    const togglePasswordVisibility1 = () => {
+        setShowConPassword(!showConPassword);
+    };
 
     if(id){
         const userId = Number(id)
@@ -30,8 +40,8 @@ export default function UserEditForm({id}:{id?:number}) {
         defaultValues: {
             username: "",
             email: "",
-            password: "",
-            confirmPassword: "",
+            password: undefined,
+            confirmPassword: undefined,
             first_name: "",
             last_name: "",
         },
@@ -51,7 +61,7 @@ export default function UserEditForm({id}:{id?:number}) {
     }, [userData, reset])
 
     const onSubmit = async (data: UpdateAccountBodyType) => {
-        console.log("Edit")
+        console.log("Edit" , data)
     };
 
     return (
@@ -90,8 +100,7 @@ export default function UserEditForm({id}:{id?:number}) {
                                 <label className="form-label form-label" htmlFor="email">
                                     Email<span className="text-red-500">*</span>
                                 </label>
-                                <input className="form-control " placeholder="Enter email"  {...register("email")} />
-                                {errors.email && <p className="text-red-500">{errors.email.message}</p>}
+                                <input className="form-control " placeholder="Enter email"  {...register("email")}  disabled/>
                             </div>
 
                             <div className="mb-3 position-relative">
@@ -114,14 +123,25 @@ export default function UserEditForm({id}:{id?:number}) {
                             </div>
                             
                             {show && (
-                                
                                 <>
                                 <div className="col-lg-12">
                                     <div className="mb-3 position-relative">
                                         <label className="form-label form-label" htmlFor="password">
                                             Password<span className="text-red-500">*</span>
                                         </label>
-                                        <input className="form-control " placeholder="Enter password"  {...register("password")} />
+                                        <div className="input-icon">
+                                            <input 
+                                                type={showPassword ? 'text' : 'password'}
+                                                className="form-control" placeholder="Enter password"  
+                                                {...register("password")} 
+                                            />
+                                            <span className="input-icon-addon ">
+                                                <FontAwesomeIcon icon={showPassword ? faEye : faEyeSlash} 
+                                                    onClick={togglePasswordVisibility}
+                                                />
+                                            </span>
+                                        </div>
+                                        
                                         {errors.password && <p className="text-red-500">{errors.password.message}</p>}
                                     </div>
                                 </div>
@@ -131,7 +151,20 @@ export default function UserEditForm({id}:{id?:number}) {
                                         <label className="form-label form-label" htmlFor="password">
                                             Confirm Password<span className="text-red-500">*</span>
                                         </label>
-                                        <input className="form-control " placeholder="Enter password"  {...register("confirmPassword")} />
+                                        <div className="input-icon">
+                                            <input 
+                                                type={showConPassword ? 'text' : 'password'}
+                                                className="form-control " placeholder="Enter password" 
+                                                {...register("confirmPassword")}
+                                            />
+
+                                            <span className="input-icon-addon ">
+                                                <FontAwesomeIcon icon={showConPassword ? faEye : faEyeSlash} 
+                                                    onClick={togglePasswordVisibility1}
+                                                />
+                                            </span>
+                                        </div>
+                                        
                                         {errors.confirmPassword && <p className="text-red-500">{errors.confirmPassword.message}</p>}
                                     </div>
                                 </div>

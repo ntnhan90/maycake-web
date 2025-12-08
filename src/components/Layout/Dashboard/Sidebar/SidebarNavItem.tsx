@@ -6,6 +6,7 @@ import { useSidebar } from '@/components/Layout/Dashboard/SidebarProvider'
 import { NavItem, NavLink } from 'react-bootstrap'
 import Link from 'next/link'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { link } from 'node:fs'
 
 type Props = {
   href: string;
@@ -24,7 +25,7 @@ export default function SidebarNavItem(props: Props) {
   } = useSidebar()
 
   return (
-    <NavItem>
+    <NavItem as="li">
       <Link href={href} passHref legacyBehavior>
         <NavLink className="px-3 py-2 d-flex align-items-center" onClick={() => setIsShowSidebar(false)}>
           {icon ? <FontAwesomeIcon className="nav-icon ms-n3" icon={icon} />

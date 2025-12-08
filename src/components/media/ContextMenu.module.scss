@@ -1,0 +1,37 @@
+.menu {
+  position: absolute;
+  width: 180px;
+  background: #fff;
+  border-radius: 6px;
+  padding: 6px 0;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  z-index: 99999;
+  animation: fadeIn 0.1s ease-out;
+
+  .item {
+    padding: 8px 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+
+    &:hover {
+      background: #f2f2f2;
+    }
+
+    i {
+      font-size: 15px;
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

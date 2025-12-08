@@ -1,15 +1,15 @@
-import MediaManager from "./mediaManager";
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: "Media Admin",
+    title: "Setting Email | Admin",
     description: "Dasher - Responsive Bootstrap 5 Admin Dashboard",
 };
 
-export default function MediaPage() {
+export default function ContactPage() {
+
     return (
-        <>
-          <MediaManager /> 
-        </>
+        <p className="max-w-[590px]">
+           setting email
+        </p>
     );
 }

@@ -1,6 +1,6 @@
 'use client'
 
-import { Button, Col, FormControl, InputGroup, Row,} from 'react-bootstrap'
+import { Button, Col, Form,} from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-regular-svg-icons'
 import { faLock } from '@fortawesome/free-solid-svg-icons'
@@ -49,40 +49,38 @@ export default function LoginForm() {
             <form onSubmit={form.handleSubmit(onSubmit, (err) =>{
                 console.log(err)
             })} 
-                className="space-y-4">
-                <div>
-                    <input
-                    {...form.register("email")}
-                    placeholder="Email"
-                    className="border px-2 py-1"
+                className="row">
+                <Form.Group className="mb-3">
+                    <Form.Label>Email address</Form.Label>
+                    <input placeholder="Enter email" className="form-control"
+                        {...form.register("email")}
                     />
                     {form.formState.errors.email && (
                     <p className="text-red-500 text-sm">
                         {form.formState.errors.email.message}
                     </p>
                     )}
-                </div>
-
-                <div>
+                </Form.Group>
+              
+                <Form.Group className="mb-3">
+                    <Form.Label>Password</Form.Label>
                     <input
                     {...form.register("password")}
                     type="password"
                     placeholder="Password"
-                    className="border px-2 py-1"
+                    className="form-control"
                     />
                     {form.formState.errors.password && (
                     <p className="text-red-500 text-sm">
                         {form.formState.errors.password.message}
                     </p>
                     )}
-                </div>
-
-                <button
-                    type="submit"
-                    className="bg-blue-600 text-white px-4 py-2 rounded"
-                >
+                </Form.Group>
+              
+                
+                <Button variant="primary" type="submit">
                     Login
-                </button>
+                </Button>
             </form>
         </>
     )
