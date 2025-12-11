@@ -1,5 +1,6 @@
 import { Card , Container , Nav} from 'react-bootstrap';
 import { Metadata } from "next";
+import CurrencyForm from '../currencyForm';
 
 export const metadata: Metadata = {
     title: "Update Currency Page | Maycake",
@@ -11,7 +12,7 @@ export default function UpdateCurrencyPage({params}: {params:{id:number}}) {
     return (
         <Container>
             <Card className="mb-4 border-0">
-                Currencies
+                <CurrencyForm id={id} />
             </Card>
         </Container>
     );

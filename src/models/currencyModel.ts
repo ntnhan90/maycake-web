@@ -3,7 +3,6 @@ import z, { symbol } from "zod";
 export const CurrencySchema = z.object({
     id: z.number(),
     title:z.string(),
-    symbol:z.string(),
     is_prefix_symbol:z.number(),
     decimails:z.number(),
     order:z.number(),
@@ -21,7 +20,6 @@ export type CurrencyListResType = z.TypeOf<typeof CurrencyListRes>
 
 export const CreateCurrencyBody = z.object({
     title: z.string().min(1).max(256),
-    symbol:z.string(),
     is_prefix_symbol:z.number(),
     decimails:z.number(),
     order:z.number(),
