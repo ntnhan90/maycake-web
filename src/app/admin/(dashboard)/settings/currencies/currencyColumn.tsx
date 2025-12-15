@@ -39,10 +39,6 @@ export const currencyColumns : ColumnDef<CurrencyResType>[] = [
 		header: "Code",
 	},
     {
-		accessorKey: "title",
-		header: "Code",
-	},
-    {
 		accessorKey: "exchange_rate",
 		header: "exchange_rate",
 	},
@@ -65,7 +61,7 @@ export const currencyColumns : ColumnDef<CurrencyResType>[] = [
 						</Button>
                     </DasherTippy>
                     <DasherTippy content="Edit">
-                        <Button href={`/admin/settings/tax/${id}`} variant="ghost btn-icon"
+                        <Button href={`/admin/settings/currencies/${id}`} variant="ghost btn-icon"
 							size="sm" className="rounded-circle"
                         > 
                             <IconEdit size={16} />

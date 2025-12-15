@@ -1,4 +1,4 @@
-import currencyApiRequest from "@/apiRequests/currency";
+import currencyApiRequest from "@/apiRequests/currencyApi";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { CreateCurrencyBodyType } from "@/models/currencyModel";
 

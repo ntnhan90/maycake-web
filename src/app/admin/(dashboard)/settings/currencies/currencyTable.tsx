@@ -5,10 +5,12 @@ import { useSearchParams } from "next/navigation"
 import { handleErrorApi } from "@/utils/lib"
 import TanstackTable from "@/components/table/TanstackTable"
 import { CurrencyResType } from "@/models/currencyModel"
+import { currencyColumns } from "./currencyColumn"
 import { useGetCurrencyListQuery } from "@/queries/useCurrency"
 
 export default function CurrencyTable(){
-
+    const currencyListQuery = useGetCurrencyListQuery();
+    const data = currencyListQuery.data?.payload.data ?? []
     return (
         <div className="row">
             <div className="col">
@@ -36,6 +38,12 @@ export default function CurrencyTable(){
                         </div>
                     </CardHeader>
                 </Card>
+                <TanstackTable 
+                    data={data}
+                    columns={currencyColumns}
+                    pagination={true}
+                    isSortable         
+                />
             </div>
         </div>
     )
