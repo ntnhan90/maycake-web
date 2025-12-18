@@ -113,6 +113,18 @@ export const generateSocketInstace = (accessToken: string) => {
         }
   })
 }
+
+export function slugify(text:string){
+    return text
+    .toLowerCase()
+    .trim()
+    .normalize('NFD')                 // tách dấu
+    .replace(/[\u0300-\u036f]/g, '') // xoá dấu
+    .replace(/đ/g, 'd')
+    .replace(/[^a-z0-9\s-]/g, '')    // xoá ký tự đặc biệt
+    .replace(/\s+/g, '-')            // khoảng trắng → -
+    .replace(/-+/g, '-');             // gộp nhiều -
+}
 /**
  * toast.success("Success!");
 toast.error("Error");

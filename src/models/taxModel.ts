@@ -6,7 +6,6 @@ export const TaxSchema = z.object({
     percentage: z.number(),
     status:z.string(),
 })
-
 export type TaxResType = z.TypeOf<typeof TaxSchema>
 
 

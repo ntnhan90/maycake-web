@@ -3,7 +3,6 @@ import {Card, CardHeader, Button, Dropdown, DropdownToggle, DropdownMenu, Dropdo
 import Link from "next/link"
 import { useSearchParams } from "next/navigation"
 import { handleErrorApi } from "@/utils/lib"
-import { TaxResType } from "@/models/taxModel"
 import TanstackTable from "@/components/table/TanstackTable"
 import { taxColumns } from "./taxColumn"
 import { useGetTaxListQuery } from "@/queries/useTax"

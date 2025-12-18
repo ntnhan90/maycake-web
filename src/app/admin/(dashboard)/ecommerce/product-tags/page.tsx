@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { Container } from 'react-bootstrap';
 import Link from 'next/link';
+import ProductTagTable from './tagTable';
 
 export const metadata: Metadata = {
     title: "ProductTag Admin",
@@ -32,6 +33,7 @@ export default function EcomTagsPage() {
                     </div>
                 </div>
             </div>
+            <ProductTagTable />
         </Container>
     );
 }

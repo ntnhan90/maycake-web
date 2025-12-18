@@ -1,11 +1,20 @@
-import {use} from 'react';
+import { Card , Container , Nav} from 'react-bootstrap';
+import { Metadata } from "next";
 
 
-export default function ContactEditPage() {
+export const metadata: Metadata = {
+    title: "Create Tax | Maycake",
+    description: "Dasher - Responsive Bootstrap 5 Admin Dashboard",
+};
 
+
+
+export default function UpdateContactPage({params}: {params:{id:number}}) {
+    const id :number= params.id
     return (
-            <p className="max-w-[590px]">
-           contact id
-            </p>
+        <Container>
+            <Card className="mb-4 border-0">
+            </Card>
+        </Container>
     );
 }

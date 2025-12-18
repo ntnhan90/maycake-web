@@ -3,7 +3,7 @@ import z from 'zod'
 export const ProCollectionSchema = z.object({
     id: z.number(),
     name: z.string(),
-    slug: z.number(),
+    slug: z.string(),
     description:z.string(),
     image:z.string(),
     is_featured:z.number(),
@@ -18,7 +18,7 @@ export type ProCollectionListResType = z.TypeOf<typeof ProCollectionListRes>
 
 export const CreateProCollectionBody = z.object({
     name: z.string(),
-    slug: z.number(),
+    slug: z.string(),
     description:z.string(),
     image:z.string(),
     is_featured:z.number(),

@@ -42,7 +42,7 @@ export const useUpdateCurrencyMutation = () =>{
     })
 }
 
-export const useDeleteTaxMutaion = () => {
+export const useDeleteCurrencyMutaion = () => {
     const queryClient = useQueryClient()
     return useMutation({
         mutationFn: currencyApiRequest.delete,

@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
 import { handleErrorApi } from "@/utils/lib";
-//import Feedback from 'react-bootstrap/Feedback'
+
 type Props ={
     id?: number
 }
@@ -95,7 +95,7 @@ export default function TaxForm({id}:Props){
                     <CardBody>
                         <div className="form-body">
                             <div className="mb-3 position-relative">
-                                <label className="form-label form-label" htmlFor="first_name">
+                                <label className="form-label" htmlFor="first_name">
                                     Title <span className="text-red-500">*</span>
                                 </label>
                                 <input className="form-control " placeholder="Enter title"  {...register("title")} />
@@ -103,7 +103,7 @@ export default function TaxForm({id}:Props){
                             </div>
 
                             <div className="mb-3 position-relative">
-                                <label className="form-label form-label" htmlFor="percentage">
+                                <label className="form-label" htmlFor="percentage">
                                     Percentage <span className="text-red-500">*</span>
                                 </label>
                                 <input className="form-control"  type="number" placeholder="Enter percentage"  

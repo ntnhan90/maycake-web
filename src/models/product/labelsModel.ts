@@ -15,7 +15,7 @@ export const ProLabelListRes = z.object({
 export type ProLabelListResType = z.TypeOf<typeof ProLabelListRes>
 
 export const CreateProLabelBody = z.object({
-    name: z.string(),
+    name: z.string().min(1),
     color: z.string(),
     status:z.string(),
 })

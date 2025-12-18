@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { Container } from 'react-bootstrap';
 import Link from 'next/link';
+import ProductLabelTable from './labelTable';
 
 export const metadata: Metadata = {
     title: "Label List | Dasher - Responsive Bootstrap 5 Admin Dashboard",
@@ -14,7 +15,7 @@ export default async function EcomLabelsPage() {
                 <div className="col">
                     <div className="d-md-flex justify-content-between align-items-center mb-8 w-100">
                         <div>
-                            <h1 className="mb-3 h2">Product tag</h1>
+                            <h1 className="mb-3 h2">Product label</h1>
                             <div className="mt-4">
                                 <div className="container">
                                     <div className="row">
@@ -32,6 +33,7 @@ export default async function EcomLabelsPage() {
                     </div>
                 </div>
             </div>
+            <ProductLabelTable />
         </Container>
     );
 }

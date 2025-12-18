@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { Container } from 'react-bootstrap';
 import Link from 'next/link';
+import ProductCollectionTable from './collectionTable';
 
 export const metadata: Metadata = {
     title: "Product Collection List | Dasher - Responsive Bootstrap 5 Admin Dashboard",
@@ -15,7 +16,7 @@ export default function EcomCollectionPage() {
                 <div className="col">
                     <div className="d-md-flex justify-content-between align-items-center mb-8 w-100">
                         <div>
-                            <h1 className="mb-3 h2">Product tag</h1>
+                            <h1 className="mb-3 h2">Product Collections</h1>
                             <div className="mt-4">
                                 <div className="container">
                                     <div className="row">
@@ -33,6 +34,7 @@ export default function EcomCollectionPage() {
                     </div>
                 </div>
             </div>
+            <ProductCollectionTable />
         </Container>
     );
 }
