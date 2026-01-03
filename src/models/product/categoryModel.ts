@@ -17,10 +17,10 @@ export type ProCateListResType = z.TypeOf<typeof ProCateListRes>
 
 export const CreateProCateBody = z.object({
     name: z.string(),
-    slug: z.string(),
+    //slug: z.string(),
     parent_id: z.number(),
     description:z.string(),
-    status:z.string(),
+  //  status:z.string(),
 })
 
 export type CreateProCateBodyType = z.TypeOf<typeof CreateProCateBody>

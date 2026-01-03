@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 import { useEffect } from "react";
 import { handleErrorApi } from "@/utils/lib";
 import { CreateProLabelBodyType, CreateProLabelBody } from "@/models/product/labelsModel"
-import { useGetProductLabelQuery } from "@/queries/useProductLabel";
+import { useCreateProductLabelMutation, useGetProductLabelQuery, useUpdateProductLabelMutation } from "@/queries/useProductLabel";
 
 type Props ={
     id?: number
@@ -21,7 +21,8 @@ type FormValues = {
 
 export default function LabelForm({id}:Props){
     const router = useRouter()
-
+    const createLabelMutation = useCreateProductLabelMutation();
+    const updateLabelMutaion = useUpdateProductLabelMutation();
     const {
         register,
         handleSubmit,
@@ -63,9 +64,27 @@ export default function LabelForm({id}:Props){
 
     const onSubmit = async(data:CreateProLabelBodyType) => {
         if(id){
-            console.log("update" , data)
+            if(updateLabelMutaion.isPending) return;
+             try {
+                let body: CreateProLabelBodyType & {id:number} ={
+                    id: id as number,
+                    ...data
+                }
+                const result = await updateLabelMutaion.mutateAsync(body)
+                toast.success("update success");
+                router.push("/admin/ecommerce/product-labels")
+            } catch (error) {
+                handleErrorApi({
+                    error,
+                    setError:setError
+                })
+            }
         }else{
-            console.log("create" , data)
+            if(createLabelMutation.isPending) return;
+            let body = data;
+            const result = await createLabelMutation.mutateAsync(body);
+            toast.success("add success");
+            router.push("/admin/ecommerce/product-labels")
         }
     }
 

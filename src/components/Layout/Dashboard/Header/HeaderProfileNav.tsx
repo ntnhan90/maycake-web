@@ -15,7 +15,7 @@ import Link from 'next/link'
 import HeaderLogout from '@/components/Layout/Dashboard/Header/HeaderLogout'
 import { getDictionary } from '@/locales/dictionary'
 import DropdownAvatar from './Dropdown-avatar'
-import DropdownLink from './Dropdown-link'
+import DropdownProfile from './Dropdown-profile'
 
 type ItemWithIconProps = {
   icon: IconDefinition;
@@ -41,12 +41,12 @@ export default async function HeaderProfileNav() {
             <Dropdown as={NavItem}>
                 <DropdownAvatar />
                 <DropdownMenu className="pt-0">
-                    <DropdownHeader className="fw-bold">{dict.profile.settings.title}</DropdownHeader>
-                    <DropdownLink />
+                    <DropdownHeader className="fw-bold">{dict.profile.settings.title} </DropdownHeader>
+                    <DropdownProfile />
                         
                     <Link href="#" passHref legacyBehavior>
                         <DropdownItem>
-                        <ItemWithIcon icon={faGear}>{dict.profile.settings.items.settings}</ItemWithIcon>
+                            <ItemWithIcon icon={faGear}>{dict.profile.settings.items.settings} -2</ItemWithIcon>
                         </DropdownItem>
                     </Link>
 

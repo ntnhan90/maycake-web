@@ -10,7 +10,6 @@ export async function POST(request: Request) {
     try {
         const {payload} = await authApiRequest.sLogin(body);
        // const {accessToken, refreshToken} = payload.data;
-        console.log(payload)
         const {accessToken, refreshToken} = payload;
         const decodedAccessToken = jwt.decode(accessToken) as { exp: number}
         const decodedRefreshToken = jwt.decode(refreshToken) as { exp: number}
@@ -25,7 +24,7 @@ export async function POST(request: Request) {
             path: '/',
             httpOnly: true,
             sameSite: 'lax',
-            secure: true,
+            secure: false,
             expires: new Date(decodedRefreshToken.exp * 1000)
         })
 

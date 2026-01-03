@@ -50,7 +50,7 @@ export default function TaxForm({id}:Props){
             reset({
                 title: taxData.title ?? "",
                 percentage: taxData.percentage ?? 0,
-                status:taxData.status ?? "",
+                status:taxData.status ?? "published",
             })
         }
     }, [taxData, reset])

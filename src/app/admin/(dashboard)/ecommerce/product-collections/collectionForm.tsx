@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 import { useEffect } from "react";
 import { handleErrorApi } from "@/utils/lib";
 import { CreateProCollectionBodyType, CreateProCollectionBody } from '@/models/product/collectionModel';
-import { useGetProductCollectionQuery } from '@/queries/useProductCollection';
+import { useCreateProductCollectionMutation, useGetProductCollectionQuery , useUpdateProductCollectionMutation } from '@/queries/useProductCollection';
 import SlugInput from "@/components/input/slugInput";
 
 type Props = {
@@ -17,7 +17,8 @@ type Props = {
 
 export default function ColectionForm({id}:Props){
     const router = useRouter()
-
+    const createProductCollectionMutation = useCreateProductCollectionMutation()
+    const updateProductCollectionMutation = useUpdateProductCollectionMutation();
     const {
         register,
         handleSubmit,
@@ -37,6 +38,30 @@ export default function ColectionForm({id}:Props){
             status:"published",
         },
     });
+
+    let collectionData = null;
+    if(id){
+        const collectionId= Number(id);
+        try {
+            const { data, isLoading, error } = useGetProductCollectionQuery(collectionId);
+            collectionData = data?.payload
+        } catch (error) {
+            return <div>Something went wrong</div>
+        }
+    }
+
+    useEffect(() => {
+        if (collectionData) {
+            reset({
+                name: collectionData.name ?? "",
+                slug: collectionData.slug ?? 0,
+                description: collectionData.description ?? "",
+                image: collectionData.image ?? "",
+                is_featured: collectionData.is_featured ??  0,
+                status:collectionData.status ?? "published",
+            })
+        }
+    }, [collectionData, reset])
 
     const onSubmit = async(data:CreateProCollectionBodyType) =>{
         if(id){

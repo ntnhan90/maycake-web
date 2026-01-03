@@ -1,8 +1,12 @@
 export interface MediaItem {
-  id: number;
-  name: string;
-  type: "folder" | "file";
-  thumbnail?: string;
+    id: number;
+    name: string;
+    type: 'file' | 'folder';
+    url?: string;
+}
+//export type MediaTreeType = Record<string, MediaItem[]>;
+export interface MediaTreeType {
+  [key: string]: MediaItem[]
 }
 
 export interface ContextMenuState {

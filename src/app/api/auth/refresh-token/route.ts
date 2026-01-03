@@ -19,24 +19,23 @@ export async function POST(request: Request) {
         const { payload } = await authApiRequest.sRefreshToken({
             refreshToken
         })
-
-        const decodedAccessToken = jwt.decode(payload.data.accessToken) as{ exp:number}
-        const decodedRefreshToken = jwt.decode(payload.data.refreshToken) as{ exp:number}
-        cookieStore.set('accessToken', payload.data.accessToken, {
+        const decodedAccessToken = jwt.decode(payload.accessToken) as{ exp:number}
+        const decodedRefreshToken = jwt.decode(payload.refreshToken) as{ exp:number}
+        cookieStore.set('accessToken', payload.accessToken, {
             path: '/',
             httpOnly: true,
             sameSite: 'lax',
             secure: true,
             expires: decodedAccessToken.exp * 1000
         })
-        cookieStore.set('refreshToken', payload.data.refreshToken, {
+        cookieStore.set('refreshToken', payload.refreshToken, {
             path: '/',
             httpOnly: true,
             sameSite: 'lax',
             secure: true,
             expires: decodedRefreshToken.exp * 1000
         })
-         return Response.json(payload)
+        return Response.json(payload)
 
     } catch (error : any) {
         console.log(error)

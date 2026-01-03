@@ -21,7 +21,7 @@ const ItemWithIcon = (props: ItemWithIconProps) => {
         </>
     )
 }
-export default function DropdownLink() {
+export default function DropdownProfile() {
     const {data} = useAccountProfile();
     const account = data?.payload
 

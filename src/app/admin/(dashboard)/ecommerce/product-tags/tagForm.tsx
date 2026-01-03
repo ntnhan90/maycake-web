@@ -3,19 +3,20 @@ import { CreateProTagBodyType, CreateProTagBody } from "@/models/product/tagMode
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Card, CardBody, CardHeader, Button ,Form} from "react-bootstrap";
-import { useCreateTaxMutation, useGetTaxQuery, useUpdateTaxMutation } from "@/queries/useTax";
+import { useCreateProductTagMutation, useGetProductTagQuery, useUpdateProductTagMutation } from "@/queries/useProductTag";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
 import { handleErrorApi } from "@/utils/lib";
-import { slugify } from "@/utils/lib";
 import SlugInput from "@/components/input/slugInput";
 type Props = {
     id? : number
 }
 
 export default function TagForm({id}: Props){
-
+    const router = useRouter()
+    const createTagMutation = useCreateProductTagMutation();
+    const updateTagMutation = useUpdateProductTagMutation();
     const {
         register,
         handleSubmit,
@@ -34,11 +35,50 @@ export default function TagForm({id}: Props){
         },
     });
 
+    let tagData = null;
+    if(id){
+        const tagId = Number(id);
+         try {
+            const { data, isLoading, error } = useGetProductTagQuery(tagId);
+            tagData = data?.payload
+        } catch (error) {
+            return <div>Something went wrong</div>
+        }
+    }
+    useEffect(() => {
+        if (tagData) {
+            reset({
+                name: tagData.name ?? "",
+                description: tagData.description ?? "",
+                status:tagData.status  ?? "published",
+            })
+        }
+    }, [tagData, reset])
+
     const onSubmit = async(data: CreateProTagBodyType) => {
         if(id){
-            console.log("update" , data)
+            if(updateTagMutation.isPending) return
+            try {
+                let body: CreateProTagBodyType & {id:number} ={
+                    id: id as number,
+                    ...data
+                }
+                const result = await updateTagMutation.mutateAsync(body)
+                toast.success("update success");
+                router.push("/admin/ecommerce/product-tags")
+            } catch (error) {
+                handleErrorApi({
+                    error,
+                    setError:setError
+                })
+            }
         }else{
-            console.log("create" , data)
+            if(createTagMutation.isPending) return
+            let body = data;
+            const result = await createTagMutation.mutateAsync(body);
+
+            toast.success("add success");
+            router.push("/admin/ecommerce/product-tags")
         }
     }
 

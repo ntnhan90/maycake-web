@@ -146,7 +146,7 @@ const request = async <Response>(
                 const accessToken = (options?.headers as any)?.Authorization.split(
                     'Bearer '
                 )[1]
-                
+               
             }
         }else{
             throw new HttpError(data)
@@ -154,23 +154,27 @@ const request = async <Response>(
     }
 
     // Đảm bảo logic dưới đây chỉ chạy ở phía client (browser)
-    const normalizeUrl = normalizePath(url)
-    if (['api/auth/login', 'api/guest/auth/login'].includes(normalizeUrl)) {
-        const { accessToken, refreshToken } = (payload as LoginResType)
-        setAccessTokenToLocalStorage(accessToken)
-        setRefreshTokenToLocalStorage(refreshToken)
-    } else if ('api/auth/token' === normalizeUrl) {
-        const { accessToken, refreshToken } = payload as {
-            accessToken: string
-            refreshToken: string
+    if (isClient) {
+        const normalizeUrl = normalizePath(url)
+        if (['api/auth/login'].includes(normalizeUrl)) {
+            const { accessToken, refreshToken } = (payload as LoginResType)
+            setAccessTokenToLocalStorage(accessToken)
+            setRefreshTokenToLocalStorage(refreshToken)
+        } else if ('api/auth/token' === normalizeUrl) {
+            const { accessToken, refreshToken } = payload as {
+                accessToken: string
+                refreshToken: string
+            }
+            setAccessTokenToLocalStorage(accessToken)
+            setRefreshTokenToLocalStorage(refreshToken)
+        } else if (
+            ['api/auth/logout', 'api/guest/auth/logout'].includes(normalizeUrl)
+        ) {
+            removeTokensFromLocalStorage()
         }
-        setAccessTokenToLocalStorage(accessToken)
-        setRefreshTokenToLocalStorage(refreshToken)
-    } else if (
-        ['api/auth/logout', 'api/guest/auth/logout'].includes(normalizeUrl)
-    ) {
-        removeTokensFromLocalStorage()
     }
+    
+    
     return data;
 }
 

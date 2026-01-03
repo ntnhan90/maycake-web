@@ -3,7 +3,10 @@ import { useState } from "react";
 import { DndContext, closestCenter } from "@dnd-kit/core";
 import { SortableContext, verticalListSortingStrategy, useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-
+import { CreateProCateBodyType , CreateProCateBody} from "@/models/product/categoryModel";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button } from "react-bootstrap";
 // ================= TYPES =================
 export interface CategoryItem {
     id: number;
@@ -75,7 +78,7 @@ function SortableItem({
 
 // ================= MAIN COMPONENT =================
 export default function CategoryManager() {
-    const [categories] = useState<CategoryItem[]>([
+    const [categories,setCategories] = useState<CategoryItem[]>([
         { id: 1, name: "Television", count: 19, parent_id: 0 },
         { id: 2, name: "Home Audio & Theaters", count: 4, parent_id: 1 },
         { id: 3, name: "TV & Videos", count: 2, parent_id: 1 },
@@ -123,12 +126,50 @@ export default function CategoryManager() {
     const getParentName = (
         parentId: number,
         categories: CategoryItem[]
-        ) => {
+    ) => {
         if (parentId === 0) return "None";
 
         const parent = categories.find(c => c.id === parentId);
         return parent ? parent.name : "Unknown";
     };
+
+    const onSelectCategory = (item: CategoryItem) => {
+        setSelected(item);
+
+        setValue("name", item.name);
+        setValue("parent_id", item.parent_id);
+        setValue("description", "");
+    };
+
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+        reset,
+        watch,
+        setValue,
+        setError
+    } = useForm<CreateProCateBodyType>({
+        resolver: zodResolver(CreateProCateBody),
+        defaultValues: {
+            name: "",
+            parent_id: 0,
+            description: "",
+        },
+    });
+
+    const onSubmit = async(data: CreateProCateBodyType) => {
+        try{
+            if (selected) {
+                console.log("UPDATE", selected.id, data);
+            }else{
+                console.log("CREATE", data);
+            }
+        }catch(err){
+            console.error(err);
+        }
+    }
+          
     
     return (
         <div className="container-fluid">
@@ -154,32 +195,33 @@ export default function CategoryManager() {
                 <div className="col-md-8">
                     <div className="card">
                         <div className="card-body">
-                            <div className="mb-3">
-                                <label className="form-label">Name</label>
-                                <input
-                                className="form-control"
-                                value={selected?.name || ""}
-                                readOnly
-                                />
-                            </div>
+                            <form onSubmit={handleSubmit(onSubmit, (err) =>{
+                                console.log(err)
+                            })} className="row">
+                                <div className="mb-3">
+                                    <label className="form-label">Name</label>
+                                    <input  className="form-control"
+                                         {...register("name")} 
+                                    />
+                                    {errors.name && <p className="text-red-500">{errors.name.message}</p>}
+                                </div>
 
-                            <div className="mb-3">
-                                <label className="form-label">Parent</label>
-                                <input
-                                className="form-control"
-                                value={
-                                    selected
-                                        ? getParentName(selected.parent_id, categories)
-                                        : ""
-                                }
-                                readOnly
-                                />
-                            </div>
+                                <div className="mb-3">
+                                    <label className="form-label">Parent</label>
+                                    <input
+                                    className="form-control"
+                                    
+                                    
+                                    />
+                                </div>
 
-                            <div className="mb-3">
-                                <label className="form-label">Description</label>
-                                <textarea className="form-control" rows={6} readOnly />
-                            </div>
+                                <div className="mb-3">
+                                    <label className="form-label">Description</label>
+                                    <textarea className="form-control" rows={6}  {...register("description")}  />
+                                </div>
+
+                                <Button variant="primary" type="submit">Save</Button>
+                            </form>
                         </div>
                     </div>
                 </div>

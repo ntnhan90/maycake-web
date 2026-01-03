@@ -15,7 +15,7 @@ export const useCreateCurrencyMutation = () =>{
         mutationFn: currencyApiRequest.create,
         onSuccess:() =>{
             queryClient.invalidateQueries({
-                queryKey: ['tax']
+                queryKey: ['currencies']
             })
         }
     })
@@ -48,7 +48,7 @@ export const useDeleteCurrencyMutaion = () => {
         mutationFn: currencyApiRequest.delete,
         onSuccess: () => {
             queryClient.invalidateQueries({
-                queryKey: ['tax']
+                queryKey: ['currencies']
             })
         }
     })
