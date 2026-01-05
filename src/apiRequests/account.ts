@@ -1,7 +1,6 @@
 import http from "@/utils/http";
 import { AccountListResType, AccountResType ,CreateAccountBodyType,UpdateAccountBodyType} from "@/models/accountModel";
 import queryString from 'query-string'
-import { Update } from "next/dist/build/swc";
 
 const prefix = '/user'
 

@@ -1,6 +1,6 @@
+import ContactForm from "./contactForm";
 
-
-export default function IndexPage() {
+export default function FContactPage() {
     return (
         <section className="contact spad">
             <div className="container">
@@ -37,20 +37,7 @@ export default function IndexPage() {
                     </div>
                     <div className="col-lg-8">
                         <div className="contact__form">
-                            <form action="#">
-                                <div className="row">
-                                    <div className="col-lg-6">
-                                        <input type="text" placeholder="Name" />
-                                    </div>
-                                    <div className="col-lg-6">
-                                        <input type="text" placeholder="Email" />
-                                    </div>
-                                    <div className="col-lg-12">
-                                        <textarea placeholder="Message"></textarea>
-                                        <button type="submit" className="site-btn">Send Us</button>
-                                    </div>
-                                </div>
-                            </form>
+                           <ContactForm />
                         </div>
                     </div>
                 </div>
