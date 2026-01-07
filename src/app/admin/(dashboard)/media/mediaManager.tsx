@@ -167,7 +167,8 @@ export default function MediaManager({ onSelect }: MediaManagerProps) {
     const selectFile = (item: MediaItem) => {
         if (item.type !== 'file') return
 
-        const url = `${process.env.NEXT_PUBLIC_BASE_URL}/${item.url}`
+       // const url = `${process.env.NEXT_PUBLIC_BASE_URL}/${item.url}`
+        const url = `${item.url}`;
         setSelected(url)
         onSelect?.(url)
     }
@@ -207,7 +208,6 @@ export default function MediaManager({ onSelect }: MediaManagerProps) {
 
         closeContextMenu()
     }
-
 
     return (
         <>
