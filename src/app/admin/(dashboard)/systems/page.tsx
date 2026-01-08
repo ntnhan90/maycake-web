@@ -41,7 +41,7 @@ export default function SystemPage() {
                             <div className="col">
                                 <div className="d-block mb-1 panel-section-item-title">
                                     <Link className="text-decoration-none text-primary" href="/admin/systems/logs">
-                                    Activity Logs (not)
+                                    Activity Logs (no)
                                     </Link>
                                 </div>
                                 <small className="text-secondary">View and delete your system activity logs</small>
@@ -51,7 +51,7 @@ export default function SystemPage() {
                             <div className="col">
                                 <div className="d-block mb-1 panel-section-item-title">
                                     <Link className="text-decoration-none text-primary" href="/admin/systems/backup">
-                                    Backup (not)
+                                    Backup (no)
                                     </Link>
                                 </div>
                                 <small className="text-secondary">Backup database.</small>
@@ -61,7 +61,7 @@ export default function SystemPage() {
                             <div className="col">
                                 <div className="d-block mb-1 panel-section-item-title">
                                     <Link className="text-decoration-none text-primary" href="/admin/systems/cronjob">
-                                    Cronjob (not)
+                                    Cronjob (no)
                                     </Link>
                                 </div>
                                 <small className="text-secondary">Cronjob allow you to automate certain commands or scripts on your site.</small>

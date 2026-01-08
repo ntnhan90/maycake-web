@@ -85,16 +85,7 @@ export default function SettingsPage() {
                                 <small className="text-secondary">View and update tax settings.</small>
                             </div>
                         </div>
-                        <div className="col-12 col-md-4">
-                            <div className="col">
-                                <div className="d-block mb-1 panel-section-item-title">
-                                    <a className="text-decoration-none text-primary" href="#">
-                                    Shipping
-                                    </a>
-                                </div>
-                                <small className="text-secondary">View and update shipping settings.</small>
-                            </div>
-                        </div>
+                        
                     </Row>
                 </CardBody>
             </Card>

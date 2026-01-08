@@ -1,7 +1,6 @@
 import { Card , Container , Nav} from 'react-bootstrap';
 import { Metadata } from "next";
 import TagForm from '../tagForm';
-import { param } from 'cypress/types/jquery';
 
 export const metadata: Metadata = {
     title: "Update Tag | Maycake",
