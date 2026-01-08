@@ -39,7 +39,6 @@ export default function FaqsForm({id}: Props){
 
 
     let faqsData = null;
-   
     if(id){
         const faqCateId = Number(id);
          try {
@@ -49,11 +48,10 @@ export default function FaqsForm({id}: Props){
             return <div>Something went wrong</div>
         }
     }
-     console.log(faqsData);
     useEffect(() => {
         if (faqsData) {
             reset({
-                category_id: faqsData.category_id ?? 0,
+                category_id: faqsData.category_id ?? "",
                 question: faqsData.question ?? "",
                 answer: faqsData.answer ?? "",
                 status:faqsData.status  ?? "published",
@@ -101,10 +99,14 @@ export default function FaqsForm({id}: Props){
                     <label className="form-label form-label" >
                         Category 
                     </label>
-                    <Form.Select aria-label="Default select example" {...register("category_id")}>
+                    <Form.Select aria-label="Default select example" 
+                        {...register('category_id', {
+                            valueAsNumber: true  
+                        })}
+                    >
                         <option>Select a category</option>
                         {cateList.map((item) => (
-                            <option value={item.id}>{item.name}</option>
+                            <option key={item.id} value={item.id}>{item.name}</option>
                         ))}
                     </Form.Select>
                 </div>
