@@ -78,12 +78,12 @@ function SortableItem({
 }
 
 // ================= MAIN COMPONENT =================
-export default function CategoryManager() {
+export default function BlogCategoryManager() {
     const [categories,setCategories] = useState<CategoryItem[]>([
-        { id: 1, name: "Television", count: 19, parent_id: 0 },
-        { id: 2, name: "Home Audio & Theaters", count: 4, parent_id: 1 },
-        { id: 3, name: "TV & Videos", count: 2, parent_id: 1 },
-        { id: 4, name: "Camera, Photos & Videos", count: 3, parent_id: 0 },
+        { id: 1, name: "Ecommerce", count: 19, parent_id: 0 },
+        { id: 2, name: "Fashion", count: 4, parent_id: 1 },
+        { id: 3, name: "Cake", count: 2, parent_id: 1 },
+        { id: 4, name: "Commercial", count: 3, parent_id: 0 },
         { id: 5, name: "DSLR Camera", count: 1, parent_id: 4 },
     ]);
 
@@ -222,6 +222,7 @@ export default function CategoryManager() {
                                     <textarea className="form-control" rows={6}  {...register("description")}  />
                                 </div>
 
+
                                 <div className="mb-3">
                                     <label className="form-label">Status</label>
                                     <Form.Select aria-label="Default select example" {...register("status")} >
@@ -230,13 +231,13 @@ export default function CategoryManager() {
                                         <option value="pending">Pending</option>
                                     </Form.Select>
                                 </div>
-                                
+                                                                
                                 <div className="mb-3">
                                     <ImageUploadBox
                                         name="image"
                                         setValue={setValue}
                                         watch={watch}
-                                    />
+                                        />
                                 </div>
                                 <Button variant="primary" type="submit">Save</Button>
                             </form>

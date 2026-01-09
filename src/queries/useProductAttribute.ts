@@ -1,6 +1,6 @@
 import attributeApiRequest from "@/apiRequests/product/attributeApi";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { CreateProAttributeBodyType } from "@/models/product/attributeModel";
+import { CreateAttributeSetBodyType } from "@/models/product/attributeModel";
 
 export const useGetProductAttributeListQuery = () =>{
     return useQuery({
@@ -31,7 +31,7 @@ export const useGetProductAttributeQuery = (id: number) =>{
 export const useUpdateProductAttributeMutation = () =>{
     const queryClient = useQueryClient();
     return useMutation({
-        mutationFn:({id,...body}: CreateProAttributeBodyType & {id:number}) =>
+        mutationFn:({id,...body}: CreateAttributeSetBodyType & {id:number}) =>
             attributeApiRequest.update(id, body),
         onSuccess:() =>{
             queryClient.invalidateQueries({

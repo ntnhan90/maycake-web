@@ -1,12 +1,12 @@
 import http from "@/utils/http";
-import { ProAttributeListResType, ProAttributeResType, CreateProAttributeBodyType } from "@/models/product/attributeModel";
+import { AttributeListResType, AttributeSetResType, CreateAttributeSetBodyType } from "@/models/product/attributeModel";
 
 const attributeApiRequest = {
-    list: () => http.get<ProAttributeListResType>('product-attributes'),
-    create:(body: CreateProAttributeBodyType) => http.post<ProAttributeResType>('product-attributes', body),
-    get:(id:number) => http.get<ProAttributeResType>(`product-attributes/${id}`),
-    update:(id:number, body:CreateProAttributeBodyType) => http.put<ProAttributeResType>(`product-attributes/${id}`,body),
-    delete:(id:number) => http.delete<ProAttributeResType>(`product-attributes/${id}`),
+    list: () => http.get<AttributeListResType>('product-attributes'),
+    create:(body: CreateAttributeSetBodyType) => http.post<AttributeSetResType>('product-attributes', body),
+    get:(id:number) => http.get<AttributeSetResType>(`product-attributes/${id}`),
+    update:(id:number, body:CreateAttributeSetBodyType) => http.put<AttributeSetResType>(`product-attributes/${id}`,body),
+    delete:(id:number) => http.delete<AttributeSetResType>(`product-attributes/${id}`),
 }
 
 export default attributeApiRequest

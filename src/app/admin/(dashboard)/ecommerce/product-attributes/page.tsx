@@ -15,7 +15,7 @@ export default function EcomProductAtributesPage() {
                 <div className="col">
                     <div className="d-md-flex justify-content-between align-items-center mb-8 w-100">
                         <div>
-                            <h1 className="mb-3 h2">Product Collections</h1>
+                            <h1 className="mb-3 h2">Product Attributes</h1>
                             <div className="mt-4">
                                 <div className="container">
                                     <div className="row">

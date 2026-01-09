@@ -58,7 +58,10 @@ export default async function SidebarNav() {
                 <SidebarNavItem href="/admin/ecommerce/product-attributes" icon={faGrip}> {dict.sidebar.items.products_atributes} </SidebarNavItem>
                 <SidebarNavItem href="/admin/ecommerce/product-collections" icon={faGrip}> {dict.sidebar.items.products_collections} </SidebarNavItem>
                 <SidebarNavItem href="/admin/ecommerce/product-labels" icon={faTags}>{dict.sidebar.items.products_labels}</SidebarNavItem>
-                <SidebarNavItem href="/admin/ecommerce/reviews" icon={faFile}>   {dict.sidebar.items.reviews} </SidebarNavItem>
+                {/** 
+                 *  <SidebarNavItem href="/admin/ecommerce/reviews" icon={faFile}>   {dict.sidebar.items.reviews} </SidebarNavItem>
+                 * 
+                */}               
                 <SidebarNavItem href="/admin/ecommerce/discounts" icon={faPercent}>{dict.sidebar.items.discounts}  </SidebarNavItem>
                 <SidebarNavItem href="/admin/ecommerce/customers" icon={faUsers}> {dict.sidebar.items.customers}</SidebarNavItem>
             </SidebarNavGroup>

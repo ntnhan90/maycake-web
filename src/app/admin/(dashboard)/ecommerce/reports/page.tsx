@@ -1,11 +1,22 @@
+import { Metadata } from 'next';
+import { Container } from 'react-bootstrap';
+import { SalesReportsChart } from './report';
+import { DashboardStats } from './dashboardStats';
 
-import {use} from 'react';
+export const metadata: Metadata = {
+    title: "Reports List | Dasher - Responsive Bootstrap 5 Admin Dashboard",
+    description: "Dasher - Responsive Bootstrap 5 Admin Dashboard",
+};
 
 
 export default function EcomReportPage() {
     return (
-            <p className="max-w-[590px]">
-           EcomPage reports
-            </p>
+        <Container>
+            <div className="row mb-5">
+                <DashboardStats />
+                <SalesReportsChart />
+                
+            </div>
+        </Container>
     );
 }

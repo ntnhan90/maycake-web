@@ -19,7 +19,7 @@ export type AttributeSetResType = z.TypeOf<typeof AttributeSetSchema>
 export const AttributeSetListRes = z.object({
     data: z.array(AttributeSetSchema),
 })
-export type ProAttributeListResType = z.TypeOf<typeof AttributeSetListRes>
+export type AttributeListResType = z.TypeOf<typeof AttributeSetListRes>
 
 export const CreateAttributeSetBody = z.object({
     name: z.string(),

@@ -1,10 +1,15 @@
-import {use} from 'react';
+import { Metadata } from 'next';
+import BlogCategoryManager from './blogCateTable';
+export const metadata: Metadata = {
+    title: "Blog Cate Admin",
+    description: "Dasher - Responsive Bootstrap 5 Admin Dashboard",
+};
 
 
 export default function AdminBlogCategoriesPage() {
     return (
-            <p className="max-w-[590px]">
-           blog categories
-            </p>
+        <>
+        <BlogCategoryManager/>
+        </>
     );
 }
