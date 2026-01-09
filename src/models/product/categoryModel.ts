@@ -20,7 +20,7 @@ export const CreateProCateBody = z.object({
     //slug: z.string(),
     parent_id: z.number(),
     description:z.string(),
-  //  status:z.string(),
+    status:z.string(),
 })
 
 export type CreateProCateBodyType = z.TypeOf<typeof CreateProCateBody>

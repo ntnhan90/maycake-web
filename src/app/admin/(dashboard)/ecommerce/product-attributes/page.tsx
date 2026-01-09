@@ -1,4 +1,7 @@
-
+import { Metadata } from 'next';
+import { Container } from 'react-bootstrap';
+import Link from 'next/link';
+ 
 
 export default function EcomProductAtributesPage() {
 

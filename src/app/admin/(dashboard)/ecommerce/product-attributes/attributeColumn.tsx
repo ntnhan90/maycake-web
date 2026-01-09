@@ -34,7 +34,10 @@ export const attributeColumns: ColumnDef<ProAttributeResType>[] =[
             </div>
         )
     },
-
+    {
+		accessorKey: "name",
+		header: "Name",
+	},
     {
 		accessorKey: "status",
 		header: "Status",

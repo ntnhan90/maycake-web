@@ -6,7 +6,8 @@ import { CSS } from "@dnd-kit/utilities";
 import { CreateProCateBodyType , CreateProCateBody} from "@/models/product/categoryModel";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
+import ImageUploadBox from "@/components/Image/ImageUploadBox";
 // ================= TYPES =================
 export interface CategoryItem {
     id: number;
@@ -112,7 +113,7 @@ export default function CategoryManager() {
                         hasChildren={hasChildren}
                         isExpanded={isExpanded}
                         onToggle={toggleExpand}
-                        onSelect={setSelected}
+                        onSelect={onSelectCategory}
                     />
 
                     {hasChildren && isExpanded && (
@@ -155,6 +156,7 @@ export default function CategoryManager() {
             name: "",
             parent_id: 0,
             description: "",
+            status: "",
         },
     });
 
@@ -209,9 +211,9 @@ export default function CategoryManager() {
                                 <div className="mb-3">
                                     <label className="form-label">Parent</label>
                                     <input
-                                    className="form-control"
-                                    
-                                    
+                                        className="form-control"
+                                        value={selected ? getParentName(selected.parent_id, categories) : ""}
+                                        readOnly
                                     />
                                 </div>
 
@@ -220,6 +222,18 @@ export default function CategoryManager() {
                                     <textarea className="form-control" rows={6}  {...register("description")}  />
                                 </div>
 
+
+                                <Form.Select aria-label="Default select example" {...register("status")} >
+                                    <option value="published">Published</option>
+                                    <option value="draft">Draft</option>
+                                    <option value="pending">Pending</option>
+                                </Form.Select>
+                                
+                                <ImageUploadBox
+                                    name="image"
+                                    setValue={setValue}
+                                    watch={watch}
+                                />
                                 <Button variant="primary" type="submit">Save</Button>
                             </form>
                         </div>

@@ -39,9 +39,10 @@ export const collectionColumns: ColumnDef<ProCollectionResType>[] = [
 		header: "Image",
         cell:({getValue}) =>{
             const image = getValue<string | null>();
+            const src =    image && image.trim() !== ''  ? image   : DEFAULT_IMAGE;
             return (
                 <Image 
-                    src={image ?? DEFAULT_IMAGE}
+                    src={src}
                     alt="Image"
                     width={60}
                     height={60}

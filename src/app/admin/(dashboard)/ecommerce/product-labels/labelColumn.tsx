@@ -34,6 +34,10 @@ export const labelColumns: ColumnDef<ProLabelResType>[] = [
         )
     },
     {
+		accessorKey: "id",
+		header: "ID",
+	},
+    {
 		accessorKey: "name",
 		header: "Name",
 	},

@@ -34,6 +34,10 @@ export const tagColumns: ColumnDef<ProTagResType>[] = [
         )
     },
     {
+        accessorKey: "id",
+		header: "id",
+    },
+    {
 		accessorKey: "name",
 		header: "Name",
 	},

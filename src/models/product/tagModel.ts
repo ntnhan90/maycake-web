@@ -17,7 +17,7 @@ export type ProTagListResType = z.TypeOf<typeof ProTagListRes>
 export const CreateProTagBody = z.object({
     name: z.string().min(2),
     slug: z.string().min(2),
-    description: z.string(),
+    description:z.string().nullable().optional(),
     status:z.string(),
 })
 

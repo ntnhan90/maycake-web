@@ -5,7 +5,8 @@ import { CreateProTagBodyType } from "@/models/product/tagModel";
 export const useGetProductTagListQuery =() =>{
     return useQuery({
         queryKey: ['product-tags'],
-        queryFn: tagApiRequest.list
+        queryFn: tagApiRequest.list,
+        refetchOnMount: 'always',
     })
 }
 
