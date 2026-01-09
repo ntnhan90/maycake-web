@@ -1,25 +1,30 @@
 import z from 'zod'
 
-export const ProAttributeSchema = z.object({
+export const AttributeItemSchema = z.object({
+  title: z.string().min(1, 'Attribute title is required'),
+  color: z.string(),
+  image: z.string().nullable().optional(),
+  isDefault: z.boolean(),
+})
+
+export const AttributeSetSchema = z.object({
     id: z.number(),
     name: z.string(),
     slug: z.string(),
-    display_layout: z.string(),
-    order:z.number(),
     status:z.string(),
+   // attributes: z.array(AttributeItemSchema).min(1, 'At least one attribute is required'),
 })
-export type ProAttributeResType = z.TypeOf<typeof ProAttributeSchema>
+export type AttributeSetResType = z.TypeOf<typeof AttributeSetSchema>
 
-export const ProAttributeListRes = z.object({
-    data: z.array(ProAttributeSchema),
+export const AttributeSetListRes = z.object({
+    data: z.array(AttributeSetSchema),
 })
-export type ProAttributeListResType = z.TypeOf<typeof ProAttributeListRes>
+export type ProAttributeListResType = z.TypeOf<typeof AttributeSetListRes>
 
-export const CreateProAttributeBody = z.object({
+export const CreateAttributeSetBody = z.object({
     name: z.string(),
     slug: z.string(),
-    display_layout: z.string(),
-    order:z.number(),
     status:z.string(),
+    attributes: z.array(AttributeItemSchema).min(1, 'At least one attribute is required'),
 })
-export type CreateProAttributeBodyType = z.TypeOf<typeof CreateProAttributeBody>
+export type CreateAttributeSetBodyType = z.TypeOf<typeof CreateAttributeSetBody>

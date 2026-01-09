@@ -86,7 +86,7 @@ export default function ColectionForm({id}:Props){
             let body = data;
             const result = await createProductCollectionMutation.mutateAsync(body);
             toast.success("add success");
-            //router.push("/admin/ecommerce/product-collections")
+            router.push("/admin/ecommerce/product-collections")
             console.log("create" , data)
         }
     }
