@@ -10,7 +10,7 @@ import { handleErrorApi } from "@/utils/lib";
 import { CreateProCollectionBodyType, CreateProCollectionBody } from '@/models/product/collectionModel';
 import { useCreateProductCollectionMutation, useGetProductCollectionQuery , useUpdateProductCollectionMutation } from '@/queries/useProductCollection';
 import SlugInput from "@/components/input/slugInput";
-
+import ImageUploadBox from '@/components/Image/ImageUploadBox';
 type Props = {
     id?: number
 }
@@ -65,8 +65,28 @@ export default function ColectionForm({id}:Props){
 
     const onSubmit = async(data:CreateProCollectionBodyType) =>{
         if(id){
+            if(updateProductCollectionMutation.isPending) return
+            try {
+                let body: CreateProCollectionBodyType & {id:number} ={
+                    id: id as number,
+                    ...data
+                }
+
+                toast.success("update success");
+                router.push("/admin/ecommerce/product-collections")
+            } catch (error) {
+                handleErrorApi({
+                    error,
+                    setError:setError
+                })
+            }
             console.log("update" , data)
         }else{
+            if(createProductCollectionMutation.isPending) return
+            let body = data;
+            const result = await createProductCollectionMutation.mutateAsync(body);
+            toast.success("add success");
+            //router.push("/admin/ecommerce/product-collections")
             console.log("create" , data)
         }
     }
@@ -122,6 +142,13 @@ export default function ColectionForm({id}:Props){
                         </Form.Select>
                     </CardBody>
                 </Card>
+                    
+                <ImageUploadBox
+                    name="image"
+                    setValue={setValue}
+                    watch={watch}
+                />
+                
             </div>
         </form>
     )

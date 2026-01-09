@@ -1,4 +1,4 @@
-import MediaManager from "./mediaManager";
+import MediaManager from '@/components/media/mediaManager';
 import { Metadata } from 'next';
 
 
@@ -10,7 +10,6 @@ export const metadata: Metadata = {
 export default function MediaPage() {
     return (
         <div className="container-fluid p-4">
-            
             <MediaManager />        
         </div>
     );

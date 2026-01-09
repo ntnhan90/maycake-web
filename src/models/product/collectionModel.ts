@@ -19,8 +19,8 @@ export type ProCollectionListResType = z.TypeOf<typeof ProCollectionListRes>
 export const CreateProCollectionBody = z.object({
     name: z.string(),
     slug: z.string(),
-    description:z.string(),
-    image:z.string(),
+    description:z.string().nullable().optional(),
+    image:z.string().nullable().optional(),
     is_featured:z.number(),
     status:z.string(),
 })

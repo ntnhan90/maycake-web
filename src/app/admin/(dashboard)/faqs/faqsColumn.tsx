@@ -39,7 +39,7 @@ export const faqsColumns: ColumnDef<FaqsResType>[] = [
 	},
     {
 		accessorKey: "category_id",
-		header: "Category_id",
+		header: "Category",
 	},
     {
         accessorKey: "status",

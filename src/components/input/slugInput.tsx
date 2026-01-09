@@ -51,43 +51,37 @@ export default function SlugInput({
             </div>
 
             {/* SLUG */}
-            <div className="mb-3 position-relative">
-                <label className="form-label">
+                        
+            <label className="form-label">
                 Slug
                 {isSlugEdited.current && (
                     <span className="ml-2 text-xs text-orange-600">
                     (đã chỉnh tay)
                     </span>
                 )}
-                </label>
-
-                <div className="flex gap-2">
-                    <input
-                        {...register(slugName)}
-                        value={slug || ''}
-                        onChange={(e) => {
+            </label>
+            <div className="input-group mb-3">
+                <input  {...register(slugName)}  value={slug || ''}
+                    onChange={(e) => {
                         isSlugEdited.current = true
                         setValue(slugName, slugify(e.target.value), {
                             shouldDirty: true,
                         })
-                        }}
-                        className="form-control"
-                    />
-
-                    <button
-                        type="button"
-                        onClick={() => {
+                    }}
+                    className="form-control"
+                />
+                <button className="input-group-text" type="button"
+                    onClick={() => {
+                        console.log("reset")
                         isSlugEdited.current = false
                         setValue(slugName, slugify(title || ''), {
                             shouldDirty: true,
-                        })
-                        }}
-                        className="px-3 border rounded text-sm hover:bg-gray-100"
-                    >
-                        Reset
-                    </button>
-                </div>
+                    })
+                }}>
+                    Reset
+                </button>
             </div>
+
         </>
     )
 }

@@ -5,7 +5,8 @@ import { Fragment } from "react";
 import { Button } from "react-bootstrap";
 import { IconEye, IconEdit, IconTrash } from "@tabler/icons-react";
 import { ProCollectionResType } from "@/models/product/collectionModel";
-
+import Image from 'next/image';
+const DEFAULT_IMAGE = '/img/placeholder.png';
 export const collectionColumns: ColumnDef<ProCollectionResType>[] = [
     {
         id : "select",
@@ -33,6 +34,22 @@ export const collectionColumns: ColumnDef<ProCollectionResType>[] = [
             </div>
         )
     },
+    {
+		accessorKey: "image",
+		header: "Image",
+        cell:({getValue}) =>{
+            const image = getValue<string | null>();
+            return (
+                <Image 
+                    src={image ?? DEFAULT_IMAGE}
+                    alt="Image"
+                    width={60}
+                    height={60}
+                    className="rounded object-cover"
+                />
+            )
+        }
+	},
     {
 		accessorKey: "name",
 		header: "Name",
