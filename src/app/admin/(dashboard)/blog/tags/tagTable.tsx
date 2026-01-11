@@ -2,11 +2,11 @@
 import {Card, CardHeader, Button, Dropdown, DropdownToggle, DropdownMenu, DropdownItem} from "react-bootstrap"
 import Link from "next/link"
 import TanstackTable from "@/components/table/TanstackTable"
-import { useGetProductTagListQuery } from "@/queries/useProductTag"
+import { useGetBlogTagListQuery } from "@/queries/useBlogTag"
 import { blogTagColumns } from "./tagColumn"
 
 export default function BlogTagTable(){
-    const tagListQuery = useGetProductTagListQuery();
+    const tagListQuery = useGetBlogTagListQuery();
     const data = tagListQuery.data?.payload.data ?? [];
 
     return(

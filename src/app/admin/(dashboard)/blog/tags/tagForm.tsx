@@ -1,10 +1,9 @@
 "use client"
-import { CreateProTagBodyType, CreateProTagBody } from "@/models/product/tagModel";
+import { CreateBlogTagBodyType, CreateBlogTagBody } from "@/models/blog/tagModel";
 import { useForm , Controller} from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Card, CardBody, CardHeader, Button ,Form} from "react-bootstrap";
-import { useCreateProductTagMutation, useGetProductTagQuery, useUpdateProductTagMutation } from "@/queries/useProductTag";
-
+import { useCreateBlogTagMutation, useGetBlogTagQuery, useUpdateBlogTagMutation } from "@/queries/useBlogTag";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
@@ -18,8 +17,8 @@ type Props = {
 
 export default function BlogTagForm({id}: Props){
     const router = useRouter()
-    const createTagMutation = useCreateProductTagMutation();
-    const updateTagMutation = useUpdateProductTagMutation();
+    const createTagMutation = useCreateBlogTagMutation();
+    const updateTagMutation = useUpdateBlogTagMutation();
     const {
         register,
         handleSubmit,
@@ -29,8 +28,8 @@ export default function BlogTagForm({id}: Props){
         setValue,
         setError,
         control
-    } = useForm<CreateProTagBodyType>({
-        resolver: zodResolver(CreateProTagBody),
+    } = useForm<CreateBlogTagBodyType>({
+        resolver: zodResolver(CreateBlogTagBody),
         defaultValues: {
             name: "",
             slug: "",
@@ -43,7 +42,7 @@ export default function BlogTagForm({id}: Props){
     if(id){
         const tagId = Number(id);
          try {
-            const { data, isLoading, error } = useGetProductTagQuery(tagId);
+            const { data, isLoading, error } = useGetBlogTagQuery(tagId);
             tagData = data?.payload
         } catch (error) {
             return <div>Something went wrong</div>
@@ -59,17 +58,17 @@ export default function BlogTagForm({id}: Props){
         }
     }, [tagData, reset])
 
-    const onSubmit = async(data: CreateProTagBodyType) => {
+    const onSubmit = async(data: CreateBlogTagBodyType) => {
         if(id){
             if(updateTagMutation.isPending) return
             try {
-                let body: CreateProTagBodyType & {id:number} ={
+                let body: CreateBlogTagBodyType & {id:number} ={
                     id: id as number,
                     ...data
                 }
                 const result = await updateTagMutation.mutateAsync(body)
                 toast.success("update success");
-                router.push("/admin/ecommerce/product-tags")
+                router.push("/admin/blog/tags")
             } catch (error) {
                 handleErrorApi({
                     error,
@@ -82,7 +81,7 @@ export default function BlogTagForm({id}: Props){
             const result = await createTagMutation.mutateAsync(body);
 
             toast.success("add success");
-            router.push("/admin/ecommerce/product-tags")
+            router.push("/admin/blog/tags")
         }
     }
 
