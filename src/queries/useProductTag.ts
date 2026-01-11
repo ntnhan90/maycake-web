@@ -24,7 +24,7 @@ export const useCreateProductTagMutation = () =>{
 
 export const useGetProductTagQuery = (id: number) =>{
     return useQuery({
-        queryKey: ['tax', id],
+        queryKey: ['product-tags', id],
         queryFn: () => tagApiRequest.get(id),
    //     enabled
     })
@@ -50,7 +50,7 @@ export const useDeleteProductTagMutaion = () => {
         mutationFn: tagApiRequest.delete,
         onSuccess: () => {
             queryClient.invalidateQueries({
-                queryKey: ['tax']
+                queryKey: ['product-tags']
             })
         }
     })

@@ -4,20 +4,22 @@ import { CKEditor } from '@ckeditor/ckeditor5-react'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 
 interface Props {
-    value?: string
-    onChange?: (data: string) => void
+  value?: string | null
+  onChange?: (value: string) => void
+  onBlur?: () => void
 }
 
-export default function RichTextEditor({ value = '', onChange }: Props) {
+export default function RichTextEditor({
+    value ,
+    onChange,
+    onBlur,
+}: Props) {
     return (
         <CKEditor
             editor={ClassicEditor}
-            data={value}
-            onChange={(_, editor) => {
-                const data = editor.getData()
-                onChange?.(data)
-            }}
+            data={value ?? ''}
             config={{
+                licenseKey: 'GPL',
                 toolbar: [
                 'heading',
                 '|',
@@ -36,11 +38,12 @@ export default function RichTextEditor({ value = '', onChange }: Props) {
                 'redo',
                 ],
             }}
+            onChange={(_, editor) => {
+                onChange?.(editor.getData())
+            }}
+            onBlur={() => {
+                onBlur?.()
+            }}
         />
     )
 }
-
-
-// import 
-//const [content, setContent] = useState('') 
-// <RichTextEditor   value={content}    onChange={setContent}  />

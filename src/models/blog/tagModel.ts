@@ -12,7 +12,7 @@ export type BlogTagResType = z.TypeOf<typeof BlogTagSchema>
 export const BlogTagListRes = z.object({
     data: z.array(BlogTagSchema),
 })
-export type ProTagListResType = z.TypeOf<typeof BlogTagListRes>
+export type BlogTagListResType = z.TypeOf<typeof BlogTagListRes>
 
 export const CreateBlogTagBody = z.object({
     name: z.string().min(2),

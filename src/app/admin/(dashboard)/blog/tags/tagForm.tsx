@@ -1,14 +1,17 @@
 "use client"
 import { CreateProTagBodyType, CreateProTagBody } from "@/models/product/tagModel";
-import { useForm } from "react-hook-form";
+import { useForm , Controller} from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Card, CardBody, CardHeader, Button ,Form} from "react-bootstrap";
 import { useCreateProductTagMutation, useGetProductTagQuery, useUpdateProductTagMutation } from "@/queries/useProductTag";
+
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
 import { handleErrorApi } from "@/utils/lib";
 import SlugInput from "@/components/input/slugInput";
+import RichTextEditor from "@/components/input/richTextEditor";
+
 type Props = {
     id? : number
 }
@@ -24,7 +27,8 @@ export default function BlogTagForm({id}: Props){
         reset,
         watch,
         setValue,
-        setError
+        setError,
+        control
     } = useForm<CreateProTagBodyType>({
         resolver: zodResolver(CreateProTagBody),
         defaultValues: {
@@ -103,7 +107,26 @@ export default function BlogTagForm({id}: Props){
                                 <label className="form-label form-label" >
                                     Description 
                                 </label>
-                                <textarea className="form-control " placeholder="Enter description"  {...register("description")} />
+                                <Controller 
+                                    name="description"
+                                    control={control}
+                                    rules={{ required: 'Mô tả không được để trống' }}
+                                    render={({ field, fieldState }) => (
+                                        <div>
+                                            <RichTextEditor
+                                                value={field.value}
+                                                onChange={field.onChange}
+                                                onBlur={field.onBlur}
+                                            />
+
+                                            {fieldState.error && (
+                                            <p className="text-danger mt-1 small">
+                                                {fieldState.error.message}
+                                            </p>
+                                            )}
+                                        </div>
+                                    )}
+                                />
                             </div>
                         </div>
                     </CardBody>

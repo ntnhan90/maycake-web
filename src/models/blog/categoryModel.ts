@@ -13,7 +13,7 @@ export type BlogCateResType = z.TypeOf<typeof BlogCateSchema>
 export const BlogCateListRes = z.object({
     data: z.array(BlogCateSchema),
 })
-export type ProCateListResType = z.TypeOf<typeof BlogCateListRes>
+export type BlogCateListResType = z.TypeOf<typeof BlogCateListRes>
 
 export const CreateBlogCateBody = z.object({
     name: z.string(),
