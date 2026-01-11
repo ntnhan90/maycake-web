@@ -12,16 +12,8 @@
     "test": "start-server-and-test dev http://localhost:3000 cypress:run"
   },
   "dependencies": {
-    "@ckeditor/ckeditor5-basic-styles": "^47.3.0",
-    "@ckeditor/ckeditor5-block-quote": "^47.3.0",
     "@ckeditor/ckeditor5-build-classic": "^44.3.0",
-    "@ckeditor/ckeditor5-editor-classic": "^47.3.0",
-    "@ckeditor/ckeditor5-heading": "^47.3.0",
-    "@ckeditor/ckeditor5-link": "^47.3.0",
-    "@ckeditor/ckeditor5-list": "^47.3.0",
-    "@ckeditor/ckeditor5-paragraph": "^47.3.0",
-    "@ckeditor/ckeditor5-react": "^11.0.1",
-    "@ckeditor/ckeditor5-table": "^47.3.0",
+    "@ckeditor/ckeditor5-react": "8.0.0",
     "@dnd-kit/core": "^6.3.1",
     "@dnd-kit/sortable": "^10.0.0",
     "@dnd-kit/utilities": "^3.2.2",
