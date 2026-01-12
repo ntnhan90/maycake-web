@@ -1,24 +1,23 @@
 "use client"
-import { CreateBlogTagBodyType, CreateBlogTagBody } from "@/models/blog/tagModel";
+import { CreatePostBodyType, CreatePostBody } from "@/models/blog/postModel";
 import { useForm , Controller} from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Card, CardBody, CardHeader, Button ,Form} from "react-bootstrap";
-import { useCreateBlogTagMutation, useGetBlogTagQuery, useUpdateBlogTagMutation } from "@/queries/useBlogTag";
+import { useCreateBlogPostMutation, useGetBlogPostQuery, useUpdateBlogPostMutation } from "@/queries/useBlogPost";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
 import { handleErrorApi } from "@/utils/lib";
 import SlugInput from "@/components/input/slugInput";
-// import RichTextEditor from "@/components/input/richTextEditor";
 
 type Props = {
     id? : number
 }
 
-export default function BlogTagForm({id}: Props){
+export default function PostForm({id}: Props){
     const router = useRouter()
-    const createTagMutation = useCreateBlogTagMutation();
-    const updateTagMutation = useUpdateBlogTagMutation();
+    const createPostMutation = useCreateBlogPostMutation();
+    const updatePostMutation = useUpdateBlogPostMutation();
     const {
         register,
         handleSubmit,
@@ -28,8 +27,8 @@ export default function BlogTagForm({id}: Props){
         setValue,
         setError,
         control
-    } = useForm<CreateBlogTagBodyType>({
-        resolver: zodResolver(CreateBlogTagBody),
+    } = useForm<CreatePostBodyType>({
+        resolver: zodResolver(CreatePostBody),
         defaultValues: {
             name: "",
             slug: "",
@@ -42,7 +41,7 @@ export default function BlogTagForm({id}: Props){
     if(id){
         const tagId = Number(id);
          try {
-            const { data, isLoading, error } = useGetBlogTagQuery(tagId);
+            const { data, isLoading, error } = useGetBlogPostQuery(tagId);
             tagData = data?.payload
         } catch (error) {
             return <div>Something went wrong</div>
@@ -58,17 +57,17 @@ export default function BlogTagForm({id}: Props){
         }
     }, [tagData, reset])
 
-    const onSubmit = async(data: CreateBlogTagBodyType) => {
+    const onSubmit = async(data: CreatePostBodyType) => {
         if(id){
-            if(updateTagMutation.isPending) return
+            if(updatePostMutation.isPending) return
             try {
-                let body: CreateBlogTagBodyType & {id:number} ={
+                let body: CreatePostBodyType & {id:number} ={
                     id: id as number,
                     ...data
                 }
-                const result = await updateTagMutation.mutateAsync(body)
+                const result = await updatePostMutation.mutateAsync(body)
                 toast.success("update success");
-                router.push("/admin/blog/tags")
+                router.push("/admin/blog/posts")
             } catch (error) {
                 handleErrorApi({
                     error,
@@ -76,12 +75,12 @@ export default function BlogTagForm({id}: Props){
                 })
             }
         }else{
-            if(createTagMutation.isPending) return
+            if(createPostMutation.isPending) return
             let body = data;
-            const result = await createTagMutation.mutateAsync(body);
+            const result = await createPostMutation.mutateAsync(body);
 
             toast.success("add success");
-            router.push("/admin/blog/tags")
+            router.push("/admin/blog/posts")
         }
     }
 
@@ -106,29 +105,7 @@ export default function BlogTagForm({id}: Props){
                                 <label className="form-label form-label" >
                                     Description 
                                 </label>
-                                {/**
-                                 * 
-                                 * <Controller 
-                                    name="description"
-                                    control={control}
-                                    rules={{ required: 'Mô tả không được để trống' }}
-                                    render={({ field, fieldState }) => (
-                                        <div>
-                                            <RichTextEditor
-                                                value={field.value}
-                                                onChange={field.onChange}
-                                                onBlur={field.onBlur}
-                                            />
-
-                                            {fieldState.error && (
-                                            <p className="text-danger mt-1 small">
-                                                {fieldState.error.message}
-                                            </p>
-                                            )}
-                                        </div>
-                                    )}
-                                />
-                                 */}
+                               
                                 <textarea className="form-control " placeholder="Enter description"  {...register("description")} />
                             </div>
                         </div>

@@ -3,11 +3,17 @@ import { useState } from "react";
 import { DndContext, closestCenter } from "@dnd-kit/core";
 import { SortableContext, verticalListSortingStrategy, useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { CreateProCateBodyType , CreateProCateBody} from "@/models/product/categoryModel";
+import { CreateBlogCateBodyType, CreateBlogCateBody } from "@/models/blog/categoryModel";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Form } from "react-bootstrap";
 import ImageUploadBox from "@/components/Image/ImageUploadBox";
+import { useCreateBlogCateMutation, useUpdateBlogCateMutation,useGetBlogCateListQuery ,useGetBlogCateTreeQuery} from "@/queries/useBlogCate";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
+import SlugInput from "@/components/input/slugInput";
+import { handleErrorApi } from "@/utils/lib";
+import { CategoryWithCountType } from "@/models/blog/categoryModel";
 // ================= TYPES =================
 export interface CategoryItem {
     id: number;
@@ -79,6 +85,16 @@ function SortableItem({
 
 // ================= MAIN COMPONENT =================
 export default function BlogCategoryManager() {
+    const router = useRouter()
+    const createCateMutation = useCreateBlogCateMutation();
+    const updateCateMutation = useUpdateBlogCateMutation();
+
+    const cateListQuery = useGetBlogCateTreeQuery();
+    const raw = cateListQuery.data?.payload ?? [];
+    const categories :CategoryWithCountType[] = Array.isArray(raw) ? raw : [];
+    
+    //console.log(data)
+/*
     const [categories,setCategories] = useState<CategoryItem[]>([
         { id: 1, name: "Ecommerce", count: 19, parent_id: 0 },
         { id: 2, name: "Fashion", count: 4, parent_id: 1 },
@@ -86,7 +102,7 @@ export default function BlogCategoryManager() {
         { id: 4, name: "Commercial", count: 3, parent_id: 0 },
         { id: 5, name: "DSLR Camera", count: 1, parent_id: 4 },
     ]);
-
+*/
     const [expanded, setExpanded] = useState<Record<string, boolean>>({});
     const [selected, setSelected] = useState<CategoryItem | null>(null);
 
@@ -142,6 +158,25 @@ export default function BlogCategoryManager() {
         setValue("description", "");
     };
 
+
+    const renderParentOptions = (parentId = 0, depth = 0):  React.ReactNode[]  => {
+        return categories
+            .filter(c => c.parent_id === parentId)
+            .flatMap(cat => {
+            // Không cho chọn chính nó
+            if (selected && cat.id === selected.id) {
+                return [];
+            }
+
+            return [
+                <option key={cat.id} value={cat.id}>
+                {"— ".repeat(depth)} {cat.name}
+                </option>,
+                ...renderParentOptions(cat.id, depth + 1),
+            ];
+            });
+        };
+
     const {
         register,
         handleSubmit,
@@ -150,22 +185,50 @@ export default function BlogCategoryManager() {
         watch,
         setValue,
         setError
-    } = useForm<CreateProCateBodyType>({
-        resolver: zodResolver(CreateProCateBody),
+    } = useForm<CreateBlogCateBodyType>({
+        resolver: zodResolver(CreateBlogCateBody),
         defaultValues: {
             name: "",
             parent_id: 0,
             description: "",
-            status: "",
+            is_featured: 0,
+            is_default: 0,
+            order: 0,
+            image: "",
+            status: "published",
         },
     });
 
-    const onSubmit = async(data: CreateProCateBodyType) => {
+    const onSubmit = async(data: CreateBlogCateBodyType) => {
         try{
             if (selected) {
+                if(updateCateMutation.isPending) return
+
+                try {
+                    let body: CreateBlogCateBodyType & {id:number} ={
+                        id: selected.id as number,
+                        ...data
+                    }
+                    const result = await updateCateMutation.mutateAsync(body)
+                    toast.success("update success");
+                    reset();
+                    router.refresh()
+                } catch (error) {
+                    handleErrorApi({
+                        error,
+                        setError:setError
+                    })
+                }
                 console.log("UPDATE", selected.id, data);
+                console.log("UPDATE", selected.id,);
             }else{
+                if(createCateMutation.isPending) return
+                let body = data;
                 console.log("CREATE", data);
+                const result = await createCateMutation.mutateAsync(body);
+                reset();
+                toast.success("add success");
+                router.refresh()
             }
         }catch(err){
             console.error(err);
@@ -200,21 +263,20 @@ export default function BlogCategoryManager() {
                             <form onSubmit={handleSubmit(onSubmit, (err) =>{
                                 console.log(err)
                             })} className="row">
-                                <div className="mb-3">
-                                    <label className="form-label">Name</label>
-                                    <input  className="form-control"
-                                         {...register("name")} 
-                                    />
-                                    {errors.name && <p className="text-red-500">{errors.name.message}</p>}
-                                </div>
+                                <SlugInput
+                                    register={register}
+                                    setValue={setValue}
+                                    watch={watch}
+                                    titleName="name"
+                                    slugName="slug"
+                                />
 
                                 <div className="mb-3">
                                     <label className="form-label">Parent</label>
-                                    <input
-                                        className="form-control"
-                                        value={selected ? getParentName(selected.parent_id, categories) : ""}
-                                        readOnly
-                                    />
+                                    <Form.Select {...register("parent_id", { valueAsNumber: true })}>
+                                        <option value={0}>None</option>
+                                        {renderParentOptions()}
+                                    </Form.Select>
                                 </div>
 
                                 <div className="mb-3">

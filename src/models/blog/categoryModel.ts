@@ -16,11 +16,24 @@ export const BlogCateListRes = z.object({
 export type BlogCateListResType = z.TypeOf<typeof BlogCateListRes>
 
 export const CreateBlogCateBody = z.object({
-    name: z.string(),
-    //slug: z.string(),
+    name: z.string().min(4),
+    order:z.number().optional().nullable(),
+    is_featured:z.number().optional().nullable(),
+    is_default:z.number().optional().nullable(),
+    slug: z.string(),
     parent_id: z.number(),
-    description:z.string(),
+    image:z.string().optional().nullable(),
+    description:z.string().optional().nullable(),
     status:z.string(),
 })
 
 export type CreateBlogCateBodyType = z.TypeOf<typeof CreateBlogCateBody>
+
+
+export const CategoryWithCountSchema = z.object({
+  id: z.number(),
+  name: z.string(),
+  parent_id: z.number().default(0), // thường parent có thể null
+  count: z.number(),
+});
+export type CategoryWithCountType = z.TypeOf<typeof CategoryWithCountSchema>

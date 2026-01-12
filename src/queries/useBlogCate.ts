@@ -10,6 +10,14 @@ export const useGetBlogCateListQuery =() =>{
     })
 }
 
+export const useGetBlogCateTreeQuery =() =>{
+    return useQuery({
+        queryKey: ['blog-cate'],
+        queryFn: blogCategoryApiRequest.tree,
+        refetchOnMount: 'always',
+    })
+}
+
 export const useCreateBlogCateMutation = () =>{
     const queryClient = useQueryClient()
     return useMutation({
