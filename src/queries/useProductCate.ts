@@ -9,6 +9,14 @@ export const useGetProductCateListQuery = () =>{
     })
 }
 
+export const useGetProductCateTreeQuery =() =>{
+    return useQuery({
+        queryKey: ['product-cate'],
+        queryFn: cateApiRequest.tree,
+        refetchOnMount: 'always',
+    })
+}
+
 export const useCreateProductCateMutation = () => {
     const queryClient = useQueryClient();
     return useMutation({

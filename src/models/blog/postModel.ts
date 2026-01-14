@@ -24,10 +24,12 @@ export const CreatePostBody = z.object({
     slug: z.string().min(2),
     description:z.string().nullable().optional(),
     content: z.string().nullable().optional(),
-    user_id: z.number(),
+  //  user_id: z.number(),
     is_featured: z.number(),
     image:z.string().nullable().optional(),
     status:z.string(),
+    tags: z.array(z.string()),
+    categories: z.array(z.coerce.number()),
 })
 
 export type CreatePostBodyType = z.TypeOf<typeof CreatePostBody>

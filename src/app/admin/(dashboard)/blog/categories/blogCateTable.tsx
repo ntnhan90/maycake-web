@@ -14,12 +14,16 @@ import { toast } from "react-toastify";
 import SlugInput from "@/components/input/slugInput";
 import { handleErrorApi } from "@/utils/lib";
 import { CategoryWithCountType } from "@/models/blog/categoryModel";
+import FeatureToggle from "@/components/input/FeatureToggle";
+
 // ================= TYPES =================
 export interface CategoryItem {
     id: number;
     name: string;
     count: number;
     parent_id: number;
+    is_featured: number;
+    is_default: number;
 }
 
 interface SortableItemProps {
@@ -93,16 +97,6 @@ export default function BlogCategoryManager() {
     const raw = cateListQuery.data?.payload ?? [];
     const categories :CategoryWithCountType[] = Array.isArray(raw) ? raw : [];
     
-    //console.log(data)
-/*
-    const [categories,setCategories] = useState<CategoryItem[]>([
-        { id: 1, name: "Ecommerce", count: 19, parent_id: 0 },
-        { id: 2, name: "Fashion", count: 4, parent_id: 1 },
-        { id: 3, name: "Cake", count: 2, parent_id: 1 },
-        { id: 4, name: "Commercial", count: 3, parent_id: 0 },
-        { id: 5, name: "DSLR Camera", count: 1, parent_id: 4 },
-    ]);
-*/
     const [expanded, setExpanded] = useState<Record<string, boolean>>({});
     const [selected, setSelected] = useState<CategoryItem | null>(null);
 
@@ -156,8 +150,9 @@ export default function BlogCategoryManager() {
         setValue("name", item.name);
         setValue("parent_id", item.parent_id);
         setValue("description", "");
+        setValue("is_featured",item.is_featured);
+        setValue("is_default",item.is_default);
     };
-
 
     const renderParentOptions = (parentId = 0, depth = 0):  React.ReactNode[]  => {
         return categories
@@ -184,7 +179,8 @@ export default function BlogCategoryManager() {
         reset,
         watch,
         setValue,
-        setError
+        setError,
+        control,
     } = useForm<CreateBlogCateBodyType>({
         resolver: zodResolver(CreateBlogCateBody),
         defaultValues: {
@@ -284,6 +280,11 @@ export default function BlogCategoryManager() {
                                     <textarea className="form-control" rows={6}  {...register("description")}  />
                                 </div>
 
+                                <FeatureToggle
+                                    control={control}
+                                    name="is_featured"
+                                    label="Is featured?"
+                                    />
 
                                 <div className="mb-3">
                                     <label className="form-label">Status</label>

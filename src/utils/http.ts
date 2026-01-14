@@ -59,6 +59,7 @@ let clientLogoutRequest: null | Promise<any> = null
 const isClient = typeof window !== 'undefined'
 type CustomOptions = Omit<RequestInit, 'method'> & {
   baseUrl?: string | undefined
+  params?: Record<string, any>   // ✅ THÊM DÒNG NÀY
 }
 
 const request = async <Response>(

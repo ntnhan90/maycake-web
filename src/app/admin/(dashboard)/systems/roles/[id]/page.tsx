@@ -1,17 +1,18 @@
-import { Card , Container , Nav} from 'react-bootstrap';
+import { Card , Container } from 'react-bootstrap';
 import { Metadata } from "next";
-import ProductForm from '../productForm';
+import RoleForm from '../roleForm';
 
 export const metadata: Metadata = {
-    title: "Create Product | Maycake",
+    title: "Update Tag | Maycake",
     description: "Dasher - Responsive Bootstrap 5 Admin Dashboard",
 };
 
-export default function CreateProductPage() {
+export default function UpdateRolePage({params}: {params:{id:number}}) {
+    const id:number = params.id
     return (
         <Container>
             <Card className="mb-4 border-0">
-                <ProductForm />
+                <RoleForm id={id} />
             </Card>
         </Container>
     );

@@ -8,12 +8,21 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Form } from "react-bootstrap";
 import ImageUploadBox from "@/components/Image/ImageUploadBox";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
+import SlugInput from "@/components/input/slugInput";
+import { handleErrorApi } from "@/utils/lib";
+import { CategoryWithCountType } from "@/models/blog/categoryModel";
+import FeatureToggle from "@/components/input/FeatureToggle";
+import { useCreateProductCateMutation, useUpdateProductCateMutation,useGetProductCateTreeQuery } from "@/queries/useProductCate";
 // ================= TYPES =================
 export interface CategoryItem {
     id: number;
     name: string;
     count: number;
     parent_id: number;
+    is_featured: number;
+    is_default: number;
 }
 
 interface SortableItemProps {
@@ -79,13 +88,13 @@ function SortableItem({
 
 // ================= MAIN COMPONENT =================
 export default function CategoryManager() {
-    const [categories,setCategories] = useState<CategoryItem[]>([
-        { id: 1, name: "Television", count: 19, parent_id: 0 },
-        { id: 2, name: "Home Audio & Theaters", count: 4, parent_id: 1 },
-        { id: 3, name: "TV & Videos", count: 2, parent_id: 1 },
-        { id: 4, name: "Camera, Photos & Videos", count: 3, parent_id: 0 },
-        { id: 5, name: "DSLR Camera", count: 1, parent_id: 4 },
-    ]);
+
+    const createCateMutation = useCreateProductCateMutation();
+    const updateCateMutation = useUpdateProductCateMutation();
+    
+    const cateListQuery = useGetProductCateTreeQuery();
+    const raw = cateListQuery.data?.payload ?? [];
+    const categories :CategoryWithCountType[] = Array.isArray(raw) ? raw : [];
 
     const [expanded, setExpanded] = useState<Record<string, boolean>>({});
     const [selected, setSelected] = useState<CategoryItem | null>(null);
@@ -140,6 +149,26 @@ export default function CategoryManager() {
         setValue("name", item.name);
         setValue("parent_id", item.parent_id);
         setValue("description", "");
+        setValue("is_featured",item.is_featured);
+        setValue("is_default",item.is_default);
+    };
+
+    const renderParentOptions = (parentId = 0, depth = 0):  React.ReactNode[]  => {
+        return categories
+            .filter(c => c.parent_id === parentId)
+            .flatMap(cat => {
+            // Không cho chọn chính nó
+            if (selected && cat.id === selected.id) {
+                return [];
+            }
+
+            return [
+                <option key={cat.id} value={cat.id}>
+                {"— ".repeat(depth)} {cat.name}
+                </option>,
+                ...renderParentOptions(cat.id, depth + 1),
+            ];
+        });
     };
 
     const {
@@ -147,6 +176,7 @@ export default function CategoryManager() {
         handleSubmit,
         formState: { errors },
         reset,
+        control,
         watch,
         setValue,
         setError
@@ -200,27 +230,32 @@ export default function CategoryManager() {
                             <form onSubmit={handleSubmit(onSubmit, (err) =>{
                                 console.log(err)
                             })} className="row">
-                                <div className="mb-3">
-                                    <label className="form-label">Name</label>
-                                    <input  className="form-control"
-                                         {...register("name")} 
-                                    />
-                                    {errors.name && <p className="text-red-500">{errors.name.message}</p>}
-                                </div>
+                                <SlugInput
+                                    register={register}
+                                    setValue={setValue}
+                                    watch={watch}
+                                    titleName="name"
+                                    slugName="slug"
+                                />
 
                                 <div className="mb-3">
                                     <label className="form-label">Parent</label>
-                                    <input
-                                        className="form-control"
-                                        value={selected ? getParentName(selected.parent_id, categories) : ""}
-                                        readOnly
-                                    />
+                                    <Form.Select {...register("parent_id", { valueAsNumber: true })}>
+                                        <option value={0}>None</option>
+                                        {renderParentOptions()}
+                                    </Form.Select>
                                 </div>
 
                                 <div className="mb-3">
                                     <label className="form-label">Description</label>
                                     <textarea className="form-control" rows={6}  {...register("description")}  />
                                 </div>
+
+                                <FeatureToggle
+                                    control={control}
+                                    name="is_featured"
+                                    label="Is featured?"
+                                />
 
                                 <div className="mb-3">
                                     <label className="form-label">Status</label>

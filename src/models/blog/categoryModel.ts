@@ -34,6 +34,8 @@ export const CategoryWithCountSchema = z.object({
   id: z.number(),
   name: z.string(),
   parent_id: z.number().default(0), // thường parent có thể null
+  is_featured:z.number(),
+  is_default:z.number(),
   count: z.number(),
 });
 export type CategoryWithCountType = z.TypeOf<typeof CategoryWithCountSchema>

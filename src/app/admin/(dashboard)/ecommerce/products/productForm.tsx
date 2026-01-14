@@ -1,5 +1,5 @@
 "use client"
-import { useForm } from "react-hook-form";
+import { useForm ,Controller} from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Card, CardBody, CardHeader, Button ,Form} from "react-bootstrap";
 import { useRouter } from "next/navigation";
@@ -9,6 +9,10 @@ import { handleErrorApi } from "@/utils/lib";
 import { CreateProductBodyType, CreateProductBody } from "@/models/product/productModel";
 import { useCreateProductMutation, useGetProductQuery, useUpdateProductMutation } from "@/queries/useProduct";
 import SlugInput from "@/components/input/slugInput";
+import FeatureToggle from "@/components/input/FeatureToggle";
+import ImageUploadBox from "@/components/Image/ImageUploadBox";
+import TagInput from "@/components/input/tagInput";
+import CategorySelect from "@/components/input/categorySelect";
 
 type Props ={
     id?: number
@@ -21,6 +25,7 @@ export default function ProductForm({id}:Props){
         handleSubmit,
         formState: { errors },
         reset,
+        control,
         watch,
         setValue,
         setError
@@ -63,6 +68,20 @@ export default function ProductForm({id}:Props){
                                 </label>
                                 <textarea className="form-control " placeholder="Enter description"  {...register("description")} />
                             </div>
+
+                            <FeatureToggle
+                                control={control}
+                                name="is_featured"
+                                label="Is featured?"
+                            />
+                            
+                            <div className="mb-3 position-relative">
+                                <label className="form-label form-label" >
+                                    Content 
+                                </label>
+                                                           
+                                <textarea className="form-control " placeholder="Enter Content"  {...register("content")} />
+                             </div>
                         </div>
                     </CardBody>
                 </Card>
@@ -92,6 +111,30 @@ export default function ProductForm({id}:Props){
                         </Form.Select>
                     </CardBody>
                 </Card>
+                <Controller
+                    name="categories"
+                    control={control}
+                    render={({ field }) => (
+                    <CategorySelect
+                        type="post"
+                        value={field.value}
+                        onChange={field.onChange}
+                    />
+                    )}
+                />
+
+                <ImageUploadBox
+                    name="image"
+                    setValue={setValue}
+                    watch={watch}
+                />
+
+                <TagInput
+                    name="tags"
+                    control={control}
+                    type="post"
+                    label="Tags"
+                />
             </div>
         </form>
     )

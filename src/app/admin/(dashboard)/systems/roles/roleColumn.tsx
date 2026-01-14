@@ -1,4 +1,5 @@
-import { PostResType } from "@/models/blog/postModel";
+import { BlogTagResType } from "@/models/blog/tagModel";
+import { RoleResType } from "@/models/roleModel";
 import DasherTippy from "@/components/common/DashTippy";
 import Checkbox from "@/components/table/Checkbox";
 import { ColumnDef } from "@tanstack/react-table";
@@ -6,7 +7,7 @@ import { Fragment } from "react";
 import { Button } from "react-bootstrap";
 import { IconEye, IconEdit, IconTrash } from "@tabler/icons-react";
 
-export const postColumns: ColumnDef<PostResType>[] = [
+export const roleColumns: ColumnDef<RoleResType>[] = [
     {
         id : "select",
         header: ({table}) =>{
@@ -42,22 +43,9 @@ export const postColumns: ColumnDef<PostResType>[] = [
 		header: "Name",
 	},
     {
-        accessorKey: "status",
-        header: "Status",
-        cell:({cell}) =>{
-            const value = cell.getValue() as "pending" | "published" | "draft";
-            const colors = {
-                pending: "bg-secondary",
-                published: "bg-success",
-                draft: "bg-warning",
-            };
-            return (
-                <span className={`badge text-capitalize text-success-fg ${colors[value]}`}>
-                {value}
-                </span>
-            );
-        }
-    },
+		accessorKey: "description",
+		header: "description",
+	},
     {
         accessorKey: "",
 		header: "Action",
@@ -72,7 +60,7 @@ export const postColumns: ColumnDef<PostResType>[] = [
                         </Button>
                     </DasherTippy>
                     <DasherTippy content="Edit">
-                        <Button href={`/admin/blog/posts/${id}`} variant="ghost btn-icon"
+                        <Button href={`/admin/blog/tags/${id}`} variant="ghost btn-icon"
 							size="sm" className="rounded-circle"
                         > 
                             <IconEdit size={16} />

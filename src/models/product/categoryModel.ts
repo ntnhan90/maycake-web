@@ -28,3 +28,13 @@ export const CreateProCateBody = z.object({
 })
 
 export type CreateProCateBodyType = z.TypeOf<typeof CreateProCateBody>
+
+export const CategoryWithCountSchema = z.object({
+  id: z.number(),
+  name: z.string(),
+  parent_id: z.number().default(0), // thường parent có thể null
+  is_featured:z.number(),
+  count: z.number(),
+  is_default:z.number(),
+});
+export type CategoryWithCountType = z.TypeOf<typeof CategoryWithCountSchema>

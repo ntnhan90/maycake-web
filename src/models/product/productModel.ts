@@ -46,6 +46,8 @@ export const CreateProductBody = z.object({
     wide:z.number(),
     height:z.number(),
     weight:z.number(),
+    tags: z.array(z.string()),
+    categories: z.array(z.coerce.number()),
 })
 
 export type CreateProductBodyType = z.TypeOf<typeof CreateProductBody>
