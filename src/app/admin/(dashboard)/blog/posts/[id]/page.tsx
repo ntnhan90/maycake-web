@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import PostForm from '../postForm';
 
 export const metadata: Metadata = {
-    title: "Update Tag | Maycake",
+    title: "Update Posts | Maycake",
     description: "Dasher - Responsive Bootstrap 5 Admin Dashboard",
 };
 

@@ -82,9 +82,9 @@ export default function PostForm({id}: Props){
                     ...data
                 }
                 console.log(body)
-               // const result = await updatePostMutation.mutateAsync(body)
+                const result = await updatePostMutation.mutateAsync(body)
                 toast.success("update success");
-                //router.push("/admin/blog/posts")
+                router.push("/admin/blog/posts")
             } catch (error) {
                 handleErrorApi({
                     error,
@@ -99,10 +99,10 @@ export default function PostForm({id}: Props){
                 user_id: account_id,
             }
             console.log(body)
-         //   const result = await createPostMutation.mutateAsync(body);
+            const result = await createPostMutation.mutateAsync(body);
 
             toast.success("add success");
-           // router.push("/admin/blog/posts")
+            router.push("/admin/blog/posts")
         }
     }
 
