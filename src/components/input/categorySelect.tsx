@@ -32,6 +32,7 @@ export default function CategorySelect({
     const fetchCategories = async () => {
       const res = await fetch(API_URI)
       const json: { data: CategoryItem[] } = await res.json()
+      console.log(json.data);
       setCategories(json.data)
     }
 
