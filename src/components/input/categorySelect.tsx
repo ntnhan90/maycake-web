@@ -8,17 +8,25 @@ type CategoryItem = {
   name: string
   parent_id: number
 }
-
+type CategoryApiResponse = {
+    data: CategoryItem[]
+    pagination: {
+        limit: number
+        currentPage: number
+        totalRecords: number
+        totalPages: number
+    }
+}
 interface Props {
-  type: CategoryType
-  value?: number[]
-  onChange?: (ids: number[]) => void
+    type: CategoryType
+    value?: number[]
+    onChange?: (ids: number[]) => void
 }
 
 export default function CategorySelect({
-  type,
-  value = [],
-  onChange,
+    type,
+    value = [],
+    onChange,
 }: Props) {
     const [categories, setCategories] = useState<CategoryItem[]>([])
     const API_URL = process.env.NEXT_PUBLIC_BASE_URL
@@ -31,13 +39,21 @@ export default function CategorySelect({
     useEffect(() => {
         const fetchCategories = async () => {
             const res = await fetch(API_URI)
-            const json: { data: CategoryItem[] } = await res.json()
-            console.log(json.data);
-            const normalized: CategoryItem[] = json.data.map((c: any) => ({
+
+            if (!res.ok) {
+                console.error('Fetch category failed', res.status)
+                setCategories([])
+                return
+            }
+
+            const json: CategoryApiResponse = await res.json()
+
+            const normalized: CategoryItem[] = (json.data ?? []).map(c => ({
                 id: Number(c.id),
                 name: c.name,
                 parent_id: Number(c.parent_id),
             }))
+
             setCategories(normalized)
         }
 
@@ -52,24 +68,24 @@ export default function CategorySelect({
         onChange?.(next)
     }
 
-  const renderTree = (parentId = 0) => {
-    return (categories ?? [])
-      .filter(c => c.parent_id === parentId)
-      .map(cat => (
-        <div key={cat.id}>
-          <label className="d-flex align-items-center gap-2 mb-2">
-            <input
-              type="checkbox"
-              checked={value.includes(cat.id)}
-              onChange={() => toggle(cat.id)}
-            />
-            <span>{cat.name}</span>
-          </label>
+    const renderTree = (parentId = 0) => {
+        return (categories ?? [])
+        .filter(c => c.parent_id === parentId)
+        .map(cat => (
+            <div key={cat.id}>
+                <label className="d-flex align-items-center gap-2 mb-2">
+                    <input
+                    type="checkbox"
+                    checked={value.includes(cat.id)}
+                    onChange={() => toggle(cat.id)}
+                    />
+                    <span>{cat.name}</span>
+                </label>
 
-          {renderTree(cat.id)}
-        </div>
-      ))
-  }
+                {renderTree(cat.id)}
+            </div>
+        ))
+    }
 
     return (
         <div className="card mt-4">
