@@ -47,11 +47,11 @@ export default function CategorySelect({
     onChange?.(next)
   }
 
-const renderTree = (parentId = 0, level = 0) => {
+const renderTree = (parentId = 0) => {
   return (categories ?? [])
     .filter(c => c.parent_id === parentId)
     .map(cat => (
-      <div key={cat.id} style={{ marginLeft: level * 20 }}>
+      <div key={cat.id}>
         <label className="d-flex align-items-center gap-2 mb-2">
           <input
             type="checkbox"
@@ -61,7 +61,7 @@ const renderTree = (parentId = 0, level = 0) => {
           <span>{cat.name}</span>
         </label>
 
-        {renderTree(cat.id, level + 1)}
+        {renderTree(cat.id)}
       </div>
     ))
 }
