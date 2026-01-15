@@ -108,7 +108,7 @@ export default function BlogCategoryManager() {
     };
 
     const renderCategories = (parentId: number, depth = 0) => {
-        return categories
+        return (categories ?? [])
             .filter(c => c.parent_id === parentId)
             .map(cat => {
             const children = categories.filter(c => c.parent_id === cat.id);
@@ -155,7 +155,7 @@ export default function BlogCategoryManager() {
     };
 
     const renderParentOptions = (parentId = 0, depth = 0):  React.ReactNode[]  => {
-        return categories
+        return (categories ?? [])
             .filter(c => c.parent_id === parentId)
             .flatMap(cat => {
             // Không cho chọn chính nó
@@ -208,6 +208,7 @@ export default function BlogCategoryManager() {
                     const result = await updateCateMutation.mutateAsync(body)
                     toast.success("update success");
                     reset();
+                    setSelected(null) 
                     router.refresh()
                 } catch (error) {
                     handleErrorApi({
@@ -223,6 +224,7 @@ export default function BlogCategoryManager() {
                 console.log("CREATE", data);
                 const result = await createCateMutation.mutateAsync(body);
                 reset();
+                setSelected(null) 
                 toast.success("add success");
                 router.refresh()
             }

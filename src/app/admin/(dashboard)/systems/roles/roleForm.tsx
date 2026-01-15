@@ -72,7 +72,13 @@ export default function RoleForm({id}: Props){
                 <Card>
                     <CardBody>
                         <div className="form-body">
-                           
+                            <div className="mb-3 position-relative">
+                                <label className="form-label" htmlFor="first_name">
+                                    Name <span className="text-red-500">*</span>
+                                </label>
+                                <input className="form-control " placeholder="Enter title"  {...register("name")} />
+                                {errors.name && <p className="text-red-500">{errors.name.message}</p>}
+                            </div>
                            
                         
                             <div className="mb-3 position-relative">

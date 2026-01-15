@@ -88,7 +88,7 @@ function SortableItem({
 
 // ================= MAIN COMPONENT =================
 export default function CategoryManager() {
-
+    const router = useRouter()
     const createCateMutation = useCreateProductCateMutation();
     const updateCateMutation = useUpdateProductCateMutation();
     
@@ -154,7 +154,7 @@ export default function CategoryManager() {
     };
 
     const renderParentOptions = (parentId = 0, depth = 0):  React.ReactNode[]  => {
-        return categories
+        return (categories ?? [])
             .filter(c => c.parent_id === parentId)
             .flatMap(cat => {
             // Không cho chọn chính nó
@@ -186,16 +186,45 @@ export default function CategoryManager() {
             name: "",
             parent_id: 0,
             description: "",
-            status: "",
+            is_featured: 0,
+            is_default: 0,
+            order: 0,
+            image:"",
+            status: "published",
         },
     });
 
     const onSubmit = async(data: CreateProCateBodyType) => {
         try{
             if (selected) {
+                if(updateCateMutation.isPending) return
+
+                try {
+                    let body: CreateProCateBodyType & {id:number} ={
+                        id: selected.id as number,
+                        ...data
+                    }
+                    const result = await updateCateMutation.mutateAsync(body)
+                    toast.success("update success");
+                    reset();
+                    setSelected(null) 
+                    router.refresh()
+                } catch (error) {
+                    handleErrorApi({
+                        error,
+                        setError:setError
+                    })
+                }
                 console.log("UPDATE", selected.id, data);
             }else{
+                if(createCateMutation.isPending) return
+                let body = data;
                 console.log("CREATE", data);
+                const result = await createCateMutation.mutateAsync(body);
+                reset();
+                setSelected(null) 
+                toast.success("add success");
+                router.refresh()
             }
         }catch(err){
             console.error(err);

@@ -116,7 +116,7 @@ export default function ProductForm({id}:Props){
                     control={control}
                     render={({ field }) => (
                     <CategorySelect
-                        type="post"
+                        type="product"
                         value={field.value}
                         onChange={field.onChange}
                     />
@@ -132,9 +132,10 @@ export default function ProductForm({id}:Props){
                 <TagInput
                     name="tags"
                     control={control}
-                    type="post"
+                    type="product"
                     label="Tags"
                 />
+
             </div>
         </form>
     )

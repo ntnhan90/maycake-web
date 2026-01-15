@@ -46,24 +46,24 @@ export default function CategorySelect({
     onChange?.(next)
   }
 
-  const renderTree = (parentId = 0, level = 0) => {
-    return categories
-      .filter(c => c.parent_id === parentId)
-      .map(cat => (
-        <div key={cat.id} style={{ marginLeft: level * 20 }}>
-          <label className="d-flex align-items-center gap-2 mb-2">
-            <input
-              type="checkbox"
-              checked={value.includes(cat.id)}
-              onChange={() => toggle(cat.id)}
-            />
-            <span>{cat.name}</span>
-          </label>
+const renderTree = (parentId = 0, level = 0) => {
+  return (categories ?? [])
+    .filter(c => c.parent_id === parentId)
+    .map(cat => (
+      <div key={cat.id} style={{ marginLeft: level * 20 }}>
+        <label className="d-flex align-items-center gap-2 mb-2">
+          <input
+            type="checkbox"
+            checked={value.includes(cat.id)}
+            onChange={() => toggle(cat.id)}
+          />
+          <span>{cat.name}</span>
+        </label>
 
-          {renderTree(cat.id, level + 1)}
-        </div>
-      ))
-  }
+        {renderTree(cat.id, level + 1)}
+      </div>
+    ))
+}
 
     return (
         <div className="card mt-4">

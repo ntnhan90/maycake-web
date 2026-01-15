@@ -15,7 +15,7 @@ export default function AdminRolesPage() {
                 <div className="col">
                     <div className="d-md-flex justify-content-between align-items-center mb-8 w-100">
                         <div>
-                            <h1 className="mb-3 h2">Blog tag</h1>
+                            <h1 className="mb-3 h2">Roles</h1>
                             <div className="mt-4">
                                 <div className="container">
                                     <div className="row">
@@ -26,7 +26,7 @@ export default function AdminRolesPage() {
                             </div>
                         </div>
                         <div>
-                            <Link role="button"  href="/admin/role/create" className=" d-md-flex align-items-center gap-2 btn btn-dark">
+                            <Link role="button"  href="/admin/systems/roles/create" className=" d-md-flex align-items-center gap-2 btn btn-dark">
                                 Create
                             </Link>
                         </div>
