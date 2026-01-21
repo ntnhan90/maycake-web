@@ -60,7 +60,7 @@ export const roleColumns: ColumnDef<RoleResType>[] = [
                         </Button>
                     </DasherTippy>
                     <DasherTippy content="Edit">
-                        <Button href={`/admin/blog/tags/${id}`} variant="ghost btn-icon"
+                        <Button href={`/admin/systems/roles/${id}`} variant="ghost btn-icon"
 							size="sm" className="rounded-circle"
                         > 
                             <IconEdit size={16} />

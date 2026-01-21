@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import RoleForm from '../roleForm';
 
 export const metadata: Metadata = {
-    title: "Update Tag | Maycake",
+    title: "Create Role | Maycake",
     description: "Dasher - Responsive Bootstrap 5 Admin Dashboard",
 };
 

@@ -15,29 +15,29 @@ export function StatCard({
 }: StatCardProps) {
     return (
         <div
-        className="card h-100"
-        style={{
-            borderBottom: borderColor ? `3px solid ${borderColor}` : undefined,
-        }}
-        >
-        <div className="card-body d-flex align-items-center gap-3">
-            <div
-            className="d-flex align-items-center justify-content-center rounded"
+            className="card h-100"
             style={{
-                width: 42,
-                height: 42,
-                backgroundColor: iconBg,
-                color: '#fff',
+                borderBottom: borderColor ? `3px solid ${borderColor}` : undefined,
             }}
-            >
-            {icon}
-            </div>
+        >
+            <div className="card-body d-flex align-items-center gap-3">
+                <div
+                className="d-flex align-items-center justify-content-center rounded"
+                style={{
+                    width: 42,
+                    height: 42,
+                    backgroundColor: iconBg,
+                    color: '#fff',
+                }}
+                >
+                {icon}
+                </div>
 
-            <div>
-            <div className="text-muted small">{title}</div>
-            <h4 className="mb-0">{value}</h4>
+                <div>
+                <div className="text-muted small">{title}</div>
+                <h4 className="mb-0">{value}</h4>
+                </div>
             </div>
-        </div>
         </div>
     );
 }

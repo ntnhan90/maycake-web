@@ -4,13 +4,14 @@ import { CreateAttributeSetBody, CreateAttributeSetBodyType } from "@/models/pro
 import { useForm, useFieldArray } from 'react-hook-form'
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Card, CardBody, CardHeader, Button ,Form} from "react-bootstrap";
-import { useCreateTaxMutation, useGetTaxQuery, useUpdateTaxMutation } from "@/queries/useTax";
+import { useCreateProductAttributeMutation, useGetProductAttributeQuery, useUpdateProductAttributeMutation } from '@/queries/useProductAttribute';
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
 import { handleErrorApi } from "@/utils/lib";
 import { Trash } from 'react-bootstrap-icons'
 import { AttributeType } from "@/types/attribute";
+import SlugInput from '@/components/input/slugInput';
 
 type Props ={
     id?: number
@@ -18,6 +19,8 @@ type Props ={
 
 export default function ProAttributeForm({id}: Props){
     const router = useRouter()
+    const createAttributeMutation = useCreateProductAttributeMutation();
+    const updateAttributeMutation = useUpdateProductAttributeMutation();
     const [attributes, setAttributes] = useState<AttributeType[]>([
         { id: 1, title: '', color: '#333333', isDefault: false },
         { id: 2, title: '', color: '#333333', isDefault: false },
@@ -62,7 +65,27 @@ export default function ProAttributeForm({id}: Props){
     }
 
     const onSubmit = async(data:CreateAttributeSetBodyType) => {
-        console.log('SEND TO API:', data)
+        if(id){
+            console.log('SEND TO API:', data)
+        }else{
+            console.log('Create:', data)
+            if(createAttributeMutation.isPending) return
+
+            try {
+                let body = data;
+                const result = await createAttributeMutation.mutateAsync(body);
+
+                toast.success("add success");
+                router.push("/admin/eccommerce/product-attributes")
+            } catch (error) {
+                handleErrorApi({
+                    error,
+                    setError:setError
+                })
+            }
+           
+        }
+        
     }
 
     return(
@@ -72,15 +95,13 @@ export default function ProAttributeForm({id}: Props){
             <div className="col-md-9">
                 <Card>
                     <CardBody>
-                        <div className="form-body">
-                            <div className="mb-3 position-relative">
-                                <label className="form-label form-label" >
-                                    Name 
-                                </label>
-                                <input className="form-control " placeholder="Enter name"  {...register("name")} />
-                                {errors.name && <p className="text-red-500">{errors.name.message}</p>}
-                            </div>
-                        </div>
+                        <SlugInput
+                            register={register}
+                            setValue={setValue}
+                            watch={watch}
+                            titleName="name"
+                            slugName="slug"
+                        />
                     </CardBody>
                 </Card>
                 <Card className='mt-3'>

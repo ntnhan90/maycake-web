@@ -1,5 +1,5 @@
 import http from "@/utils/http";
-import { RoleListResType, RoleResType, CreateRoleBodyType } from "@/models/roleModel";
+import { RoleListResType, RoleResType, CreateRoleBodyType,PermissionListResType } from "@/models/roleModel";
 
 const prefix = 'roles'
 const roleApiRequest = {
@@ -8,6 +8,7 @@ const roleApiRequest = {
     get:(id:number) => http.get<RoleResType>(`${prefix}/${id}`),
     update:(id:number, body:CreateRoleBodyType) => http.put<RoleResType>(`${prefix}/${id}`, body),
     delete:(id:number) => http.delete<RoleResType>(`${prefix}/${id}`),
+    getPermissions: () => http.get<PermissionListResType>('permission'),
 }
 
 export default roleApiRequest

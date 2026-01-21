@@ -7,17 +7,17 @@
             "password": "Password",
             "submit": "Login"
         },
-        "forgot_password": "Forgot password?",
+        "forgot_password": "Quên Pasword?",
         "signup": {
             "title": "Sign up",
             "description": "This is a demo page for https://github.com/kitloong/nextjs-dashboard. Click \"Login\" to view the full dashboard preview."
         },
         "message": {
-            "auth_failed": "Invalid username or password"
+            "auth_failed": "Tên người dùng hoặc mật khẩu không hợp lệ"
         }
     },
     "pagination": {
-        "summary": "Showing {{from}} to {{to}} of {{total}} results",
+        "summary": "Hiển thị từ {{from}} đến {{to}} của {{total}} kết quả",
         "rows_per_page": "Rows per page"
     },
     "signup": {
@@ -161,57 +161,20 @@
             }
         }
     },
-    "pokemons": {
-        "title": "Pokémon",
-        "add_new": "Add new",
-        "attribute": {
-            "name": "Name",
-            "type": "Type",
-            "egg_group": "Egg Group",
-            "hp": "Hp",
-            "attack": "Atk",
-            "defense": "Def",
-            "sp_attack": "SpA",
-            "sp_defense": "SpD",
-            "speed": "Spd",
-            "total": "Total"
-        }
-    },
     "featured_nav": {
         "dashboard": "Dashboard",
         "users": "Users",
         "settings": "Settings"
     },
     "notification": {
-        "message": "You have {{total}} notifications",
+        "message": "Bạn có {{total}} thông báo",
         "items": {
             "new_user": "New user registered",
             "deleted_user": "User deleted",
             "sales_report": "Sales report is ready",
             "new_client": "New client",
             "server_overloaded": "Server overloaded"
-        },
-        "server": {
-            "title": "server",
-            "processes": "Processes",
-            "cores": "Cores",
-            "items": {
-                "cpu": "CPU usage",
-                "memory": "Memory usage",
-                "ssd1": "SSD 1 usage"
-            }
         }
-    },
-    "task": {
-        "message": "You have {{total}} pending tasks",
-        "items": {
-            "task1": "Upgrade Next.JS",
-            "task2": "Train Pokemons",
-            "task3": "Complete Pokedex",
-            "task4": "Catch all shiny",
-            "task5": "Beat all gyms"
-        },
-        "view_all": "View all tasks"
     },
     "messages": {
         "message": "Bạn có {{total}} tin nhắn",
@@ -271,7 +234,7 @@
     },
     "sidebar": {
         "items": {
-            "dashboard": "Dashboard",
+            "dashboard": "Bảng điều khiển",
             "sample": "Sample",
             "theme": "Theme",
             "colors": "Colors",
@@ -321,7 +284,7 @@
             "base": "Base",
             "forms": "Forms",
             "icons": "Icons",
-            "notifications": "Notifications",
+            "notifications": "Thông báo",
             "extras": "Extras",
             "pages": "Pages",
             "ecommerce": "Thương mại điện tử",
@@ -346,7 +309,15 @@
             "faqs_categories" :" FAQs Categories",
             "media" : "Thư viện",
             "settings" : "Cài đặt",
-            "admin" : "Admin"
+            "admin" : "Admin",
+            "franchise" : "Nhượng quyền",
+            "franchise_crm" : "Nhượng quyền CRM",
+            "contract" : "Hợp đồng",
+            "warehouse" : "Kho",
+            "shop_operation" : "Vận hành cửa hàng",
+            "supply_chain" : "Chuỗi cung ứng",
+            "retail_order" :"Đơn đặt hàng",
+            "product_recipes" : "Công thức sản phẩm"
         }
     },
     "form":{

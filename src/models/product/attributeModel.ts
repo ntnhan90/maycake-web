@@ -1,10 +1,10 @@
 import z from 'zod'
 
 export const AttributeItemSchema = z.object({
-  title: z.string().min(1, 'Attribute title is required'),
-  color: z.string(),
-  image: z.string().nullable().optional(),
-  isDefault: z.boolean(),
+    title: z.string().min(1, 'Attribute title is required'),
+    color: z.string().nullable().optional(),
+    image: z.string().nullable().optional(),
+    isDefault: z.boolean(),
 })
 
 export const AttributeSetSchema = z.object({
@@ -22,7 +22,7 @@ export const AttributeSetListRes = z.object({
 export type AttributeListResType = z.TypeOf<typeof AttributeSetListRes>
 
 export const CreateAttributeSetBody = z.object({
-    name: z.string(),
+    name: z.string().min(3),
     slug: z.string(),
     status:z.string(),
     attributes: z.array(AttributeItemSchema).min(1, 'At least one attribute is required'),

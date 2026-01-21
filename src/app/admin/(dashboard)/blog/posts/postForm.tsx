@@ -54,6 +54,7 @@ export default function PostForm({id}: Props){
          try {
             const { data, isLoading, error } = useGetBlogPostQuery(tagId);
             postData = data?.payload
+            console.log(postData);
         } catch (error) {
             return <div>Something went wrong</div>
         }

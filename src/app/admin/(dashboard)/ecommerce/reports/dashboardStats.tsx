@@ -9,7 +9,6 @@ import {
   Users,
   Database,
   PieChart,
-  Star,
 } from 'lucide-react';
 import { StatCard } from '@/components/stat/statCard';
 
@@ -26,83 +25,83 @@ export const dashboardStats = {
 };
 
 export function DashboardStats() {
-  return (
-    <div className="row g-3 mb-4">
-      {/* Row 1 */}
-      <div className="col-md-3">
-        <StatCard
-          title="Revenue"
-          value={`$${dashboardStats.revenue.toLocaleString()}`}
-          icon={<DollarSign size={20} />}
-          iconBg="#e83e8c"
-        />
-      </div>
+    return (
+        <div className="row g-3 mb-4">
+        {/* Row 1 */}
+        <div className="col-md-3">
+            <StatCard
+            title="Revenue"
+            value={`$${dashboardStats.revenue.toLocaleString()}`}
+            icon={<DollarSign size={20} />}
+            iconBg="#e83e8c"
+            />
+        </div>
 
-      <div className="col-md-3">
-        <StatCard
-          title="Profit"
-          value={`$${dashboardStats.profit.toLocaleString()}`}
-          icon={<TrendingUp size={20} />}
-          iconBg="#28a745"
-        />
-      </div>
+        <div className="col-md-3">
+            <StatCard
+            title="Profit"
+            value={`$${dashboardStats.profit.toLocaleString()}`}
+            icon={<TrendingUp size={20} />}
+            iconBg="#28a745"
+            />
+        </div>
 
-      <div className="col-md-3">
-        <StatCard
-          title="Expenses"
-          value={`$${dashboardStats.expenses.toLocaleString()}`}
-          icon={<TrendingDown size={20} />}
-          iconBg="#dc3545"
-        />
-      </div>
+        <div className="col-md-3">
+            <StatCard
+            title="Expenses"
+            value={`$${dashboardStats.expenses.toLocaleString()}`}
+            icon={<TrendingDown size={20} />}
+            iconBg="#dc3545"
+            />
+        </div>
 
-      <div className="col-md-3">
-        <StatCard
-          title="Average Order Value"
-          value={`$${dashboardStats.averageOrderValue}`}
-          icon={<Receipt size={20} />}
-          iconBg="#4c6ef5"
-        />
-      </div>
+        <div className="col-md-3">
+            <StatCard
+            title="Average Order Value"
+            value={`$${dashboardStats.averageOrderValue}`}
+            icon={<Receipt size={20} />}
+            iconBg="#4c6ef5"
+            />
+        </div>
 
-      {/* Row 2 */}
-      <div className="col-md-3">
-        <StatCard
-          title="Orders"
-          value={dashboardStats.orders}
-          icon={<ShoppingCart size={20} />}
-          iconBg="#fd7e14"
-        />
-      </div>
+        {/* Row 2 */}
+        <div className="col-md-3">
+            <StatCard
+            title="Orders"
+            value={dashboardStats.orders}
+            icon={<ShoppingCart size={20} />}
+            iconBg="#fd7e14"
+            />
+        </div>
 
-      <div className="col-md-3">
-        <StatCard
-          title="Customers"
-          value={dashboardStats.customers}
-          icon={<Users size={20} />}
-          iconBg="#82c91e"
-        />
-      </div>
+        <div className="col-md-3">
+            <StatCard
+            title="Customers"
+            value={dashboardStats.customers}
+            icon={<Users size={20} />}
+            iconBg="#82c91e"
+            />
+        </div>
 
-      <div className="col-md-3">
-        <StatCard
-          title="Products"
-          value={dashboardStats.products}
-          icon={<Database size={20} />}
-          iconBg="#339af0"
-        />
-      </div>
+        <div className="col-md-3">
+            <StatCard
+            title="Products"
+            value={dashboardStats.products}
+            icon={<Database size={20} />}
+            iconBg="#339af0"
+            />
+        </div>
 
-      <div className="col-md-3">
-        <StatCard
-          title="Conversion Rate"
-          value={`${dashboardStats.conversionRate}%`}
-          icon={<PieChart size={20} />}
-          iconBg="#fd7e14"
-        />
-      </div>
+        <div className="col-md-3">
+            <StatCard
+            title="Conversion Rate"
+            value={`${dashboardStats.conversionRate}%`}
+            icon={<PieChart size={20} />}
+            iconBg="#fd7e14"
+            />
+        </div>
 
-     
-    </div>
-  );
+        
+        </div>
+    );
 }

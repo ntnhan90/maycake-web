@@ -55,3 +55,10 @@ export const useDeleteRoleMutaion = () => {
         }
     })
 }
+
+export const useGetPermissionsListQuery = () =>{
+    return useQuery({
+        queryKey: ['permissions'],
+        queryFn: roleApiRequest.getPermissions
+    })
+}

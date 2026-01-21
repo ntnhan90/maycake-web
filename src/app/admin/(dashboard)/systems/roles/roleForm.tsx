@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
 import { handleErrorApi } from "@/utils/lib";
-
+import { PermissionCheckboxes } from "@/components/input/permissionsCheckbox";
 
 type Props = {
     id? : number
@@ -16,7 +16,8 @@ type Props = {
 
 export default function RoleForm({id}: Props){
     const router = useRouter()
-  
+    const createRoleMutation = useCreateRoleMutation();
+    const updateRoleMutation = useUpdateRoleMutation();
     const {
         register,
         handleSubmit,
@@ -31,7 +32,7 @@ export default function RoleForm({id}: Props){
         defaultValues: {
             name: "",
             description: "",
-         //   status:"published",
+            is_default: 0
         },
     });
 
@@ -50,17 +51,42 @@ export default function RoleForm({id}: Props){
             reset({
                 name: roleData.name ?? "",
                 description: roleData.description ?? "",
-             //   status:tagData.status  ?? "published",
+                is_default: roleData.is_default ?? 0
             })
         }
     }, [roleData, reset])
 
+
     const onSubmit = async(data: CreateRoleBodyType) => {
         if(id){
            console.log("Update :", data )
-           
+           if(updateRoleMutation.isPending) return
+            try {
+                let body: CreateRoleBodyType & {id:number} ={
+                    id: id as number,
+                    ...data
+                }
+                const result = await updateRoleMutation.mutateAsync(body)
+                toast.success("update success");
+                router.push("/admin/systems/roles")
+            } catch (error) {
+                handleErrorApi({
+                    error,
+                    setError:setError
+                })
+            }
         }else{
-           console.log("Create :", data )
+            if(createRoleMutation.isPending) return
+            let body = data;
+            const result = await createRoleMutation.mutateAsync(body)
+
+            reset({
+                name:  "",
+                description: "",
+            })
+            toast.success("add success");
+            router.push("/admin/systems/roles")
+           //console.log("Create :", data )
         }
     }
 
