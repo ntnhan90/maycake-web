@@ -97,10 +97,10 @@ export default function TagInput({
                 <div className="mt-2 d-flex gap-2 flex-wrap">
                 {value.map((tag: string) => (
                     <Badge
-                    key={tag}
-                    bg="secondary"
-                    className="cursor-pointer"
-                    onClick={() => removeTag(tag)}
+                        key={tag}
+                        bg="secondary"
+                        className="cursor-pointer"
+                        onClick={() => removeTag(tag)}
                     >
                     {tag} ✕
                     </Badge>
@@ -119,8 +119,8 @@ export default function TagInput({
 
                 {!loading && suggestions.length === 0 && (
                     <div
-                    className="p-2 text-muted"
-                    onClick={() => addTag(query)}
+                        className="p-2 text-muted"
+                        onClick={() => addTag(query)}
                     >
                     ➕ Add "{query}"
                     </div>
@@ -131,7 +131,7 @@ export default function TagInput({
                     <div
                         key={tag.id}
                         className="p-2 hover-bg cursor-pointer"
-                        onClick={() => addTag(tag.slug)}
+                        onClick={() => addTag(tag.name)}
                     >
                         {tag.name}
                     </div>
