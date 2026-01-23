@@ -1,12 +1,18 @@
 "use client"
-import { CreateDiscountBodyType, CreateDiscountBody } from "@/models/product/discountModel";
+
+import {
+    CreateDiscountFormSchema,
+    CreateDiscountFormType,
+    CreateDiscountApiSchema,
+    CreateDiscountBodyType,
+ } from "@/models/product/discountModel";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Card, CardBody, CardHeader, Button } from "react-bootstrap";
 import { useCreateDiscountMutation, useGetDiscountQuery, useUpdateDiscountMutation } from "@/queries/useDiscount";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
-import { useEffect } from "react";
+import { useEffect , useState} from "react";
 import { handleErrorApi } from "@/utils/lib";
 
 type Props = {
@@ -26,59 +32,49 @@ export default function DiscountForm({id}: Props){
         setValue,
         setError,
         control
-    } = useForm<CreateDiscountBodyType>({
-        resolver: zodResolver(CreateDiscountBody),
+    } = useForm<CreateDiscountFormType>({
+        resolver: zodResolver(CreateDiscountFormSchema),
         defaultValues: {
-            title: "",
-        
+            code: "",
+            start_date: "",
+            end_date: ""
         },
     });
 
-    let tagData = null;
-    if(id){
-        const tagId = Number(id);
-         try {
-            const { data, isLoading, error } = useGetDiscountQuery(tagId);
-            tagData = data?.payload
-        } catch (error) {
-            return <div>Something went wrong</div>
-        }
-    }
+    const discountId = id ? Number(id) : 0;
+    const discountQuery = useGetDiscountQuery(discountId);
+    const discountData = id ? discountQuery.data?.payload : null;
+
     useEffect(() => {
-        if (tagData) {
-            reset({
-                title: tagData.title ?? "",
-               // status:tagData.status  ?? "published",
-            })
-        }
-    }, [tagData, reset])
+        if (!discountData) return;
 
-    const onSubmit = async(data: CreateDiscountBodyType) => {
-        if(id){
-            if(updateDiscountMutation.isPending) return
-            try {
-                let body: CreateDiscountBodyType & {id:number} ={
-                    id: id as number,
-                    ...data
-                }
-                const result = await updateDiscountMutation.mutateAsync(body)
-                toast.success("update success");
-                router.push("/admin/ecommerce/customers")
-            } catch (error) {
-                handleErrorApi({
-                    error,
-                    setError:setError
-                })
+        reset({
+            code: discountData.code ?? "",
+        });
+    }, [discountData, reset]);
+
+
+    //Form → string → parse → Date → mutation
+    const onSubmit = async (formData: CreateDiscountFormType) => {
+        try {
+            const apiData = CreateDiscountApiSchema.parse(formData);
+
+            if (id) {
+                await updateDiscountMutation.mutateAsync({
+                    id,
+                    ...apiData,
+                });
+                toast.success("Update success");
+            } else {
+                await createDiscountMutation.mutateAsync(apiData);
+                toast.success("Create success");
             }
-        }else{
-            if(createDiscountMutation.isPending) return
-            let body = data;
-            const result = await createDiscountMutation.mutateAsync(body);
 
-            toast.success("add success");
-            router.push("/admin/ecommerce/discount")
+            router.push("/admin/ecommerce/discount");
+        } catch (error) {
+            handleErrorApi({ error, setError });
         }
-    }
+    };
 
     return(
         <form onSubmit={handleSubmit(onSubmit,(err) =>{
@@ -96,6 +92,22 @@ export default function DiscountForm({id}: Props){
                 </Card>
             </div>
             <div className="col-md-3">
+                <Card >
+                    <CardHeader>
+                        <h5 className="card-title">Time</h5>
+                    </CardHeader>
+                    <CardBody>
+                        <div>
+                            <label>Start Time</label>
+                            <input
+                                type="datetime-local"
+                                {...register('start_date')}
+                                className="input"
+                            />
+                            {errors.start_date && <p className="error">{errors.start_date.message}</p>}
+                        </div>
+                    </CardBody>
+                </Card>
                 <Card >
                     <CardHeader>
                         <h5 className="card-title">Puslish</h5>

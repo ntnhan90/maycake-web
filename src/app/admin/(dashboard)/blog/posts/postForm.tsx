@@ -51,7 +51,7 @@ export default function PostForm({id}: Props){
     let postData = null;
     if(id){
         const tagId = Number(id);
-         try {
+        try {
             const { data, isLoading, error } = useGetBlogPostQuery(tagId);
             postData = data?.payload
             console.log(postData);
@@ -67,6 +67,8 @@ export default function PostForm({id}: Props){
                 content: postData.content ??"",
                 is_featured: postData.is_featured ?? 0,
                 status:postData.status  ?? "published",
+                tags: postData.tags?.map((t: any) => t.name) ?? [],
+                categories: postData.categories?.map((t: any) => t.id) ?? [],
             })
         }
     }, [postData, reset])

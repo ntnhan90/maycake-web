@@ -11,6 +11,8 @@ export const PostSchema = z.object({
     image:z.string(),
     status:z.string(),
     views: z.number(),
+    tags: z.array(z.string()),
+    categories: z.array(z.coerce.number()),
 })
 export type PostResType = z.TypeOf<typeof PostSchema>
 

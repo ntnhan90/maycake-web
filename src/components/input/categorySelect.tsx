@@ -79,7 +79,7 @@ export default function CategorySelect({
                     checked={value.includes(cat.id)}
                     onChange={() => toggle(cat.id)}
                     />
-                    <span>{cat.name}</span>
+                    <span>{cat.name} - {cat.id}</span>
                 </label>
 
                 {renderTree(cat.id)}

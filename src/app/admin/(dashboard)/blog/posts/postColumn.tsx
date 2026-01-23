@@ -42,6 +42,10 @@ export const postColumns: ColumnDef<PostResType>[] = [
 		header: "Name",
 	},
     {
+        accessorKey: "tags",
+		header: "Tags",
+    },
+    {
         accessorKey: "status",
         header: "Status",
         cell:({cell}) =>{
