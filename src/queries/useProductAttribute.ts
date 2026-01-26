@@ -4,8 +4,9 @@ import { CreateAttributeSetBodyType } from "@/models/product/attributeModel";
 
 export const useGetProductAttributeListQuery = () =>{
     return useQuery({
-        queryKey: ['currencies'],
-        queryFn: attributeApiRequest.list
+        queryKey: ['attributeSet'],
+        queryFn: attributeApiRequest.list,
+        refetchOnMount: 'always',
     })
 }
 
@@ -15,7 +16,7 @@ export const useCreateProductAttributeMutation = () =>{
         mutationFn: attributeApiRequest.create,
         onSuccess:() =>{
             queryClient.invalidateQueries({
-                queryKey: ['tax']
+                queryKey: ['attributeSet']
             })
         }
     })
@@ -23,7 +24,7 @@ export const useCreateProductAttributeMutation = () =>{
 
 export const useGetProductAttributeQuery = (id: number) =>{
     return useQuery({
-        queryKey: ['currencies', id],
+        queryKey: ['attributeSet', id],
         queryFn: () => attributeApiRequest.get(id),
     })
 }
@@ -35,7 +36,7 @@ export const useUpdateProductAttributeMutation = () =>{
             attributeApiRequest.update(id, body),
         onSuccess:() =>{
             queryClient.invalidateQueries({
-                queryKey: ['currencies'],
+                queryKey: ['attributeSet'],
                 exact: true
             })
         }

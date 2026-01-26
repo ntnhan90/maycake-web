@@ -2,7 +2,6 @@ import http from "@/utils/http";
 import { CreateProTagBodyType, ProTagListResType, ProTagResType } from "@/models/product/tagModel";
 
 const prefix = '/product-tags'
-
 const tagApiRequest = {
     list:() => http.get<ProTagListResType>(`${prefix}`),
     create:(body: CreateProTagBodyType) => http.post<ProTagResType>(prefix, body),

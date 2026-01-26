@@ -72,7 +72,7 @@ export const attributeColumns: ColumnDef<AttributeSetResType>[] =[
 						</Button>
                     </DasherTippy>
                     <DasherTippy content="Edit">
-                        <Button href={`/admin/settings/tax/${id}`} variant="ghost btn-icon"
+                        <Button href={`/admin/ecommerce/product-attributes/${id}`} variant="ghost btn-icon"
 							size="sm" className="rounded-circle"
                         > 
                             <IconEdit size={16} />

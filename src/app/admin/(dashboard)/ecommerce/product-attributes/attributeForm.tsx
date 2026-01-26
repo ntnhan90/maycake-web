@@ -21,10 +21,6 @@ export default function ProAttributeForm({id}: Props){
     const router = useRouter()
     const createAttributeMutation = useCreateProductAttributeMutation();
     const updateAttributeMutation = useUpdateProductAttributeMutation();
-    const [attributes, setAttributes] = useState<AttributeType[]>([
-        { id: 1, title: '', color: '#333333', isDefault: false },
-        { id: 2, title: '', color: '#333333', isDefault: false },
-    ])
 
     const {
         register,
@@ -39,14 +35,12 @@ export default function ProAttributeForm({id}: Props){
         resolver: zodResolver(CreateAttributeSetBody),
         defaultValues: {
             name: "",
-            slug:"",
             status:"published",
             attributes: [
-                {
+                {   
                     title: '',
                     color: '#333333',
                     image: null,
-                    isDefault: true,
                 },
             ],
         },
@@ -57,35 +51,46 @@ export default function ProAttributeForm({id}: Props){
         name: 'attributes',
     })
 
-    /** chỉ cho phép 1 default */
-    const setDefault = (index: number) => {
-        fields.forEach((_, i) => {
-        setValue(`attributes.${i}.isDefault`, i === index)
-        })
-    }
+    const attributeId = id ? Number(id) : 0;
+    const attributeQuery = useGetProductAttributeQuery(attributeId);
+    const attributeData = id ? attributeQuery.data?.payload : null;
+
+    useEffect(() => {
+        if (!attributeData) return;
+
+        reset({
+            name: attributeData.name ?? "",
+            status: attributeData.status?? "",
+            attributes: attributeData.attributes
+                .map(attr => ({
+                    title: attr.title,
+                    color: attr.color ?? "#000000",
+                    image: attr.image ?? null,
+                })),
+        });
+    }, [attributeData, reset]);
 
     const onSubmit = async(data:CreateAttributeSetBodyType) => {
-        if(id){
-            console.log('SEND TO API:', data)
-        }else{
-            console.log('Create:', data)
-            if(createAttributeMutation.isPending) return
-
-            try {
-                let body = data;
-                const result = await createAttributeMutation.mutateAsync(body);
-
-                toast.success("add success");
-                router.push("/admin/eccommerce/product-attributes")
-            } catch (error) {
-                handleErrorApi({
-                    error,
-                    setError:setError
-                })
+        try {
+            let body = data;
+            // const apiData = CreateDiscountApiSchema.parse(formData);
+            if (id) {
+                await updateAttributeMutation.mutateAsync({
+                    id,
+                    ...body,
+                });
+                toast.success("Update success");
+            } else {
+                await createAttributeMutation.mutateAsync(body);
+                toast.success("Create success");
             }
-           
+        } catch (error) {
+            handleErrorApi({
+                error,
+                setError:setError
+            })
         }
-        
+        router.push("/admin/ecommerce/product-attributes")
     }
 
     return(
@@ -95,35 +100,34 @@ export default function ProAttributeForm({id}: Props){
             <div className="col-md-9">
                 <Card>
                     <CardBody>
-                        <SlugInput
-                            register={register}
-                            setValue={setValue}
-                            watch={watch}
-                            titleName="name"
-                            slugName="slug"
-                        />
+                        <div className="mb-3 position-relative">
+                            <label className="form-label form-label" htmlFor="first_name">
+                                Name <span className="text-red-500">*</span>
+                            </label> 
+                            <input className="form-control " placeholder="Enter name"  {...register("name")} />
+                            {errors.name && <p className="text-red-500">{errors.name.message}</p>}
+                        </div>
                     </CardBody>
                 </Card>
                 <Card className='mt-3'>
                     <CardHeader className='d-flex justify-content-between'>
                         <strong>Attributes list</strong>
-                        <Button size="sm" onClick={() =>
+                        <Button size="sm"  type="button" onClick={() =>
                             append({
                                 title: '',
                                 color: '#333333',
                                 image: null,
-                                isDefault: false,
                             })
                         }>
                             Add new attribute
                         </Button>
                     </CardHeader>
+                    
                     <div className="table-responsive">
                         <table className="table align-middle mb-0">
                             <thead className="table-light">
-                                <tr>
+                                <tr> 
                                     <th>#</th>
-                                    <th>Is default?</th>
                                     <th>Title</th>
                                     <th>Color</th>
                                     <th>Image</th>
@@ -138,17 +142,7 @@ export default function ProAttributeForm({id}: Props){
                                 return(
                                     <tr key={field.id}>
                                         <td>{index + 1}</td>
-                                        {/* DEFAULT */}
-                                        <td>
-                                            <Form.Check
-                                                type="radio"
-                                                name="defaultAttribute"
-                                                checked={watch(
-                                                `attributes.${index}.isDefault`
-                                                )}
-                                                onChange={() => setDefault(index)}
-                                            />
-                                        </td>
+                                       
                                         <td>
                                             <Form.Control
                                                 {...register(
@@ -173,6 +167,7 @@ export default function ProAttributeForm({id}: Props){
                                                 )}
                                                 style={{ width: 60, height: 38 }}
                                             />
+                                           
                                         </td>
                                         <td>
                                             <div className="d-flex align-items-center gap-2">
