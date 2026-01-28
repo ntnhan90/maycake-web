@@ -1,6 +1,6 @@
 import { Card , Container } from 'react-bootstrap';
 import { Metadata } from "next";
-import CustomerForm from '../customerForm';
+import EditCustomerForm from './editCustomerForm';
 
 export const metadata: Metadata = {
     title: "Update Customer | Maycake",
@@ -12,7 +12,7 @@ export default function UpdateCustomerPage({params}: {params:{id:number}}) {
     return (
         <Container>
             <Card className="mb-4 border-0">
-                <CustomerForm id={id} />
+                <EditCustomerForm id={id} />
             </Card>
         </Container>
     );

@@ -1,6 +1,6 @@
 import { Card , Container } from 'react-bootstrap';
 import { Metadata } from "next";
-import CustomerForm from '../customerForm';
+import CreateCustomerForm from './createCustomerForm';
 
 export const metadata: Metadata = {
     title: "Create Customer | Maycake",
@@ -11,7 +11,7 @@ export default function CreateCustomerPage() {
     return (
         <Container>
             <Card className="mb-4 border-0">
-                <CustomerForm />
+                <CreateCustomerForm />
             </Card>
         </Container>
     );

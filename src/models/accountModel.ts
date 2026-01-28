@@ -42,18 +42,14 @@ export type CreateAccountBodyType = z.TypeOf<typeof CreateAccountBody>
 export const UpdateAccountBody = z.object({
     username: z.string().min(3, "Username too short"),
     email: z.string().email("Invalid email"),
-
     first_name: z.string().min(1, "Required"),
     last_name: z.string().min(1, "Required"),
-
     password: z
         .string()
         .min(6, "Password min 6 chars")
         .or(z.literal(""))
         .transform(v => (v === "" ? undefined : v))
         .optional(),
-
-
     confirmPassword: z
         .string()
         .min(6, "Password min 6 chars")

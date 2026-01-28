@@ -42,14 +42,21 @@ export const CustomerColumns: ColumnDef<CustomerResType>[] = [
 		header: "Name",
 	},
     {
+		accessorKey: "password",
+		header: "password",
+	},
+    {
+		accessorKey: "phone",
+		header: "Phone",
+	},
+    {
         accessorKey: "status",
         header: "Status",
         cell:({cell}) =>{
-            const value = cell.getValue() as "pending" | "published" | "draft";
+            const value = cell.getValue() as "activated" | "locked";
             const colors = {
-                pending: "bg-secondary",
-                published: "bg-success",
-                draft: "bg-warning",
+                activated: "bg-secondary",
+                locked: "bg-success",
             };
             return (
                 <span className={`badge text-capitalize text-success-fg ${colors[value]}`}>

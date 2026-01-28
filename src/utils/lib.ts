@@ -124,3 +124,10 @@ export function slugify(text:string){
     .replace(/\s+/g, '-')            // khoảng trắng → -
     .replace(/-+/g, '-');             // gộp nhiều -
 }
+
+export function toDatetimeLocal(date?: Date) {
+  if (!date) return '';
+  const offset = date.getTimezoneOffset();
+  const local = new Date(date.getTime() - offset * 60000);
+  return local.toISOString().slice(0, 16);
+}

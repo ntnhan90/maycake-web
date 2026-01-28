@@ -1,6 +1,7 @@
 import customerApiRequest from "@/apiRequests/customerApi";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { CreateCustomerBodyType } from "@/models/product/customerModel";
+import { UpdateCustomerPayload } from "@/models/product/customerModel";
+
 
 export const useGetCustomerListQuery =() =>{
     return useQuery({
@@ -30,19 +31,18 @@ export const useGetCustomerQuery = (id: number) =>{
     })
 }
 
-export const useUpdateCustomerMutation = () =>{
-    const queryClient = useQueryClient()
+export const useUpdateCustomerMutation = () => {
+    const queryClient = useQueryClient();
+
     return useMutation({
-        mutationFn:({id,...body}: CreateCustomerBodyType & {id:number}) =>
-            customerApiRequest.update(id, body),
-        onSuccess:() =>{
-            queryClient.invalidateQueries({
-                queryKey: ['customer'],
-                exact: true
-            })
-        }
-    })
-}
+        mutationFn: (payload: UpdateCustomerPayload) =>
+        customerApiRequest.update(payload.id, payload),
+
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ["customer"] });
+        },
+    });
+};
 
 export const useDeleteCustomerCateMutaion = () => {
     const queryClient = useQueryClient()
