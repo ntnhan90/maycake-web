@@ -111,6 +111,7 @@ export default function ProductForm({id}:Props){
                         </Form.Select>
                     </CardBody>
                 </Card>
+
                 <Controller
                     name="categories"
                     control={control}
@@ -135,6 +136,21 @@ export default function ProductForm({id}:Props){
                     type="product"
                     label="Tags"
                 />
+
+                <Card className="mt-4">
+                    <CardHeader>
+                        <h5 className="card-title">Product Labels
+                            <span className="text-red-500">*</span>
+                        </h5>
+                    </CardHeader>
+                    <CardBody>
+                        <Form.Select aria-label="Default select example" {...register("label")} >
+                            <option value="published">Published</option>
+                            <option value="draft">Draft</option>
+                            <option value="pending">Pending</option>
+                        </Form.Select>
+                    </CardBody>
+                </Card>
 
             </div>
         </form>

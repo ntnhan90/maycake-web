@@ -42,8 +42,42 @@ export const postColumns: ColumnDef<PostResType>[] = [
 		header: "Name",
 	},
     {
-        accessorKey: "tags",
-		header: "Tags",
+        id: "tags",
+        header: "Tags",
+        cell: ({ row }) => {
+            const tags = row.original.tags;
+
+            if (!tags || tags.length === 0) {
+                return <span className="text-muted"></span>;
+            }
+
+            return (
+                <div className="flex gap-1 flex-wrap">
+                    <span>
+                        {tags.map(tag => tag.name).join(", ")}
+                    </span>
+                </div>
+            );
+        },
+    },
+    {
+        id: "categories",
+        header: "Category",
+         cell: ({ row }) => {
+            const tags = row.original.categories;
+
+            if (!tags || tags.length === 0) {
+                return <span className="text-muted"></span>;
+            }
+
+            return (
+                <div className="flex gap-1 flex-wrap">
+                    <span>
+                        {tags.map(tag => tag.name).join(", ")}
+                    </span>
+                </div>
+            );
+        },
     },
     {
         accessorKey: "status",

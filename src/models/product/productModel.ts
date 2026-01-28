@@ -42,12 +42,9 @@ export const CreateProductBody = z.object({
    // sale_price:z.number(),
     //start_date:z.date(),
     //end_date:z.date(),
-   // length:z.number(),
-   // wide:z.number(),
-   // height:z.number(),
-   // weight:z.number(),
     tags: z.array(z.string()),
     categories: z.array(z.coerce.number()),
+    label:z.string()
 })
 
 export type CreateProductBodyType = z.TypeOf<typeof CreateProductBody>

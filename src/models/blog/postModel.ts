@@ -1,4 +1,16 @@
 import z from 'zod'
+export const TagResSchema = z.object({
+    id: z.number(),
+    name: z.string(),
+});
+export type TagResType = z.infer<typeof TagResSchema>;
+
+export const CategoryResSchema = z.object({
+  id: z.number(),
+  name: z.string(),
+});
+
+export type CategoryResType = z.infer<typeof CategoryResSchema>;
 
 export const PostSchema = z.object({
     id: z.number(),
@@ -9,10 +21,10 @@ export const PostSchema = z.object({
     user_id: z.number(),
     is_featured: z.number(),
     image:z.string(),
-    status:z.string(),
+    status: z.enum(["pending", "published", "draft"]),
     views: z.number(),
-    tags: z.array(z.string()),
-    categories: z.array(z.coerce.number()),
+    tags: z.array(TagResSchema),
+    categories: z.array(CategoryResSchema),
 })
 export type PostResType = z.TypeOf<typeof PostSchema>
 
@@ -29,7 +41,7 @@ export const CreatePostBody = z.object({
   //  user_id: z.number(),
     is_featured: z.number(),
     image:z.string().nullable().optional(),
-    status:z.string(),
+    status: z.enum(["pending", "published", "draft"]),
     tags: z.array(z.string()),
     categories: z.array(z.coerce.number()),
 })

@@ -42,10 +42,6 @@ export const CustomerColumns: ColumnDef<CustomerResType>[] = [
 		header: "Name",
 	},
     {
-		accessorKey: "password",
-		header: "password",
-	},
-    {
 		accessorKey: "phone",
 		header: "Phone",
 	},
