@@ -1,4 +1,5 @@
 import z from 'zod'
+import { PaginationSchema } from '../pagination'
 export const ProductSchema = z.object({
     id: z.number(),
     name: z.string(),
@@ -15,15 +16,12 @@ export const ProductSchema = z.object({
     sale_price:z.number(),
     start_date:z.date(),
     end_date:z.date(),
-    length:z.number(),
-    wide:z.number(),
-    height:z.number(),
-    weight:z.number(),
 })
 export type ProductResType = z.TypeOf<typeof ProductSchema>
 
 export const ProductListRes = z.object({
     data: z.array(ProductSchema),
+    pagination: PaginationSchema,
 })
 export type ProductListResType = z.TypeOf<typeof ProductListRes>
 

@@ -1,5 +1,5 @@
 import z from "zod";
-
+import { PaginationSchema } from "./pagination";
 export const AccountSchema = z.object({
     id: z.number(),
     username: z.string(),
@@ -16,6 +16,7 @@ export type AccountResType = z.TypeOf<typeof AccountSchema>
 
 export const AccountListRes = z.object({
     data: z.array(AccountSchema),
+    pagination: PaginationSchema,
 })
 export type AccountListResType = z.TypeOf<typeof AccountListRes>
 

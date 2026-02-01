@@ -1,5 +1,5 @@
 import z from "zod";
-
+import { PaginationSchema } from "./pagination";
 export const PermissionSchema = z.object({
     id: z.number(),
     name:z.string(),
@@ -12,6 +12,7 @@ export type PermissionResType = z.TypeOf<typeof PermissionSchema>
 
 export const PermissionListRes = z.object({
     data: z.array(PermissionSchema),
+    pagination: PaginationSchema,
 })
 export type PermissionListResType = z.TypeOf<typeof PermissionListRes>
 

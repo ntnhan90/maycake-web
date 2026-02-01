@@ -1,4 +1,5 @@
 import z from "zod";
+import { PaginationSchema } from "../pagination";
 
 export const OrderSchema = z.object({
     id: z.number(),
@@ -16,6 +17,7 @@ export type OrderResType = z.TypeOf<typeof OrderSchema>
 
 export const OrderListRes = z.object({
     data: z.array(OrderSchema),
+    pagination: PaginationSchema,
 })
 export type OrderListResType = z.TypeOf<typeof OrderListRes>
 

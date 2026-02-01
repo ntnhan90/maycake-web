@@ -1,5 +1,5 @@
 import { z } from 'zod';
-
+import { PaginationSchema } from '../pagination';
 export const DiscountSchema = z.object({
     id: z.number(),
     code: z.string(),
@@ -18,7 +18,8 @@ export const DiscountSchema = z.object({
 export type DiscountResType = z.TypeOf<typeof DiscountSchema>;
 
 export const DiscountListRes = z.object({
-  data: z.array(DiscountSchema),
+    data: z.array(DiscountSchema),
+    pagination: PaginationSchema,
 });
 
 export type DiscountListResType = z.TypeOf<typeof DiscountListRes>;

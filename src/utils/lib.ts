@@ -126,8 +126,45 @@ export function slugify(text:string){
 }
 
 export function toDatetimeLocal(date?: Date) {
-  if (!date) return '';
-  const offset = date.getTimezoneOffset();
-  const local = new Date(date.getTime() - offset * 60000);
-  return local.toISOString().slice(0, 16);
+    if (!date) return '';
+    const offset = date.getTimezoneOffset();
+    const local = new Date(date.getTime() - offset * 60000);
+    return local.toISOString().slice(0, 16);
 }
+
+type PageItem = number | '...';
+export function getPaginationPages(
+    currentPage: number,
+    totalPages: number,
+    maxVisible = 5
+): PageItem []{
+    if(totalPages <= maxVisible){
+        return Array.from({length: totalPages}, (_, i) => i + 1);
+    }
+
+    const pages :PageItem[] = [];
+    const half = Math.floor(maxVisible / 2);
+
+    let start = Math.max(2, currentPage -half);
+    let end = Math.min(totalPages -1 , currentPage + half);
+
+    if( currentPage <= half + 2){
+        start = 2;
+        end = maxVisible
+    }
+
+    if(currentPage >= totalPages -half -1){
+        start = totalPages - maxVisible + 1;
+        end = totalPages - 1;
+    }
+
+    pages.push(1);
+    if( start > 2 ) pages.push('...');
+
+    for(let i = start ;i<=end; i++) {
+        pages.push(i)
+    }
+    if(end < totalPages - 1) pages.push('...');
+    pages.push(totalPages);
+    return pages
+}  

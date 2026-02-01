@@ -1,4 +1,5 @@
 import z from 'zod'
+import { PaginationSchema } from '../pagination';
 
 export const ProCollectionSchema = z.object({
     id: z.number(),
@@ -13,6 +14,7 @@ export type ProCollectionResType = z.TypeOf<typeof ProCollectionSchema>
 
 export const ProCollectionListRes = z.object({
     data: z.array(ProCollectionSchema),
+    pagination: PaginationSchema,
 })
 export type ProCollectionListResType = z.TypeOf<typeof ProCollectionListRes>
 

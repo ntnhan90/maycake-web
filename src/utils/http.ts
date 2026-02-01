@@ -7,6 +7,7 @@ import {
     setRefreshTokenToLocalStorage
 } from "./lib"
 import { LoginResType } from "@/models/authModel"
+
 const ENTITY_ERROR_STATUS = 422
 const AUTHENTICATION_ERROR_STATUS = 401
 
@@ -94,9 +95,27 @@ const request = async <Response>(
         ? process.env.NEXT_PUBLIC_BASE_URL
         : options.baseUrl
 
-    const fullUrl  =`${baseUrl}/${normalizePath(url)}`
+    let fullUrl  =`${baseUrl}/${normalizePath(url)}`
+    // HANDLE QUERY PARAMS
+    if(options?.params){
+        const searchParams = new URLSearchParams()
+
+        Object.entries(options.params).forEach(([key, value]) => {
+            if(value !== undefined && value !== null && value !== ''){
+                searchParams.append(key, String(value))
+            }
+        })
+
+        const queryString = searchParams.toString()
+        if(queryString){
+            fullUrl += `?${queryString}`
+        }
+    }
+
+    const { params , ...fetchOptions } = options ?? {}
     const res = await fetch(fullUrl,{
-        ...options,
+      //  ...options,
+        ...fetchOptions,
         headers :{
             ...baseHeaders,
             ...options?.headers

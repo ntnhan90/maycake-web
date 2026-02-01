@@ -1,4 +1,5 @@
 import z from 'zod'
+import { PaginationSchema } from '../pagination';
 
 export const BlogTagSchema = z.object({
     id: z.number(),
@@ -11,6 +12,7 @@ export type BlogTagResType = z.TypeOf<typeof BlogTagSchema>
 
 export const BlogTagListRes = z.object({
     data: z.array(BlogTagSchema),
+    pagination: PaginationSchema,
 })
 export type BlogTagListResType = z.TypeOf<typeof BlogTagListRes>
 

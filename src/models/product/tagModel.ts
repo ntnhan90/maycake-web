@@ -1,5 +1,5 @@
 import z from 'zod'
-
+import { PaginationSchema } from '../pagination'
 export const ProTagSchema = z.object({
     id: z.number(),
     name: z.string(),
@@ -11,6 +11,7 @@ export type ProTagResType = z.TypeOf<typeof ProTagSchema>
 
 export const ProTagListRes = z.object({
     data: z.array(ProTagSchema),
+    pagination: PaginationSchema,
 })
 export type ProTagListResType = z.TypeOf<typeof ProTagListRes>
 

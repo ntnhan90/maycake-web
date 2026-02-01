@@ -1,4 +1,5 @@
 import z from 'zod'
+import { PaginationSchema } from '../pagination';
 
 export const AttributeItemSchema = z.object({
    // id:z.number(),
@@ -18,6 +19,7 @@ export type AttributeSetResType = z.TypeOf<typeof AttributeSetSchema>
 
 export const AttributeSetListRes = z.object({
     data: z.array(AttributeSetSchema),
+    pagination: PaginationSchema,
 })
 export type AttributeListResType = z.TypeOf<typeof AttributeSetListRes>
 

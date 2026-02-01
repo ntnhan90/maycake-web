@@ -1,5 +1,5 @@
 import z from "zod";
-
+import { PaginationSchema } from "./pagination";
 export const ContactSchema = z.object({
     id: z.number(),
     email: z.string(),
@@ -13,6 +13,7 @@ export type ContactResType = z.TypeOf<typeof ContactSchema>
 
 export const ContactListRes = z.object({
     data: z.array(ContactSchema),
+    pagination: PaginationSchema,
 })
 export type ContactListResType = z.TypeOf<typeof ContactListRes>
 

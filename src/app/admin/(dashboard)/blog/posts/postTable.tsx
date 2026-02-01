@@ -1,47 +1,92 @@
 'use client'
 import {Card, CardHeader, Button, Dropdown, DropdownToggle, DropdownMenu, DropdownItem} from "react-bootstrap"
-import Link from "next/link"
 import TanstackTable from "@/components/table/TanstackTable"
+import TanstackTableV2 from "@/components/table/TanstackTableV2"
+import { SortingState } from "@tanstack/react-table";
 import { useGetBlogPostListQuery } from "@/queries/useBlogPost"
 import { postColumns } from "./postColumn"
+import { useState, useEffect } from "react"
+import postApiRequest from "@/apiRequests/blog/postApi"
+import { PostListRes, PostListResType } from "@/models/blog/postModel"
 
-export default function PostTable(){
-    const postListQuery = useGetBlogPostListQuery();
-    const data = postListQuery.data?.payload.data ?? [];
+
+export default function PostTable() {
+    const [tableState, setTableState] = useState<{
+        page: number
+        limit: number
+        totalPages: number
+        sorting: SortingState
+        search: string
+    }>({
+        page: 1,
+        limit: 10,
+        totalPages: 1,
+        sorting: [],
+        search: "",
+    })
+    const [data, setData] = useState<PostListResType | null>(null);
+    const [loading, setLoading ] = useState(false);
+    
+    const fetchPosts = async () => {
+        setLoading(true);
+        const sortParam = tableState.sorting[0]
+            ? `${tableState.sorting[0].id}:${tableState.sorting[0].desc ? "desc" : "asc"}`
+            : undefined;
+
+        const query = { 
+            page: tableState.page,
+            limit: tableState.limit,
+            q: tableState.search,
+            order: sortParam,
+        }
+        try{
+            const res = await postApiRequest.list(query)
+            setData(res.payload);
+        }finally{
+            setLoading(false)
+        }
+    }
+
+    useEffect(() => {
+        fetchPosts();
+    }, [
+        tableState.page,
+        tableState.limit,
+        tableState.search,
+        tableState.sorting,
+    ]);
+
+    useEffect(() => {
+        if (data?.pagination) {
+            setTableState((prev) => ({
+                ...prev,
+             //   limit: data.pagination.limit,
+                totalPages: data.pagination.totalPages,
+            }));
+        }
+    }, [data]);
 
     return(
         <div className="row">
-            <div className="col">
-                <Card>
-                    <CardHeader className='border-bottom-0'>
-                        <div className="g-4 row">
-                            <div className='col-md-4'>
-                                <input placeholder='Search' className="form-control" type="text" />
-                            </div>
-                            <div className='col-md-8 d-flex justify-content-end'>
-                                <Button variant="dark" className='rounded-2 '> Filter </Button>
-                                <Dropdown>
-                                    <DropdownToggle as={Button} variant="primary" className="rounded-2 ms-2" >
-                                        Export
-                                    </DropdownToggle>
-                                    <DropdownMenu className="pt-0">
-                                        <Link href="#" passHref legacyBehavior>
-                                            <DropdownItem>
-                                                Download as CSV
-                                            </DropdownItem>
-                                        </Link>
-                                    </DropdownMenu>
-                                </Dropdown>
-                            </div>
-                        </div>
-                    </CardHeader>
-                </Card>
-                <TanstackTable 
-                    data={data}
+            <div className="card">
+                <div className="card-body">
+                    <TanstackTableV2
+                    data={data?.data ?? []}
                     columns={postColumns}
-                    pagination={true}        
-                    isSortable
-                />
+                    loading={loading}
+                    state={tableState}
+                    showSearch
+                    onPageChange={(page) =>
+                        setTableState((s) => ({ ...s, page }))
+                    }
+                    onSearchChange={(search) =>
+                        setTableState((s) => ({ ...s, page: 1, search }))
+                    }
+                    onSortChange={(sorting) =>
+                        setTableState((s) => ({ ...s, page: 1, sorting }))
+                    }
+                    />
+                </div>
             </div>
         </div>
     )

@@ -1,5 +1,5 @@
 import z from "zod";
-
+import { PaginationSchema } from "./pagination";
 export const CurrencySchema = z.object({
     id: z.number(),
     title:z.string(),
@@ -15,6 +15,7 @@ export type CurrencyResType = z.TypeOf<typeof CurrencySchema>
 
 export const CurrencyListRes = z.object({
     data: z.array(CurrencySchema),
+    pagination: PaginationSchema,
 })
 export type CurrencyListResType = z.TypeOf<typeof CurrencyListRes>
 

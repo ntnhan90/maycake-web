@@ -1,4 +1,5 @@
 import z from "zod";
+import { PaginationSchema } from "./pagination";
 
 export const TaxSchema = z.object({
     id: z.number(),
@@ -11,6 +12,7 @@ export type TaxResType = z.TypeOf<typeof TaxSchema>
 
 export const TaxListRes = z.object({
     data: z.array(TaxSchema),
+    pagination: PaginationSchema,
 })
 export type TaxListResType = z.TypeOf<typeof TaxListRes>
 

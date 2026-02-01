@@ -1,15 +1,16 @@
 import z from 'zod'
+import { PaginationSchema } from '../pagination';
+
 export const TagResSchema = z.object({
-    id: z.number(),
-    name: z.string(),
+        id: z.number(),
+        name: z.string(),
 });
 export type TagResType = z.infer<typeof TagResSchema>;
 
 export const CategoryResSchema = z.object({
-  id: z.number(),
-  name: z.string(),
+    id: z.number(),
+    name: z.string(),
 });
-
 export type CategoryResType = z.infer<typeof CategoryResSchema>;
 
 export const PostSchema = z.object({
@@ -30,6 +31,7 @@ export type PostResType = z.TypeOf<typeof PostSchema>
 
 export const PostListRes = z.object({
     data: z.array(PostSchema),
+    pagination: PaginationSchema,
 })
 export type PostListResType = z.TypeOf<typeof PostListRes>
 

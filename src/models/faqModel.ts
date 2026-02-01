@@ -1,5 +1,5 @@
 import z from "zod";
-
+import { PaginationSchema } from "./pagination";
 export const FaqCateSchema = z.object({
     id: z.number(),
     name: z.string(),
@@ -12,6 +12,7 @@ export type FaqCateResType = z.TypeOf<typeof FaqCateSchema>
 
 export const FaqCateListRes = z.object({
     data: z.array(FaqCateSchema),
+    pagination: PaginationSchema,
 })
 export type FaqCateListResType = z.TypeOf<typeof FaqCateListRes>
 

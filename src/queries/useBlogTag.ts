@@ -5,7 +5,7 @@ type BlogTagQueryParams = {
     q?: string
     page?: number
     limit?: number
-    }
+}
 
 export const useGetBlogTagListQuery =(params?: BlogTagQueryParams) =>{
     return useQuery({
