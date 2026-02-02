@@ -1,11 +1,11 @@
 import discountApiRequest from "@/apiRequests/discountApi";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { CreateDiscountBodyType } from "@/models/product/discountModel";
-
+import { QueryParams } from "@/types/query";
 export const useGetDiscountListQuery =() =>{
     return useQuery({
         queryKey: ['discount'],
-        queryFn: discountApiRequest.list,
+        queryFn: ({ queryKey: [, params] }) => discountApiRequest.list(params as QueryParams),
         refetchOnMount: 'always',
     })
 }

@@ -1,11 +1,13 @@
 import faqCateApiRequest from "@/apiRequests/faqCateApi";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { CreateFaqCateBodyType } from "@/models/faqModel";
+import { QueryParams } from "@/types/query";
 
 export const useGetFaqCateListQuery = () =>{
     return useQuery({
         queryKey: ['faq-cate'],
-        queryFn: faqCateApiRequest.list,
+        //queryFn: faqCateApiRequest.list,
+        queryFn: ({ queryKey: [, params] }) => faqCateApiRequest.list(params as QueryParams),
         refetchOnMount: 'always',
     })
 }

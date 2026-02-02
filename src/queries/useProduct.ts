@@ -1,12 +1,13 @@
 import productApiRequest from "@/apiRequests/product/productApi";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { CreateProductBodyType } from "@/models/product/productModel";
-import { number } from "zod";
+import { QueryParams } from "@/types/query";
 
 export const useGetProductListQuery = () =>{
     return useQuery({
-        queryKey: ['role'],
-        queryFn: productApiRequest.list
+        queryKey: ['product'],
+        //queryFn: productApiRequest.list,
+        queryFn: ({ queryKey: [, params] }) => productApiRequest.list(params as QueryParams),
     })
 }
 
@@ -16,7 +17,7 @@ export const useCreateProductMutation = () =>{
         mutationFn: productApiRequest.create,
         onSuccess:() =>{
             queryClient.invalidateQueries({
-                queryKey: ['role']
+                queryKey: ['product']
             })
         }
     })
@@ -24,7 +25,7 @@ export const useCreateProductMutation = () =>{
 
 export const useGetProductQuery = (id: number) =>{
     return useQuery({
-        queryKey: ['role', id],
+        queryKey: ['product', id],
         queryFn: () => productApiRequest.get(id),
    //     enabled
     })
@@ -37,7 +38,7 @@ export const useUpdateProductMutation = () =>{
             productApiRequest.update(id, body),
         onSuccess:() =>{
             queryClient.invalidateQueries({
-                queryKey: ['role'],
+                queryKey: ['product'],
                 exact: true
             })
         }
@@ -50,7 +51,7 @@ export const useDeleteProductMutaion = () => {
         mutationFn: productApiRequest.delete,
         onSuccess: () => {
             queryClient.invalidateQueries({
-                queryKey: ['role']
+                queryKey: ['product']
             })
         }
     })

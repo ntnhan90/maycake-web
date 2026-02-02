@@ -1,11 +1,11 @@
 import labelsApiRequest from "@/apiRequests/product/labelsApi";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { CreateProLabelBodyType } from "@/models/product/labelsModel";
-
+import { QueryParams } from "@/types/query";
 export const useGetProductLabelListQuery =() =>{
     return useQuery({
         queryKey: ['prodcut-labels'],
-        queryFn: labelsApiRequest.list
+        queryFn: ({ queryKey: [, params] }) => labelsApiRequest.list(params as QueryParams),
     })
 }
 

@@ -29,6 +29,8 @@ export const ProductSchema = z.object({
     sale_price:z.number(),
     start_date:z.date().nullable().optional(),
     end_date:z.date().optional().nullable(),
+    tags: z.array(TagResSchema),
+    categories: z.array(CategoryResSchema),
 })
 export type ProductResType = z.TypeOf<typeof ProductSchema>
 

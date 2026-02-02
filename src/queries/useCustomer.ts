@@ -1,12 +1,12 @@
 import customerApiRequest from "@/apiRequests/customerApi";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { UpdateCustomerPayload } from "@/models/product/customerModel";
-
+import { QueryParams } from "@/types/query";
 
 export const useGetCustomerListQuery =() =>{
     return useQuery({
         queryKey: ['customer'],
-        queryFn: customerApiRequest.list,
+        queryFn: ({ queryKey: [, params] }) => customerApiRequest.list(params as QueryParams),
         refetchOnMount: 'always',
     })
 }

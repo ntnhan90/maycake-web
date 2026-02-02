@@ -1,11 +1,11 @@
 import faqApiRequest from "@/apiRequests/faqApi";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { CreateFaqsBodyType } from "@/models/faqModel";
-
+import { QueryParams } from "@/types/query";
 export const useGetFaqsListQuery = () =>{
     return useQuery({
         queryKey: ['faqs'],
-        queryFn: faqApiRequest.list,
+        queryFn: ({ queryKey: [, params] }) => faqApiRequest.list(params as QueryParams),
         refetchOnMount: 'always',
     })
 }

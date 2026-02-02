@@ -46,6 +46,31 @@ export default function ProductForm({id}:Props){
         },
     });
 
+    let productData = null;
+    if(id){
+        const postId = Number(id);
+        try {
+            const { data, isLoading, error } = useGetProductQuery(postId);
+            productData = data?.payload
+        } catch (error) {
+            return <div>Something went wrong</div>
+        }
+    }
+
+    useEffect(() => {
+        if (productData) {
+            reset({
+                name: productData.name ?? "",
+                description: productData.description ?? "",
+                content: productData.content ??"",
+                is_featured: productData.is_featured ?? 0,
+                status:productData.status  ?? "published",
+                tags: productData.tags?.map((t: any) => t.name) ?? [],
+                categories: productData.categories?.map((t: any) => t.id) ?? [],
+            })
+        }
+    }, [productData, reset])
+
     const onSubmit = async(data: CreateProductBodyType) => {
         try{
             if(id){

@@ -1,11 +1,11 @@
 import taxApiRequest from "@/apiRequests/taxApi";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { CreateTaxBodyType } from "@/models/taxModel";
-
+import { QueryParams } from "@/types/query";
 export const useGetTaxListQuery =() =>{
     return useQuery({
         queryKey: ['tax'],
-        queryFn: taxApiRequest.list
+        queryFn: ({ queryKey: [, params] }) => taxApiRequest.list(params as QueryParams),
     })
 }
 

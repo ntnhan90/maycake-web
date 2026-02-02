@@ -87,7 +87,7 @@ export const productColumns: ColumnDef<ProductResType>[] =[
 						</Button>
                     </DasherTippy>
                     <DasherTippy content="Edit">
-                        <Button href={`/admin/settings/tax/${id}`} variant="ghost btn-icon"
+                        <Button href={`/admin/ecommerce/products/${id}`} variant="ghost btn-icon"
 							size="sm" className="rounded-circle"
                         > 
                             <IconEdit size={16} />

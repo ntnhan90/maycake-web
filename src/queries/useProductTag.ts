@@ -1,11 +1,11 @@
 import tagApiRequest from "@/apiRequests/product/tagApi";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { CreateProTagBodyType } from "@/models/product/tagModel";
-
+import { QueryParams } from "@/types/query";
 export const useGetProductTagListQuery =() =>{
     return useQuery({
         queryKey: ['product-tags'],
-        queryFn: tagApiRequest.list,
+        queryFn: ({ queryKey: [, params] }) => tagApiRequest.list(params as QueryParams),
         refetchOnMount: 'always',
     })
 }

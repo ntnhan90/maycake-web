@@ -1,12 +1,12 @@
 import roleApiRequest from "@/apiRequests/roleApi";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { CreateRoleBodyType } from "@/models/roleModel";
-import { number } from "zod";
+import { QueryParams } from "@/types/query";
 
 export const useGetRoleListQuery = () =>{
     return useQuery({
         queryKey: ['role'],
-        queryFn: roleApiRequest.list
+        queryFn: ({ queryKey: [, params] }) => roleApiRequest.list(params as QueryParams),
     })
 }
 

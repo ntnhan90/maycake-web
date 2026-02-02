@@ -1,11 +1,11 @@
 import contactApiRequest from "@/apiRequests/contactApi";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { CreateContactBodyType } from "@/models/contactModel";
-
+import { QueryParams } from "@/types/query";
 export const useGetContactListQuery = () =>{
     return useQuery({
         queryKey: ['contact'],
-        queryFn: contactApiRequest.list
+        queryFn: ({ queryKey: [, params] }) => contactApiRequest.list(params as QueryParams),
     })
 }
 

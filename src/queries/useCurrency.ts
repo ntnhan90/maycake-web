@@ -1,11 +1,11 @@
 import currencyApiRequest from "@/apiRequests/currencyApi";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { CreateCurrencyBodyType } from "@/models/currencyModel";
-
+import { QueryParams } from "@/types/query";
 export const useGetCurrencyListQuery = () =>{
     return useQuery({
         queryKey: ['currencies'],
-        queryFn: currencyApiRequest.list
+        queryFn: ({ queryKey: [, params] }) => currencyApiRequest.list(params as QueryParams),
     })
 }
 

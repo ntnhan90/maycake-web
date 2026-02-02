@@ -1,12 +1,7 @@
 import postApiRequest from "@/apiRequests/blog/postApi";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { CreatePostBodyType } from "@/models/blog/postModel";
-
-type QueryParams = {
-    q?: string
-    page?: number
-    limit?: number
-}
+import { QueryParams } from "@/types/query";
 
 export const useGetBlogPostListQuery =() =>{
     return useQuery({

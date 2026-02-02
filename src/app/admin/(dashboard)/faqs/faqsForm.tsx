@@ -105,7 +105,7 @@ export default function FaqsForm({id}: Props){
                         })}
                     >
                         <option>Select a category</option>
-                        {cateList.map((item) => (
+                        {cateList.map((item:any) => (
                             <option key={item.id} value={item.id}>{item.name}</option>
                         ))}
                     </Form.Select>

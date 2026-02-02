@@ -57,7 +57,8 @@ export default function ProductTable(){
             setTableState((prev) => ({
                 ...prev,
              //   limit: data.pagination.limit,
-                totalPages: data.pagination.totalPages,
+                //totalPages: data.pagination.totalPages,
+                totalPages: data?.pagination?.totalPages ?? prev.totalPages,
             }));
         }
     }, [data]);

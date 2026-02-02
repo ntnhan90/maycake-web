@@ -50,15 +50,15 @@ export default function PostForm({id}: Props){
 
     let postData = null;
     if(id){
-        const tagId = Number(id);
+        const postId = Number(id);
         try {
-            const { data, isLoading, error } = useGetBlogPostQuery(tagId);
+            const { data, isLoading, error } = useGetBlogPostQuery(postId);
             postData = data?.payload
-            console.log(postData);
         } catch (error) {
             return <div>Something went wrong</div>
         }
     }
+
     useEffect(() => {
         if (postData) {
             reset({

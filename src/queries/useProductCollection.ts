@@ -1,11 +1,11 @@
 import collectionApiRequest from "@/apiRequests/product/collectionApi";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { CreateProCollectionBody, CreateProCollectionBodyType } from "@/models/product/collectionModel";
-
+import { QueryParams } from "@/types/query";
 export const useGetProductCollectionListQuery = () =>{
     return useQuery({
         queryKey: ['product-collection'],
-        queryFn: collectionApiRequest.list
+        queryFn: ({ queryKey: [, params] }) => collectionApiRequest.list(params as QueryParams),
     })
 }
 
