@@ -65,6 +65,9 @@ export default function ProductForm({id}:Props){
                 content: productData.content ??"",
                 is_featured: productData.is_featured ?? 0,
                 status:productData.status  ?? "published",
+                price: productData.price  ??0,
+                sale_price: productData.sale_price  ??0,
+               // views:productData.views  ?? 0,
                 tags: productData.tags?.map((t: any) => t.name) ?? [],
                 categories: productData.categories?.map((t: any) => t.id) ?? [],
             })
@@ -75,7 +78,12 @@ export default function ProductForm({id}:Props){
         try{
             if(id){
                 if(updateProductMutation.isPending ) return
-                console.log("update" , data)
+                await updateProductMutation.mutateAsync({
+                    id: id as number,
+                    ...data,
+                })
+
+                toast.success("Update success")
             }else{
                 if(createProductMutation.isPending)  return
                 
