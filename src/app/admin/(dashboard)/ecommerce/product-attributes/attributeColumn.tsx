@@ -35,27 +35,12 @@ export const attributeColumns: ColumnDef<AttributeSetResType>[] =[
         )
     },
     {
-		accessorKey: "name",
-		header: "Name",
+		accessorKey: "id",
+		header: "Id",
 	},
     {
-		accessorKey: "status",
-		header: "Status",
-        cell:({cell}) =>{
-            const value = cell.getValue() as "pending" | "published" | "draft";
-
-            const colors = {
-                pending: "bg-secondary",
-                published: "bg-success",
-                draft: "bg-warning",
-            };
-
-            return (
-                <span className={`badge text-capitalize text-success-fg ${colors[value]}`}>
-                {value}
-                </span>
-            );
-        }
+		accessorKey: "name",
+		header: "Name",
 	},
     {
 		accessorKey: "",

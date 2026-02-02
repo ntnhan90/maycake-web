@@ -14,7 +14,6 @@ type Props ={
     id?: number
 }
 
-
 type FormValues = {
   color: string;
 };
@@ -65,7 +64,7 @@ export default function LabelForm({id}:Props){
     const onSubmit = async(data:CreateProLabelBodyType) => {
         if(id){
             if(updateLabelMutaion.isPending) return;
-             try {
+            try {
                 let body: CreateProLabelBodyType & {id:number} ={
                     id: id as number,
                     ...data

@@ -36,7 +36,6 @@ export default function CreateCustomerForm() {
         if (addCustomerMutation.isPending) return
         try {
             let body = data
-            console.log("body " , body)
             const result = await addCustomerMutation.mutateAsync(body)
             reset({
                 name:  "",

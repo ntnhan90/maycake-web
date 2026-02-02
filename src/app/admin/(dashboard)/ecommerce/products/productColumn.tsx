@@ -34,6 +34,26 @@ export const productColumns: ColumnDef<ProductResType>[] =[
         )
     },
     {
+		accessorKey: "id",
+		header: "Id",
+	},
+    {
+		accessorKey: "image",
+		header: "Image",
+	},
+    {
+		accessorKey: "name",
+		header: "Name",
+	},
+    {
+		accessorKey: "price",
+		header: "Price",
+	},
+    {
+		accessorKey: "sku",
+		header: "sku",
+	},
+    {
 		accessorKey: "status",
 		header: "Status",
         cell:({cell}) =>{

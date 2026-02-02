@@ -38,7 +38,7 @@ export default function TagForm({id}: Props){
     let tagData = null;
     if(id){
         const tagId = Number(id);
-         try {
+        try {
             const { data, isLoading, error } = useGetProductTagQuery(tagId);
             tagData = data?.payload
         } catch (error) {
@@ -56,29 +56,30 @@ export default function TagForm({id}: Props){
     }, [tagData, reset])
 
     const onSubmit = async(data: CreateProTagBodyType) => {
-        if(id){
-            if(updateTagMutation.isPending) return
-            try {
-                let body: CreateProTagBodyType & {id:number} ={
-                    id: id as number,
-                    ...data
-                }
-                const result = await updateTagMutation.mutateAsync(body)
-                toast.success("update success");
-                router.push("/admin/ecommerce/product-tags")
-            } catch (error) {
-                handleErrorApi({
-                    error,
-                    setError:setError
-                })
-            }
-        }else{
-            if(createTagMutation.isPending) return
-            let body = data;
-            const result = await createTagMutation.mutateAsync(body);
+        try {
+            if (id) {
+                if (updateTagMutation.isPending) return
 
-            toast.success("add success");
+                await updateTagMutation.mutateAsync({
+                    id: id as number,
+                    ...data,
+                })
+
+                toast.success("Update success")
+            } else {
+                if (createTagMutation.isPending) return
+
+                await createTagMutation.mutateAsync(data)
+
+                toast.success("Add success")
+            }
+
             router.push("/admin/ecommerce/product-tags")
+        } catch (error) {
+            handleErrorApi({
+                error,
+                setError,
+            })
         }
     }
 

@@ -2,8 +2,8 @@ import z from 'zod'
 import { PaginationSchema } from '../pagination';
 
 export const TagResSchema = z.object({
-        id: z.number(),
-        name: z.string(),
+    id: z.number(),
+    name: z.string(),
 });
 export type TagResType = z.infer<typeof TagResSchema>;
 
@@ -45,6 +45,7 @@ export const CreatePostBody = z.object({
     image:z.string().nullable().optional(),
     status: z.enum(["pending", "published", "draft"]),
     tags: z.array(z.string()),
+    
     categories: z.array(z.coerce.number()),
 })
 

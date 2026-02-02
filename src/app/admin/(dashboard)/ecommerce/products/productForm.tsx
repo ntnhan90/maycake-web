@@ -13,6 +13,7 @@ import FeatureToggle from "@/components/input/FeatureToggle";
 import ImageUploadBox from "@/components/Image/ImageUploadBox";
 import TagInput from "@/components/input/tagInput";
 import CategorySelect from "@/components/input/categorySelect";
+import LabelSelect from "@/components/input/labelSelect";
 
 type Props ={
     id?: number
@@ -20,6 +21,8 @@ type Props ={
 
 export default function ProductForm({id}:Props){
     const router = useRouter()
+    const createProductMutation = useCreateProductMutation();
+    const updateProductMutation = useUpdateProductMutation();
     const {
         register,
         handleSubmit,
@@ -34,15 +37,33 @@ export default function ProductForm({id}:Props){
         defaultValues: {
             name:"",
             status:"published",
+            is_featured: 0,
+            price: 0,
+            sale_price: 0,
+            views: 0,
+            tags: [],
+            categories: [],
         },
     });
 
     const onSubmit = async(data: CreateProductBodyType) => {
-        if(id){
-            console.log("update" , data)
-        }else{
-            console.log("create" , data)
+        try{
+            if(id){
+                if(updateProductMutation.isPending ) return
+                console.log("update" , data)
+            }else{
+                if(createProductMutation.isPending)  return
+                
+                await createProductMutation.mutateAsync(data)
+                console.log("create" , data)
+            }
+        }catch (error) {
+            handleErrorApi({
+                error,
+                setError,
+            })
         }
+       
     }
 
     return(
@@ -82,6 +103,8 @@ export default function ProductForm({id}:Props){
                                                            
                                 <textarea className="form-control " placeholder="Enter Content"  {...register("content")} />
                              </div>
+
+                            
                         </div>
                     </CardBody>
                 </Card>
@@ -136,21 +159,6 @@ export default function ProductForm({id}:Props){
                     type="product"
                     label="Tags"
                 />
-
-                <Card className="mt-4">
-                    <CardHeader>
-                        <h5 className="card-title">Product Labels
-                            <span className="text-red-500">*</span>
-                        </h5>
-                    </CardHeader>
-                    <CardBody>
-                        <Form.Select aria-label="Default select example" {...register("label")} >
-                            <option value="published">Published</option>
-                            <option value="draft">Draft</option>
-                            <option value="pending">Pending</option>
-                        </Form.Select>
-                    </CardBody>
-                </Card>
 
             </div>
         </form>
