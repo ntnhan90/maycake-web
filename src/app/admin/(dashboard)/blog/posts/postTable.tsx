@@ -1,14 +1,11 @@
 'use client'
-import {Card, CardHeader, Button, Dropdown, DropdownToggle, DropdownMenu, DropdownItem} from "react-bootstrap"
 import TanstackTable from "@/components/table/TanstackTable"
 import TanstackTableV2 from "@/components/table/TanstackTableV2"
 import { SortingState } from "@tanstack/react-table";
-import { useGetBlogPostListQuery } from "@/queries/useBlogPost"
 import { postColumns } from "./postColumn"
 import { useState, useEffect } from "react"
 import postApiRequest from "@/apiRequests/blog/postApi"
-import { PostListRes, PostListResType } from "@/models/blog/postModel"
-
+import { PostListResType } from "@/models/blog/postModel"
 
 export default function PostTable() {
     const [tableState, setTableState] = useState<{

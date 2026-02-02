@@ -3,7 +3,13 @@ import { RoleListResType, RoleResType, CreateRoleBodyType,PermissionListResType 
 
 const prefix = 'roles'
 const roleApiRequest = {
-    list: () => http.get<RoleListResType>(prefix),
+    list:(params?: {
+        search?:string; 
+        q?: string; 
+        page?: number; 
+        limit?: number ,
+        order?:string
+    }) => http.get<RoleListResType>(prefix,{params}),
     create:(body: CreateRoleBodyType) => http.post<RoleResType>(prefix, body),  
     get:(id:number) => http.get<RoleResType>(`${prefix}/${id}`),
     update:(id:number, body:CreateRoleBodyType) => http.put<RoleResType>(`${prefix}/${id}`, body),

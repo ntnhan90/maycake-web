@@ -4,7 +4,13 @@ import { UpdateCustomerPayload } from "@/models/product/customerModel";
 
 const prefix = '/customers'
 const customerApiRequest ={
-    list:() => http.get<CustomerListResType>(`${prefix}`),
+    list:(params?: {
+        search?:string; 
+        q?: string; 
+        page?: number; 
+        limit?: number ,
+        order?:string
+    }) => http.get<CustomerListResType>(prefix,{params}),
     get:(id:number) => http.get<CustomerResType>(`${prefix}/${id}`),
     create:(body: CreateCustomerBodyType) => http.post<CustomerResType>(prefix, body),
     update:(id:number, body:UpdateCustomerPayload) =>http.put<CustomerResType>(`${prefix}/${id}`, body),

@@ -3,7 +3,13 @@ import { DiscountListResType, DiscountResType , CreateDiscountBodyType} from "@/
 
 const prefix = '/discount'
 const discountApiRequest ={
-    list:() => http.get<DiscountListResType>(`${prefix}`),
+    list:(params?: {
+        search?:string; 
+        q?: string; 
+        page?: number; 
+        limit?: number ,
+        order?:string
+    }) => http.get<DiscountListResType>(prefix,{params}),
     get:(id:number) => http.get<DiscountResType>(`${prefix}/${id}`),
     create:(body: CreateDiscountBodyType) => http.post<DiscountResType>(prefix, body),
     update:(id:number, body:CreateDiscountBodyType) =>http.put<DiscountResType>(`${prefix}/${id}`, body),

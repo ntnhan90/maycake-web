@@ -30,6 +30,7 @@ export type RoleResType = z.TypeOf<typeof RoleSchema>
 
 export const RoleListRes = z.object({
     data: z.array(RoleSchema),
+     pagination: PaginationSchema,
 })
 export type RoleListResType = z.TypeOf<typeof RoleListRes>
 

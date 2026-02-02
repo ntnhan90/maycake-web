@@ -3,7 +3,13 @@ import { CreateProTagBodyType, ProTagListResType, ProTagResType } from "@/models
 
 const prefix = '/product-tags'
 const tagApiRequest = {
-    list:() => http.get<ProTagListResType>(`${prefix}`),
+    list:(params?: {
+        search?:string; 
+        q?: string; 
+        page?: number; 
+        limit?: number ,
+        order?:string
+    }) => http.get<ProTagListResType>(prefix,{params}),
     create:(body: CreateProTagBodyType) => http.post<ProTagResType>(prefix, body),
     get:(id:number) => http.get<ProTagResType>(`${prefix}/${id}`),
     update:(id:number, body:CreateProTagBodyType) => http.put<ProTagResType>(`${prefix}/${id}`, body),

@@ -37,6 +37,7 @@ export type FaqsResType = z.TypeOf<typeof FaqsSchema>
 
 export const FaqsListRes = z.object({
     data: z.array(FaqsSchema),
+    pagination: PaginationSchema,
 })
 export type FaqsListResType = z.TypeOf<typeof FaqsListRes>
 

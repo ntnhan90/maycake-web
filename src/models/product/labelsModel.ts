@@ -10,7 +10,7 @@ export type ProLabelResType = z.TypeOf<typeof ProLabelSchema>
 
 export const ProLabelListRes = z.object({
     data: z.array(ProLabelSchema),
-    pagination: z.array(PaginationSchema)
+    pagination: PaginationSchema
 })
 export type ProLabelListResType = z.TypeOf<typeof ProLabelListRes>
 

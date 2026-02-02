@@ -4,7 +4,13 @@ import { AttributeListResType, AttributeSetResType, CreateAttributeSetBodyType }
 const prefix = '/product-attributes'
 
 const attributeApiRequest = {
-    list: () => http.get<AttributeListResType>(`${prefix}`),
+    list:(params?: {
+        search?:string; 
+        q?: string; 
+        page?: number; 
+        limit?: number ,
+        order?:string
+    }) => http.get<AttributeListResType>(prefix,{params}),
     create:(body: CreateAttributeSetBodyType) => http.post<AttributeSetResType>(prefix, body),
     get:(id:number) => http.get<AttributeSetResType>(`${prefix}/${id}`),
     update:(id:number, body:CreateAttributeSetBodyType) => http.put<AttributeSetResType>(`${prefix}/${id}`, body),

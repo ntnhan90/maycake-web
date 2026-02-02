@@ -1,5 +1,6 @@
 import http from "@/utils/http";
 import { CreatePostBodyType, PostListResType, PostResType } from "@/models/blog/postModel";
+
 const prefix = '/posts'
 const postApiRequest = {
     list:(params?: {

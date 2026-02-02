@@ -1,4 +1,4 @@
-import contactApiRequest from "@/apiRequests/contact";
+import contactApiRequest from "@/apiRequests/contactApi";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { CreateContactBodyType } from "@/models/contactModel";
 

@@ -3,7 +3,13 @@ import { FaqsListResType, FaqsResType, CreateFaqsBodyType  } from "@/models/faqM
 const prefix = '/faqs'
 
 const faqApiRequest = {
-    list:() => http.get<FaqsListResType>(`${prefix}`),
+    list:(params?:{
+        search?:string; 
+        q?: string; 
+        page?: number; 
+        limit?: number ,
+        order?:string
+    }) => http.get<FaqsListResType>(prefix,{params}),
     get:(id:number) => http.get<FaqsResType>(`${prefix}/${id}`),
     create:(body: CreateFaqsBodyType) => http.post<FaqsResType>(prefix, body),    
     update:(id:number, body: CreateFaqsBodyType) => http.put<FaqsResType>(`${prefix}/${id}`, body),
