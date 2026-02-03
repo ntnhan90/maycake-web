@@ -88,15 +88,15 @@ export default function ProductForm({id}:Props){
                 if(createProductMutation.isPending)  return
                 
                 await createProductMutation.mutateAsync(data)
-                console.log("create" , data)
+                toast.success("Add success")
             }
+            router.push("/admin/ecommerce/products")
         }catch (error) {
             handleErrorApi({
                 error,
                 setError,
             })
         }
-       
     }
 
     return(

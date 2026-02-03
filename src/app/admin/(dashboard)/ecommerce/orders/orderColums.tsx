@@ -50,7 +50,7 @@ export const orderColumns: ColumnDef<OrderResType>[] = [
         }
 	},
     {
-		accessorKey: "amount",
+		accessorKey: "total_amount",
 		header: "Amount",
 	},
     {
