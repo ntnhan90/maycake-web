@@ -40,21 +40,21 @@ export const OrderListRes = z.object({
 export type OrderListResType = z.TypeOf<typeof OrderListRes>
 
 export const CreateOrderBody = z.object({
-  customer_id: z.number().nullable().optional(),
-  note: z.string().trim().optional().nullable(),
+    customer_id: z.number().nullable().optional(),
+    note: z.string().trim().optional().nullable(),
 
-  products: z.array(OrderProductItem).min(1, {
-    message: 'Please add at least one product',
-  }),
+    products: z.array(OrderProductItem).min(1, {
+        message: 'Please add at least one product',
+    }),
 
-  payment_method: z.enum(['cod', 'bank_transfer']),
-  payment_status: z.enum(['pending', 'paid', 'failed']),
+    payment_method: z.enum(['cod', 'bank_transfer']),
+    payment_status: z.enum(['pending', 'paid', 'failed']),
 
-  sub_amount: DecimalString,
-  tax_amount: DecimalString,
-  discount_amount: DecimalString,
-  total_amount: DecimalString,
+    sub_amount: DecimalString,
+    tax_amount: DecimalString,
+    discount_amount: DecimalString,
+    total_amount: DecimalString,
 
-  status: z.enum(['pending', 'completed', 'cancelled']),
+    status: z.enum(['pending', 'completed', 'cancelled']),
 });
 export type CreateOrderBodyType = z.TypeOf<typeof CreateOrderBody>

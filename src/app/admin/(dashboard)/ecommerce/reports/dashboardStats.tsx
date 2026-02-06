@@ -4,11 +4,12 @@ import {
   DollarSign,
   TrendingUp,
   TrendingDown,
-  Receipt,
   ShoppingCart,
   Users,
   Database,
   PieChart,
+  Store,
+  Building2
 } from 'lucide-react';
 import { StatCard } from '@/components/stat/statCard';
 
@@ -16,11 +17,11 @@ export const dashboardStats = {
     revenue: 12500,
     profit: 8200,
     expenses: 4300,
-    averageOrderValue: 125,
+    store: 125,
     orders: 98,
     customers: 74,
     products: 32,
-    conversionRate: 2.3,
+    franchise: 2,
  
 };
 
@@ -57,9 +58,9 @@ export function DashboardStats() {
 
         <div className="col-md-3">
             <StatCard
-            title="Average Order Value"
-            value={`$${dashboardStats.averageOrderValue}`}
-            icon={<Receipt size={20} />}
+            title="Store"
+            value={`${dashboardStats.store}`}
+            icon={<Store size={20} />}
             iconBg="#4c6ef5"
             />
         </div>
@@ -94,9 +95,9 @@ export function DashboardStats() {
 
         <div className="col-md-3">
             <StatCard
-            title="Conversion Rate"
-            value={`${dashboardStats.conversionRate}%`}
-            icon={<PieChart size={20} />}
+            title="Franchise"
+            value={`${dashboardStats.franchise}`}
+            icon={<Building2 size={20} />}
             iconBg="#fd7e14"
             />
         </div>

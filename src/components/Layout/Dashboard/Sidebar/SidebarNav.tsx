@@ -63,13 +63,10 @@ export default async function SidebarNav() {
                 */}               
                 <SidebarNavItem href="/admin/ecommerce/discounts" icon={faPercent}>{dict.sidebar.items.discounts}  </SidebarNavItem>
                 <SidebarNavItem href="/admin/ecommerce/customers" icon={faUsers}> {dict.sidebar.items.customers}</SidebarNavItem>
+                <SidebarNavItem href="#">{dict.sidebar.items.product_recipes}</SidebarNavItem>
             </SidebarNavGroup>
 
-            <SidebarNavGroup toggleIcon={faNewspaper} toggleText= {dict.sidebar.items.blog}>
-                <SidebarNavItem href="/admin/blog/posts">{dict.sidebar.items.posts}</SidebarNavItem>
-                <SidebarNavItem href="/admin/blog/categories">{dict.sidebar.items.blog_categories}</SidebarNavItem>
-                <SidebarNavItem href="/admin/blog/tags">{dict.sidebar.items.blog_tag}</SidebarNavItem>
-            </SidebarNavGroup>
+
 
             <SidebarNavGroup toggleIcon={faBullseye} toggleText= {dict.sidebar.items.franchise}>
                 <SidebarNavItem href="/admin/franchise/dashboard">{dict.sidebar.items.dashboard}</SidebarNavItem>
@@ -79,7 +76,13 @@ export default async function SidebarNav() {
                 <SidebarNavItem href="#">{dict.sidebar.items.shop_operation}</SidebarNavItem>
                 <SidebarNavItem href="#">{dict.sidebar.items.supply_chain}</SidebarNavItem>
                 <SidebarNavItem href="#">{dict.sidebar.items.retail_order}</SidebarNavItem>
-                <SidebarNavItem href="#">{dict.sidebar.items.product_recipes}</SidebarNavItem>
+                
+            </SidebarNavGroup>
+
+            <SidebarNavGroup toggleIcon={faNewspaper} toggleText= {dict.sidebar.items.blog}>
+                <SidebarNavItem href="/admin/blog/posts">{dict.sidebar.items.posts}</SidebarNavItem>
+                <SidebarNavItem href="/admin/blog/categories">{dict.sidebar.items.blog_categories}</SidebarNavItem>
+                <SidebarNavItem href="/admin/blog/tags">{dict.sidebar.items.blog_tag}</SidebarNavItem>
             </SidebarNavGroup>
 
             <SidebarNavItem icon={faCcPaypal} href="/admin/payments"> {dict.sidebar.items.payments}</SidebarNavItem>

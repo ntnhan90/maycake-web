@@ -14,25 +14,25 @@ type Props = {
 } & PropsWithChildren
 
 export default function SidebarNavItem(props: Props) {
-  const {
-    icon,
-    children,
-    href,
-  } = props
+    const {
+        icon,
+        children,
+        href,
+    } = props
 
-  const {
-    showSidebarState: [, setIsShowSidebar],
-  } = useSidebar()
+    const {
+        showSidebarState: [, setIsShowSidebar],
+    } = useSidebar()
 
-  return (
-    <NavItem as="li">
-      <Link href={href} passHref legacyBehavior>
-        <NavLink className="px-3 py-2 d-flex align-items-center" onClick={() => setIsShowSidebar(false)}>
-          {icon ? <FontAwesomeIcon className="nav-icon ms-n3" icon={icon} />
-            : <span className="nav-icon ms-n3" />}
-          {children}
-        </NavLink>
-      </Link>
-    </NavItem>
-  )
+    return (
+        <NavItem as="li">
+            <Link href={href} passHref legacyBehavior>
+                <NavLink className="px-3 py-2 d-flex align-items-center" onClick={() => setIsShowSidebar(false)}>
+                {icon ? <FontAwesomeIcon className="nav-icon ms-n3" icon={icon} />
+                    : <span className="nav-icon ms-n3" />}
+                {children}
+                </NavLink>
+            </Link>
+        </NavItem>
+    )
 }
