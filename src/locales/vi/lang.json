@@ -312,12 +312,13 @@
             "admin" : "Admin",
             "franchise" : "Nhượng quyền",
             "franchise_crm" : "Nhượng quyền CRM",
-            "contract" : "Hợp đồng",
+            "contracts" : "Hợp đồng",
             "warehouse" : "Kho",
             "shop_operation" : "Vận hành cửa hàng",
             "supply_chain" : "Chuỗi cung ứng",
             "retail_order" :"Đơn đặt hàng",
-            "product_recipes" : "Công thức sản phẩm"
+            "product_recipes" : "Công thức sản phẩm",
+            "product_material" : "Nguyên liệu sản phẩm"
         }
     },
     "form":{

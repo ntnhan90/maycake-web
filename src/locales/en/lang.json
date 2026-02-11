@@ -312,12 +312,13 @@
             "admin" : "Admin",
             "franchise" : "Franchise",
             "franchise_crm" : "Franchise CRM",
-            "contract" : "Contract",
+            "contracts" : "Contracts",
             "warehouse" : "Warehouse",
             "shop_operation" : "Shop Operation",
             "supply_chain" : "Supply Chain",
             "retail_order" :"Retail Order",
-            "product_recipes" : "Product Recipes"
+            "product_recipes" : "Product Recipes",
+            "product_material" : "Product Material"
         }
     },
     "form":{

@@ -1,0 +1,109 @@
+import { Fragment } from "react";
+import { ColumnDef } from "@tanstack/react-table";
+import { IconEdit, IconEye, IconTrash } from "@tabler/icons-react";
+import { Button } from "react-bootstrap";
+import { ProductResType } from "@/models/product/productModel";
+import { MaterialResType } from "@/models/materialModel";
+import DasherTippy from "@/components/common/DashTippy";
+import Checkbox from "@/components/table/Checkbox";
+import Image from 'next/image';
+const DEFAULT_IMAGE = '/img/placeholder.png';
+
+export const materialColumns: ColumnDef<MaterialResType>[] =[
+    {
+        id: "select",
+        header:({table}) =>{
+            return(
+                <Checkbox 
+                {...{
+                    checked: table.getIsAllRowsSelected(),
+                    indeterminate: table.getIsSomeRowsSelected(),
+                    onChange: table.getToggleAllRowsSelectedHandler(),
+                }}
+                />
+            );
+        },
+        cell:({row}) =>(
+            <div>
+                <Checkbox 
+                {...{
+                    checked: row.getIsSelected(),
+                    disabled: !row.getCanSelect(),
+                    indeterminate: row.getIsSomeSelected(),
+                    onChange: row.getToggleSelectedHandler(),
+                }}
+                />
+            </div>
+        )
+    },
+    {
+		accessorKey: "id",
+		header: "Id",
+	},
+    {
+		accessorKey: "name",
+		header: "Name",
+	},
+    {
+		accessorKey: "sku",
+		header: "sku",
+	},
+    {
+		accessorKey: "category",
+		header: "Category",
+	},
+    {
+		accessorKey: "cost_price",
+		header: "Cost Price",
+	},
+    {
+		accessorKey: "status",
+		header: "Status",
+        cell:({cell}) =>{
+            const value = cell.getValue() as "active" | "inactive";
+
+            const colors = {
+                active: "bg-success",
+                inactive: "bg-warning",
+            };
+
+            return (
+                <span className={`badge text-capitalize text-success-fg ${colors[value]}`}>
+                {value}
+                </span>
+            );
+        }
+	},
+    {
+		accessorKey: "",
+		header: "Action",
+        cell: info => {
+            const {id} = info.row.original;
+            return (
+                <Fragment>
+                    <DasherTippy content="View">
+                        <Button href="" variant="ghost btn-icon"
+							size="sm" className="rounded-circle"
+						>
+							<IconEye size={16} />
+						</Button>
+                    </DasherTippy>
+                    <DasherTippy content="Edit">
+                        <Button href={`/admin/ecommerce/products/${id}`} variant="ghost btn-icon"
+							size="sm" className="rounded-circle"
+                        > 
+                            <IconEdit size={16} />
+                        </Button>
+                    </DasherTippy>
+                    <DasherTippy content="Delete">
+						<Button href="" variant="ghost btn-icon"
+							size="sm" className="rounded-circle"
+						>
+							<IconTrash size={16} />
+						</Button>
+					</DasherTippy>
+                </Fragment>
+            )
+        }
+	},
+]
