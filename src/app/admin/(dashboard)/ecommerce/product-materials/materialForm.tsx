@@ -88,10 +88,8 @@ export default function MaterialForm({id}:Props){
             <div className="col-md-9">
                 <div className="mb-3 position-relative">
                     <label className="form-label">Name</label>
-                    <input
-                        {...register("name")}
-                        placeholder="Nhập tiêu đề"
-                        className="form-control"
+                    <input {...register("name")}
+                        placeholder="Nhập tên" className="form-control"
                     />
                     {errors.name && (
                         <p className="text-red-500">{errors.name.message}</p>
