@@ -45,7 +45,6 @@ export const CreatePostBody = z.object({
     image:z.string().nullable().optional(),
     status: z.enum(["pending", "published", "draft"]),
     tags: z.array(z.string()),
-    
     categories: z.array(z.coerce.number()),
 })
 
