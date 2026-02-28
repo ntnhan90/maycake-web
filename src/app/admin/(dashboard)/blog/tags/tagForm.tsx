@@ -59,29 +59,27 @@ export default function BlogTagForm({id}: Props){
     }, [tagData, reset])
 
     const onSubmit = async(data: CreateBlogTagBodyType) => {
-        if(id){
-            if(updateTagMutation.isPending) return
-            try {
+        try {
+            if(id){
                 let body: CreateBlogTagBodyType & {id:number} ={
                     id: id as number,
                     ...data
                 }
-                const result = await updateTagMutation.mutateAsync(body)
+                await updateTagMutation.mutateAsync(body)
                 toast.success("update success");
-                router.push("/admin/blog/tags")
-            } catch (error) {
-                handleErrorApi({
-                    error,
-                    setError:setError
-                })
-            }
-        }else{
-            if(createTagMutation.isPending) return
-            let body = data;
-            const result = await createTagMutation.mutateAsync(body);
+            }else{
+                if(createTagMutation.isPending) return
+                let body = data;
+                await createTagMutation.mutateAsync(body);
 
-            toast.success("add success");
+                toast.success("add success");
+            }
             router.push("/admin/blog/tags")
+        } catch (error) {
+            handleErrorApi({
+                error,
+                setError:setError
+            })
         }
     }
 

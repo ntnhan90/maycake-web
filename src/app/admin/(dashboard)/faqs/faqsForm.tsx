@@ -83,7 +83,6 @@ export default function FaqsForm({id}: Props){
             const result = await createFaqsMutation.mutateAsync(body);
             toast.success("add success");
             router.push("/admin/faqs")
-            console.log("create : " , data)
         }
     }
 

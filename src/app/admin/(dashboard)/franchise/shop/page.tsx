@@ -1,8 +1,7 @@
-
 import { Metadata } from 'next';
 import { Container } from 'react-bootstrap';
 import Link from 'next/link';
-
+import ShopTable from './shopTable';
 export const metadata: Metadata = {
     title: "Contracts Admin",
     description: "Dasher - Responsive Bootstrap 5 Admin Dashboard",
@@ -33,6 +32,7 @@ export default function AdmninFranchiseShopPage() {
                     </div>
                 </div>
             </div>
+            <ShopTable />
         </Container>
     );
 }

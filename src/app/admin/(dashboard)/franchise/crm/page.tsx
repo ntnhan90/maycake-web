@@ -1,10 +1,9 @@
-
 import { Metadata } from 'next';
 import { Container } from 'react-bootstrap';
 import Link from 'next/link';
-
+import FranchiseTable from './crmTable';
 export const metadata: Metadata = {
-    title: "Contracts Admin",
+    title: "Franchise Admin",
     description: "Dasher - Responsive Bootstrap 5 Admin Dashboard",
 };
 
@@ -15,7 +14,7 @@ export default function AdmninFranchiseCrmPage() {
                 <div className="col">
                     <div className="d-md-flex justify-content-between align-items-center mb-8 w-100">
                         <div>
-                            <h1 className="mb-3 h2">Admnin Franchise Contracts Page</h1>
+                            <h1 className="mb-3 h2">Admin Franchise Page</h1>
                             <div className="mt-4">
                                 <div className="container">
                                     <div className="row">
@@ -26,13 +25,14 @@ export default function AdmninFranchiseCrmPage() {
                             </div>
                         </div>
                         <div>
-                            <Link role="button"  href="#" className=" d-md-flex align-items-center gap-2 btn btn-dark">
+                            <Link role="button"  href="/admin/franchise/crm/create" className=" d-md-flex align-items-center gap-2 btn btn-dark">
                                 Create
                             </Link>
                         </div>
                     </div>
                 </div>
             </div>
+            <FranchiseTable />
         </Container>
     );
 }

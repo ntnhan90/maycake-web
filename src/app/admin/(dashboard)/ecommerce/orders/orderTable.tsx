@@ -10,7 +10,7 @@ import orderApiRequest from "@/apiRequests/product/orderApi";
 
 
 export default function OrderTable(){
-const [tableState, setTableState] = useState<{
+    const [tableState, setTableState] = useState<{
         page: number
         limit: number
         totalPages: number

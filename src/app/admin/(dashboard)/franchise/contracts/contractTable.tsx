@@ -1,14 +1,14 @@
 'use client'
+
 import TanstackTable from "@/components/table/TanstackTable"
 import TanstackTableV2 from "@/components/table/TanstackTableV2"
 import { SortingState } from "@tanstack/react-table";
-import { franchiseColumns } from "./crmColumn";
+import { contractColumns } from "./contractColumn";
 import { useState, useEffect } from "react"
-import faqCateApiRequest from "@/apiRequests/faqCateApi";
-import { FranchiseListResType } from "@/models/franchise/crmModel";
-import franchiseApiRequest from "@/apiRequests/franchise/franchiseApi";
+import { ContractListResType } from "@/models/franchise/contractModel";
+import contractApiRequest from "@/apiRequests/franchise/contractApi";
 
-export default function FranchiseTable(){
+export default function ContractTable(){
     const [tableState, setTableState] = useState<{
         page: number
         limit: number
@@ -22,9 +22,10 @@ export default function FranchiseTable(){
         sorting: [],
         search: "",
     })
-    const [data, setData] = useState<FranchiseListResType | null>(null);
+    const [data, setData] = useState<ContractListResType | null>(null);
     const [loading, setLoading ] = useState(false);
-        const fetchFaqCates = async () => {
+
+    const fetchContracts = async() =>{
         setLoading(true);
         const sortParam = tableState.sorting[0]
             ? `${tableState.sorting[0].id}:${tableState.sorting[0].desc ? "desc" : "asc"}`
@@ -37,7 +38,7 @@ export default function FranchiseTable(){
             order: sortParam,
         }
         try{
-            const res = await franchiseApiRequest.list(query)
+            const res = await contractApiRequest.list(query)
             setData(res.payload);
         }finally{
             setLoading(false)
@@ -45,7 +46,7 @@ export default function FranchiseTable(){
     }
 
     useEffect(() => {
-        fetchFaqCates();
+        fetchContracts();
     }, [
         tableState.page,
         tableState.limit,
@@ -69,7 +70,7 @@ export default function FranchiseTable(){
                 <div className="card-body">
                     <TanstackTableV2
                     data={data?.data ?? []}
-                    columns={franchiseColumns}
+                    columns={contractColumns}
                     loading={loading}
                     state={tableState}
                     showSearch

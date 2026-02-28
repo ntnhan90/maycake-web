@@ -64,6 +64,7 @@ export default function OrderForm({ id }: Props) {
     const onSubmit = async (data: CreateOrderBodyType) => {
         try {
             if (isEdit && id) {
+                if(updateOrderMutation.isPending) return
                 await updateOrderMutation.mutateAsync({ id,  ...data });
                 toast.success('Update order success');
             } else {

@@ -20,7 +20,7 @@ export const ContractListRes = z.object({
 })
 export type ContractListResType = z.TypeOf<typeof ContractListRes>
 
-export const CreateContractResBody = z.object({
+export const CreateContractBody = z.object({
     contract_code: z.string(),
     start_date: z.string(),
     end_date: z.string(),
@@ -31,4 +31,4 @@ export const CreateContractResBody = z.object({
     franchiseId:z.number()
 })
 
-export type CreateContractBodyType = z.TypeOf<typeof CreateContractResBody>
+export type CreateContractBodyType = z.TypeOf<typeof CreateContractBody>

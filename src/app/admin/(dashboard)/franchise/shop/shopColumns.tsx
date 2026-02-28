@@ -1,69 +1,62 @@
-import { FranchiseResType } from "@/models/franchise/crmModel";
+import { Fragment } from "react";
+import { ColumnDef } from "@tanstack/react-table";
+import { IconEdit, IconEye, IconTrash } from "@tabler/icons-react";
+import { Button } from "react-bootstrap";
+import { ShopResType } from "@/models/franchise/shopModel";
 import DasherTippy from "@/components/common/DashTippy";
 import Checkbox from "@/components/table/Checkbox";
-import { ColumnDef } from "@tanstack/react-table";
-import { Fragment } from "react";
-import { Button } from "react-bootstrap";
-import { IconEye, IconEdit, IconTrash } from "@tabler/icons-react";
 
-export const franchiseColumns: ColumnDef<FranchiseResType>[] = [
+export const shopColumns: ColumnDef<ShopResType>[] =[
     {
-        id : "select",
-        header: ({table}) =>{
+        id: "select",
+        header:({table}) =>{
             return(
                 <Checkbox 
                 {...{
                     checked: table.getIsAllRowsSelected(),
                     indeterminate: table.getIsSomeRowsSelected(),
-                    onChange: table.getToggleAllRowsSelectedHandler()
+                    onChange: table.getToggleAllRowsSelectedHandler(),
                 }}
                 />
-            )
+            );
         },
-        cell:({ row}) => (
+        cell:({row}) =>(
             <div>
                 <Checkbox 
                 {...{
                     checked: row.getIsSelected(),
                     disabled: !row.getCanSelect(),
                     indeterminate: row.getIsSomeSelected(),
-                    onChange: row.getToggleExpandedHandler(),
-                }} 
+                    onChange: row.getToggleSelectedHandler(),
+                }}
                 />
             </div>
         )
     },
     {
-		accessorKey: "company_name",
+		accessorKey: "id",
+		header: "Id",
+	},
+    {
+		accessorKey: "name",
 		header: "Name",
 	},
     {
-        accessorKey: "owner_name",
-		header: "Owner Name",
-    },
-    {
-        accessorKey: "email",
-		header: "Email",
-    },
-    {
-        accessorKey: "Phone",
-		header: "Phone",
-    },
-    {
-        accessorKey: "",
+		accessorKey: "",
 		header: "Action",
         cell: info => {
             const {id} = info.row.original;
-            return(
+            return (
                 <Fragment>
-                    <DasherTippy content="view">
+                    <DasherTippy content="View">
                         <Button href="" variant="ghost btn-icon"
-							size="sm" className="rounded-circle">
-                            <IconEye size={16} />
-                        </Button>
+							size="sm" className="rounded-circle"
+						>
+							<IconEye size={16} />
+						</Button>
                     </DasherTippy>
                     <DasherTippy content="Edit">
-                        <Button href={`/admin/faqs-categories/${id}`} variant="ghost btn-icon"
+                        <Button href={`/admin/ecommerce/product-attributes/${id}`} variant="ghost btn-icon"
 							size="sm" className="rounded-circle"
                         > 
                             <IconEdit size={16} />
@@ -78,6 +71,7 @@ export const franchiseColumns: ColumnDef<FranchiseResType>[] = [
 					</DasherTippy>
                 </Fragment>
             )
+
         }
-    }
+	},
 ]

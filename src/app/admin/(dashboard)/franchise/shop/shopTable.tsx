@@ -2,13 +2,12 @@
 import TanstackTable from "@/components/table/TanstackTable"
 import TanstackTableV2 from "@/components/table/TanstackTableV2"
 import { SortingState } from "@tanstack/react-table";
-import { franchiseColumns } from "./crmColumn";
+import { shopColumns } from "./shopColumns";
 import { useState, useEffect } from "react"
-import faqCateApiRequest from "@/apiRequests/faqCateApi";
-import { FranchiseListResType } from "@/models/franchise/crmModel";
-import franchiseApiRequest from "@/apiRequests/franchise/franchiseApi";
+import shopApiRequest from "@/apiRequests/franchise/shopApi";
+import { ShopListResType } from "@/models/franchise/shopModel";
 
-export default function FranchiseTable(){
+export default function ShopTable(){
     const [tableState, setTableState] = useState<{
         page: number
         limit: number
@@ -22,9 +21,10 @@ export default function FranchiseTable(){
         sorting: [],
         search: "",
     })
-    const [data, setData] = useState<FranchiseListResType | null>(null);
+    const [data, setData] = useState<ShopListResType | null>(null);
     const [loading, setLoading ] = useState(false);
-        const fetchFaqCates = async () => {
+    
+    const fetchShop = async () => {
         setLoading(true);
         const sortParam = tableState.sorting[0]
             ? `${tableState.sorting[0].id}:${tableState.sorting[0].desc ? "desc" : "asc"}`
@@ -37,7 +37,7 @@ export default function FranchiseTable(){
             order: sortParam,
         }
         try{
-            const res = await franchiseApiRequest.list(query)
+            const res = await shopApiRequest.list(query)
             setData(res.payload);
         }finally{
             setLoading(false)
@@ -45,7 +45,7 @@ export default function FranchiseTable(){
     }
 
     useEffect(() => {
-        fetchFaqCates();
+        fetchShop();
     }, [
         tableState.page,
         tableState.limit,
@@ -57,19 +57,17 @@ export default function FranchiseTable(){
         if (data?.pagination) {
             setTableState((prev) => ({
                 ...prev,
-             //   limit: data.pagination.limit,
                 totalPages: data.pagination.totalPages,
             }));
         }
     }, [data]);
-
-    return(
+    return (
         <div className="row">
-            <div className="card">
+           <div className="card">
                 <div className="card-body">
                     <TanstackTableV2
                     data={data?.data ?? []}
-                    columns={franchiseColumns}
+                    columns={shopColumns}
                     loading={loading}
                     state={tableState}
                     showSearch

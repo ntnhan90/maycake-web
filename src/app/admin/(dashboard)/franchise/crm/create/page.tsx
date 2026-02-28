@@ -1,17 +1,17 @@
-import { Card , Container , Nav} from 'react-bootstrap';
+import { Card , Container } from 'react-bootstrap';
 import { Metadata } from "next";
-import ProAttributeForm from '../attributeForm';
+import CrmForm from '../crmForm';
 
 export const metadata: Metadata = {
-    title: "Create Product Attributes| Maycake",
+    title: "Create Blog Posts | Maycake",
     description: "Dasher - Responsive Bootstrap 5 Admin Dashboard",
 };
 
-export default function UpdateProductAttributePage() {
+export default function CreateFranchiseCrmPage() {
     return (
         <Container>
             <Card className="mb-4 border-0">
-                <ProAttributeForm />
+                <CrmForm />
             </Card>
         </Container>
     );

@@ -1,12 +1,12 @@
-import { FranchiseResType } from "@/models/franchise/crmModel";
 import DasherTippy from "@/components/common/DashTippy";
 import Checkbox from "@/components/table/Checkbox";
 import { ColumnDef } from "@tanstack/react-table";
 import { Fragment } from "react";
 import { Button } from "react-bootstrap";
 import { IconEye, IconEdit, IconTrash } from "@tabler/icons-react";
+import { ContractResType } from "@/models/franchise/contractModel";
 
-export const franchiseColumns: ColumnDef<FranchiseResType>[] = [
+export const contractColumns: ColumnDef<ContractResType>[] = [
     {
         id : "select",
         header: ({table}) =>{
@@ -33,22 +33,15 @@ export const franchiseColumns: ColumnDef<FranchiseResType>[] = [
             </div>
         )
     },
+ 
     {
-		accessorKey: "company_name",
-		header: "Name",
+		accessorKey: "contract_code",
+		header: "contract code",
 	},
     {
-        accessorKey: "owner_name",
-		header: "Owner Name",
-    },
-    {
-        accessorKey: "email",
-		header: "Email",
-    },
-    {
-        accessorKey: "Phone",
-		header: "Phone",
-    },
+		accessorKey: "royalty_percent",
+		header: " royalty percent",
+	},
     {
         accessorKey: "",
 		header: "Action",
@@ -63,7 +56,7 @@ export const franchiseColumns: ColumnDef<FranchiseResType>[] = [
                         </Button>
                     </DasherTippy>
                     <DasherTippy content="Edit">
-                        <Button href={`/admin/faqs-categories/${id}`} variant="ghost btn-icon"
+                        <Button href="" variant="ghost btn-icon"
 							size="sm" className="rounded-circle"
                         > 
                             <IconEdit size={16} />

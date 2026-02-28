@@ -77,35 +77,32 @@ export default function PostForm({id}: Props){
         if (!account_id) {
             throw new Error('Account not loaded')
         }
-        if(id){
-            if(updatePostMutation.isPending) return
-            try {
+
+        try {
+            if(id){
+                if(updatePostMutation.isPending) return
                 let body: CreatePostBodyType & {id:number} ={
                     id: id as number,
                     ...data
                 }
-                console.log(body)
-                const result = await updatePostMutation.mutateAsync(body)
+                await updatePostMutation.mutateAsync(body)
                 toast.success("update success");
-                router.push("/admin/blog/posts")
-            } catch (error) {
-                handleErrorApi({
-                    error,
-                    setError:setError
-                })
-            }
-        }else{
-            if(createPostMutation.isPending) return
+            }else{
+                if(createPostMutation.isPending) return
+                let body = {
+                    ...data,
+                    user_id: account_id,
+                }
+                await createPostMutation.mutateAsync(body);
 
-            let body = {
-                ...data,
-                user_id: account_id,
+                toast.success("add success");
             }
-            console.log(body)
-            const result = await createPostMutation.mutateAsync(body);
-
-            toast.success("add success");
             router.push("/admin/blog/posts")
+        } catch (error) {
+            handleErrorApi({
+                error,
+                setError:setError
+            })
         }
     }
 

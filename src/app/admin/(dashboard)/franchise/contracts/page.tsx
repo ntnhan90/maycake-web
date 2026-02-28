@@ -2,6 +2,7 @@
 import { Metadata } from 'next';
 import { Container } from 'react-bootstrap';
 import Link from 'next/link';
+import ContractTable from './contractTable';
 
 export const metadata: Metadata = {
     title: "Contracts Admin",
@@ -33,6 +34,7 @@ export default function AdmninFranchiseContractsPage() {
                     </div>
                 </div>
             </div>
+            <ContractTable />
         </Container>
     );
 }

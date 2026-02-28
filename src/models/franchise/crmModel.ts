@@ -18,7 +18,7 @@ export const FranchiseListRes = z.object({
 })
 export type FranchiseListResType = z.TypeOf<typeof FranchiseListRes>
 
-export const CreateFranchiseResBody = z.object({
+export const CreateFranchiseBody = z.object({
     company_name: z.string().min(2),
     tax_code: z.string().min(2),
     owner_name:z.string().nullable().optional(),
@@ -26,4 +26,4 @@ export const CreateFranchiseResBody = z.object({
     phone: z.string(),
 })
 
-export type CreateFranchiseBodyType = z.TypeOf<typeof CreateFranchiseResBody>
+export type CreateFranchiseBodyType = z.TypeOf<typeof CreateFranchiseBody>
