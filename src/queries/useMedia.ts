@@ -12,7 +12,8 @@ export const useUploadFileMutation = () =>{
         mutationFn: mediaApiRequest.uploadFile,
         onSuccess: () =>{
             queryClient.invalidateQueries({
-                queryKey: ['media']
+                queryKey: ['media'],
+               // refetchOnMount: 'always',
             })
         }
     })

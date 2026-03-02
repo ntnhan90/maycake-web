@@ -4,7 +4,7 @@ import { useEffect, useState ,useRef} from 'react'
 import { Folder, Image ,FolderPlus} from 'react-bootstrap-icons'
 import { useQuery } from '@tanstack/react-query'
 import { MediaItem, MediaTreeType } from '@/types/media.type'
-import { Modal, Button } from "react-bootstrap";
+import { Modal ,DropdownDivider} from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CreateFolderBody, CreateFolderBodyType } from '@/models/folderModel';
@@ -60,6 +60,7 @@ export default function MediaManager({ onSelect }: MediaManagerProps) {
         register,
         handleSubmit,
         setError,
+        reset,
         formState: { errors },
     } = useForm<CreateFolderBodyType>({
         resolver: zodResolver(CreateFolderBody),
@@ -79,10 +80,11 @@ export default function MediaManager({ onSelect }: MediaManagerProps) {
                 parent_id:currentFolderId ?? 0
             }
            
-            const result = await uploadFolderMutation.mutateAsync(body)
-            console.log(result)
+            await uploadFolderMutation.mutateAsync(body)
+            
             toast.success("add folder success");
             setShowFolder(false)
+            reset()
             router.refresh()
         } catch (error) {
             handleErrorApi({
@@ -105,12 +107,13 @@ export default function MediaManager({ onSelect }: MediaManagerProps) {
         await uploadFileMutation.mutateAsync(formData)
 
         toast.success('Upload success')
+        router.refresh()
     }
 
     /* ---------- LOCAL STATE ---------- */
     const [mediaTree, setMediaTree] = useState<MediaTreeType>({})
     const [pathStack, setPathStack] = useState<string[]>(['0']) // root = "0"
-    const [selected, setSelected] = useState<string | null>(null)
+    const [selected, setSelected] = useState<MediaItem | null>(null)
     
     const [contextMenu, setContextMenu] = useState<{
         x: number
@@ -167,10 +170,8 @@ export default function MediaManager({ onSelect }: MediaManagerProps) {
     const selectFile = (item: MediaItem) => {
         if (item.type !== 'file') return
 
-       // const url = `${process.env.NEXT_PUBLIC_BASE_URL}/${item.url}`
-        const url = `${item.url}`;
-        setSelected(url)
-        onSelect?.(url)
+        setSelected(item)
+        onSelect?.(item.url)
     }
 
     const onRightClick = (e: React.MouseEvent, item: MediaItem) => {
@@ -252,7 +253,7 @@ export default function MediaManager({ onSelect }: MediaManagerProps) {
                                 {items.map(item => (
                                 <div key={`${item.type}-${item.id}`} className="col-6 col-md-3 col-lg-2 mt-2">
                                     <div className={`card h-100 text-center ${
-                                            selected?.endsWith(item.name) ? 'border-primary' : ''
+                                            selected?.id === item.id ? 'border-primary' : ''
                                         }`}
                                         onClick={() =>
                                             item.type === 'folder'
@@ -263,12 +264,18 @@ export default function MediaManager({ onSelect }: MediaManagerProps) {
                                     >
                                         <div className="card-body d-flex flex-column justify-content-center align-items-center">
                                             {item.type === 'folder' ? (
-                                            <Folder size={36} />
+                                                <Folder size={36} />
                                             ) : (
-                                            <Image size={36} />
+                                                <img
+                                                    src={`${process.env.NEXT_PUBLIC_URL}${item.url}`}
+                                                    alt={item.name}
+                                                    width={36}
+                                                    height={36}
+                                                    style={{ objectFit: "cover" }}
+                                                />
                                             )}
                                             <p className="mt-2 small text-truncate w-100">
-                                            {item.name}
+                                            {item.name} 
                                             </p>
                                         </div>
                                     </div>
@@ -284,8 +291,15 @@ export default function MediaManager({ onSelect }: MediaManagerProps) {
                             <div className="border rounded p-4 h-100 d-flex flex-column align-items-center justify-content-center">
                                 {selected ? (
                                     <>
-                                        <Image size={80} />
-                                        <p className="mt-3 small text-break">{selected}</p>
+                                        <img
+                                            src={`${process.env.NEXT_PUBLIC_URL}${selected.url}`}
+                                            alt={selected.name}
+                                            style={{ width: 80, height: 80, objectFit: "cover" }}
+                                        />
+                                        <p className="mt-3 small text-break">
+                                            {selected.name}
+                                        </p>
+                                         <DropdownDivider />
                                     </>
                                     ) : (
                                     <>
@@ -328,15 +342,12 @@ export default function MediaManager({ onSelect }: MediaManagerProps) {
                         console.log(err)
                     })} className="row">
                         <div className='input-group'>
-                            <input className="form-control " placeholder="Enter name"  {...register("name")} />
-                            
+                            <input className="form-control" placeholder="Enter name"  {...register("name")} />
                             <button className="btn btn-primary" type="submit"> Create </button>
                         </div>
                         {errors.name && <p className="text-red-500">{errors.name.message}</p>}
-
                     </form>
                 </Modal.Body>
-                
             </Modal>
         </>
     )

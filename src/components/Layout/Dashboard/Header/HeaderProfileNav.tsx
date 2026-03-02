@@ -46,7 +46,7 @@ export default async function HeaderProfileNav() {
                         
                     <Link href="#" passHref legacyBehavior>
                         <DropdownItem>
-                            <ItemWithIcon icon={faGear}>{dict.profile.settings.items.settings} -2</ItemWithIcon>
+                            <ItemWithIcon icon={faGear}>{dict.profile.settings.items.settings}</ItemWithIcon>
                         </DropdownItem>
                     </Link>
 

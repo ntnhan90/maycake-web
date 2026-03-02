@@ -1,7 +1,6 @@
 import MediaManager from '@/components/media/mediaManager';
 import { Metadata } from 'next';
 
-
 export const metadata: Metadata = {
     title: "Media Admin",
     description: "Dasher - Responsive Bootstrap 5 Admin Dashboard",
