@@ -314,11 +314,12 @@
             "franchise_crm" : "Franchise CRM",
             "contracts" : "Contracts",
             "warehouse" : "Warehouse",
-            "shop_operation" : "Shop Operation",
+            "shop_operation" : "Shop",
             "supply_chain" : "Supply Chain",
             "retail_order" :"Retail Order",
             "product_recipes" : "Product Recipes",
-            "product_material" : "Product Material"
+            "product_material" : "Product Material",
+            "calendar" : "Calendar"
         }
     },
     "form":{

@@ -31,7 +31,7 @@ import {
     faReceipt,
     faUserTie,
     faChartPie,
-    faCubes
+    faCubes,faCalendar
 } from '@fortawesome/free-solid-svg-icons'
 import { faCcPaypal } from '@fortawesome/free-brands-svg-icons'
 import React, { PropsWithChildren } from 'react'
@@ -76,8 +76,6 @@ export default async function SidebarNav() {
                 <SidebarNavItem href="/admin/ecommerce/product-materials" icon={faCubes}>{dict.sidebar.items.product_material}  </SidebarNavItem>
             </SidebarNavGroup>
 
-
-
             <SidebarNavGroup toggleIcon={faBullseye} toggleText= {dict.sidebar.items.franchise}>
                 <SidebarNavItem href="/admin/franchise/dashboard"  icon={faChartPie}>{dict.sidebar.items.dashboard}</SidebarNavItem>
                 <SidebarNavItem href="/admin/franchise/crm" icon={faUserTie}>{dict.sidebar.items.franchise_crm}</SidebarNavItem>
@@ -95,7 +93,7 @@ export default async function SidebarNav() {
             </SidebarNavGroup>
 
             <SidebarNavItem icon={faCcPaypal} href="/admin/payments"> {dict.sidebar.items.payments}</SidebarNavItem>
-
+            <SidebarNavItem icon={faCalendar} href="/admin/calendar"> {dict.sidebar.items.calendar}</SidebarNavItem>
             <SidebarNavItem icon={faEnvelope} href="/admin/contact"> {dict.sidebar.items.contact}</SidebarNavItem>
 
             <SidebarNavGroup toggleIcon={faFileLines} toggleText={dict.sidebar.items.faqs}>

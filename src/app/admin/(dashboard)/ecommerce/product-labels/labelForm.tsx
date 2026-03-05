@@ -62,29 +62,28 @@ export default function LabelForm({id}:Props){
     }, [labelData, reset])
 
     const onSubmit = async(data:CreateProLabelBodyType) => {
-        if(id){
-            if(updateLabelMutaion.isPending) return;
-            try {
+        try {
+            let body = data;
+            if (id) {
+                if(updateLabelMutaion.isPending) return;
                 let body: CreateProLabelBodyType & {id:number} ={
                     id: id as number,
                     ...data
                 }
                 const result = await updateLabelMutaion.mutateAsync(body)
-                toast.success("update success");
-                router.push("/admin/ecommerce/product-labels")
-            } catch (error) {
-                handleErrorApi({
-                    error,
-                    setError:setError
-                })
+                toast.success("Update success");
+            } else {
+                if(createLabelMutation.isPending ) return
+                await createLabelMutation.mutateAsync(body);
+                toast.success("Create success");
             }
-        }else{
-            if(createLabelMutation.isPending) return;
-            let body = data;
-            const result = await createLabelMutation.mutateAsync(body);
-            toast.success("add success");
-            router.push("/admin/ecommerce/product-labels")
+        } catch (error) {
+            handleErrorApi({
+                error,
+                setError:setError
+            })
         }
+        router.push("/admin/ecommerce/product-labels")
     }
 
     return(

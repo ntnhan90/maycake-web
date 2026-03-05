@@ -318,7 +318,8 @@
             "supply_chain" : "Chuỗi cung ứng",
             "retail_order" :"Đơn đặt hàng",
             "product_recipes" : "Công thức sản phẩm",
-            "product_material" : "Nguyên liệu sản phẩm"
+            "product_material" : "Nguyên liệu sản phẩm",
+            "calendar" : "Calendar"
         }
     },
     "form":{

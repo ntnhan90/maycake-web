@@ -2,7 +2,7 @@
 import { Metadata } from 'next';
 import { Container } from 'react-bootstrap';
 import Link from 'next/link';
-
+import SupplyOrderTable from './supplyOrderTable';
 export const metadata: Metadata = {
     title: "Contracts Admin",
     description: "Dasher - Responsive Bootstrap 5 Admin Dashboard",
@@ -33,6 +33,7 @@ export default function AdmninFranchiseOrderPage() {
                     </div>
                 </div>
             </div>
+            <SupplyOrderTable />
         </Container>
     );
 }
