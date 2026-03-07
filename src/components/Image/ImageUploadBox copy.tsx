@@ -2,29 +2,29 @@
 
 import { useState } from 'react'
 import { Image } from 'react-bootstrap-icons'
-import { useController, Control } from 'react-hook-form'
+import { UseFormSetValue, UseFormWatch } from 'react-hook-form'
 import MediaManager from '../media/mediaManager'
 import { mediaUrl } from '@/utils/lib'
 
 interface Props {
     name: string
-    control: Control<any>
+    setValue: UseFormSetValue<any>
+    watch: UseFormWatch<any>
 }
 
-export default function ImageUploadBox({ name, control}: Props) {
+export default function ImageUploadBox({ name, setValue, watch }: Props) {
     const [open, setOpen] = useState(false)
     const [selectedImage, setSelectedImage] = useState<string | null>(null)
-    const { field } = useController({
-        name,
-        control
-    })
+    const value = watch(name)
 
     // const preview = typeof value === 'string' ? value : null
-    const preview = mediaUrl(field.value)
+    const preview = mediaUrl(value)
 
     const handleInsert = () =>{
+        console.log("open")
         if( !selectedImage) return;
-        field.onChange(selectedImage)
+        console.log("open 12")
+        setValue(name, selectedImage, { shouldValidate: true })
         setOpen(false)
     }
     return (

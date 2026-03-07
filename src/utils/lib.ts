@@ -168,3 +168,10 @@ export function getPaginationPages(
     pages.push(totalPages);
     return pages
 }  
+
+
+export const mediaUrl = (path:string) =>{
+    if(!path) return ''
+    if(path.startsWith('http')) return path
+    return `${process.env.NEXT_PUBLIC_URL}${path}`
+}

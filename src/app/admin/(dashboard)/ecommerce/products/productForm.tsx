@@ -13,7 +13,6 @@ import FeatureToggle from "@/components/input/FeatureToggle";
 import ImageUploadBox from "@/components/Image/ImageUploadBox";
 import TagInput from "@/components/input/tagInput";
 import CategorySelect from "@/components/input/categorySelect";
-import LabelSelect from "@/components/input/labelSelect";
 
 type Props ={
     id?: number
@@ -182,8 +181,7 @@ export default function ProductForm({id}:Props){
 
                 <ImageUploadBox
                     name="image"
-                    setValue={setValue}
-                    watch={watch}
+                    control={control}
                 />
 
                 <TagInput

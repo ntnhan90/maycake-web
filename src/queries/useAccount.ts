@@ -1,6 +1,7 @@
-import accountApiRequest from "@/apiRequests/account";
+import accountApiRequest from "@/apiRequests/accountApi";
 import { cookies } from 'next/headers'
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { UpdateAccountBodyType } from "@/models/accountModel";
 
 export const useAccountProfile = () =>{
     return useQuery({
@@ -35,3 +36,17 @@ export const useAddAccountMutation =() =>{
         }
     })
 }
+
+export const useUpdateAccountMutation = () =>{
+    const queryClient = useQueryClient()
+    return useMutation({
+        mutationFn:({id,...body}: UpdateAccountBodyType & {id:number}) =>
+            accountApiRequest.update(id, body),
+        onSuccess:() =>{
+            queryClient.invalidateQueries({
+                queryKey: ['user']
+            })
+        }
+    })
+}
+

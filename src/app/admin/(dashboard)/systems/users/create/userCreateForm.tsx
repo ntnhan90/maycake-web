@@ -9,6 +9,7 @@ import { CreateAccountBody,CreateAccountBodyType} from "@/models/accountModel";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
+import ImageUploadBox from "@/components/Image/ImageUploadBox";
 
 export default function UserCreateForm() {
     const [file, setFile] = useState<File | null>(null)
@@ -18,6 +19,7 @@ export default function UserCreateForm() {
         formState: { errors },
         setError,
         reset,
+        control,
     } = useForm<CreateAccountBodyType>({
         resolver: zodResolver(CreateAccountBody),
         defaultValues: {
@@ -135,6 +137,12 @@ export default function UserCreateForm() {
                             <Button variant="primary" type="submit">Save</Button>
                         </div>
                     </CardBody>
+                </Card>
+                <Card className="mt-">
+                    <ImageUploadBox
+                        name="image"
+                        control={control}
+                    />
                 </Card>
             </div>
             

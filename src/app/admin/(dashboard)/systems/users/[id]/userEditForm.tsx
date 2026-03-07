@@ -1,12 +1,17 @@
 "use client";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useGetAccount} from "@/queries/useAccount"
+import { useGetAccount, useUpdateAccountMutation} from "@/queries/useAccount"
 import { Card, CardBody , CardHeader, Button, Form} from "react-bootstrap";
 import {  UpdateAccountBody ,UpdateAccountBodyType} from "@/models/accountModel";
 import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-regular-svg-icons";
+import ImageUploadBox from "@/components/Image/ImageUploadBox";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
+import { handleErrorApi } from "@/utils/lib";
+
 export default function UserEditForm({id}:{id?:number}) {
     let userData = null;
     const [show, setShow] = useState(false)
@@ -23,18 +28,23 @@ export default function UserEditForm({id}:{id?:number}) {
     if(id){
         const userId = Number(id)
         try {
-            const { data, isLoading, error } = useGetAccount(userId);
+            const { data } = useGetAccount(userId);
             userData = data?.payload
         } catch (error) {
             return <div>Something went wrong</div>
         }
     }
 
+    const router = useRouter()
+    const updateAccountMutation = useUpdateAccountMutation()
+
     const {
         register,
         handleSubmit,
         formState: { errors },
-        reset
+        reset,
+        setError,
+        control
     } = useForm<UpdateAccountBodyType>({
         resolver: zodResolver(UpdateAccountBody),
         defaultValues: {
@@ -44,6 +54,8 @@ export default function UserEditForm({id}:{id?:number}) {
             confirmPassword: undefined,
             first_name: "",
             last_name: "",
+            avatar: "", 
+            phone: ""
         },
     });
 
@@ -56,12 +68,31 @@ export default function UserEditForm({id}:{id?:number}) {
                 last_name:userData.last_name ?? "",
                 password: "",           // không fill password
                 confirmPassword: "",
+                avatar: userData.avatar ?? "",
+                phone: userData.phone ?? ""
             })
         }
     }, [userData, reset])
 
     const onSubmit = async (data: UpdateAccountBodyType) => {
-        console.log("Edit" , data)
+        if (updateAccountMutation.isPending) return
+        try {
+            let body: UpdateAccountBodyType & {id:number} ={
+                id: id as number,
+                ...data
+            }
+            console.log("Edit" , body)
+            await updateAccountMutation.mutateAsync(body)
+                   
+            toast.success("update success");
+            router.push("/admin/systems/users")
+        } catch (error) {
+            console.error(error)
+            handleErrorApi({
+                error,
+                setError: setError
+            })
+        }
     };
 
     return (
@@ -107,7 +138,7 @@ export default function UserEditForm({id}:{id?:number}) {
                                 <label className="form-label form-label" htmlFor="phone">
                                     Phone <span className="text-red-500">*</span>
                                 </label>
-                                <input className="form-control " placeholder="Enter phone"  name="phone"/>
+                                <input className="form-control " placeholder="Enter phone"  {...register("phone")}/>
                             </div>
 
                             <div className="col-lg-12">
@@ -185,6 +216,12 @@ export default function UserEditForm({id}:{id?:number}) {
                             <Button variant="primary" type="submit">Save</Button>
                         </div>
                     </CardBody>
+                </Card>
+                <Card className="mt-3 no-border">
+                    <ImageUploadBox
+                        name="avatar"
+                        control={control}
+                    />
                 </Card>
             </div>
         </form>

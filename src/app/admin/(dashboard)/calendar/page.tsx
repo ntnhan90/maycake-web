@@ -1,6 +1,5 @@
 import { Card , CardBody, CardHeader, Container, Row} from 'react-bootstrap';
 import { Metadata } from 'next';
-import SchedulePage from './schedule';
 export const metadata: Metadata = {
     title: "Setting Admin",
     description: "Dasher - Responsive Bootstrap 5 Admin Dashboard",
@@ -9,8 +8,7 @@ export const metadata: Metadata = {
 export default function SettingsPage() {
     return (
         <Container>
-            <SchedulePage />
-
+            Calender
         </Container>
     );
 }

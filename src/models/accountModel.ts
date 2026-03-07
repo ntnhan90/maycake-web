@@ -5,10 +5,11 @@ export const AccountSchema = z.object({
     username: z.string(),
     email: z.string(),
     //role: z.enum([Role.Admin, Role.Franchise, Role.Store]),
-    avatar_id: z.string().nullable(),
+    avatar: z.string().nullable(),
     isActive: z.number(),
     first_name: z.string(),
     last_name: z.string(),
+    phone:z.string(),
 })
 export type AccountType = z.TypeOf<typeof AccountSchema>
 export type AccountResType = z.TypeOf<typeof AccountSchema>
@@ -47,16 +48,18 @@ export const UpdateAccountBody = z.object({
     last_name: z.string().min(1, "Required"),
     password: z
         .string()
-        .min(6, "Password min 6 chars")
-        .or(z.literal(""))
-        .transform(v => (v === "" ? undefined : v))
-        .optional(),
+        .optional()
+        .transform(v => v === "" ? undefined : v)
+        .refine(v => !v || v.length >= 6, {
+            message: "Password min 6 chars"
+        }),
+
     confirmPassword: z
         .string()
-        .min(6, "Password min 6 chars")
-        .or(z.literal(""))
-        .transform(v => (v === "" ? undefined : v))
-        .optional(),
+        .optional()
+        .transform(v => v === "" ? undefined : v),
+    avatar: z.string().optional().nullable(),
+    phone: z.string().optional().nullable(),
 })
 .superRefine((data, ctx) => {
     if (data.password && data.password !== data.confirmPassword) {

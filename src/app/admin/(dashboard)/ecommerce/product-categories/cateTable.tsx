@@ -79,7 +79,7 @@ function SortableItem({
                 </span>
 
                 <span role="button" onClick={() => onSelect(item)}>
-                {item.name} <span className="text-primary">({item.count})</span>
+                    {item.name} <span className="text-primary">({item.count})</span>
                 </span>
             </div>
         </div>
@@ -174,7 +174,6 @@ export default function CategoryManager() {
     const {
         register,
         handleSubmit,
-        formState: { errors },
         reset,
         control,
         watch,
@@ -298,8 +297,7 @@ export default function CategoryManager() {
                                 <div className="mb-3">
                                     <ImageUploadBox
                                         name="image"
-                                        setValue={setValue}
-                                        watch={watch}
+                                        control={control}
                                     />
                                 </div>
                                 <Button variant="primary" type="submit">Save</Button>
