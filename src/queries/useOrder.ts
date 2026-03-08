@@ -14,7 +14,7 @@ export const useGetOrderListQuery =() =>{
 export const useCreateOrderMutation = () =>{
     const queryClient = useQueryClient()
     return useMutation({
-        mutationFn: orderApiRequest.create,
+         mutationFn: (id: number) => orderApiRequest.delete(id),
         onSuccess:() =>{
             queryClient.invalidateQueries({
                 queryKey: ['order']

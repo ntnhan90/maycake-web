@@ -48,7 +48,7 @@ export const useUpdateMaterialMutation = () =>{
 export const useDeleteMaterialMutaion = () => {
     const queryClient = useQueryClient()
     return useMutation({
-        mutationFn: materialApiRequest.delete,
+         mutationFn: (id: number) => materialApiRequest.delete(id),
         onSuccess: () => {
             queryClient.invalidateQueries({
                 queryKey: ['material']

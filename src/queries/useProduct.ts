@@ -14,7 +14,7 @@ export const useGetProductListQuery = () =>{
 export const useCreateProductMutation = () =>{
     const queryClient = useQueryClient()
     return useMutation({
-        mutationFn: productApiRequest.create,
+         mutationFn: (id: number) => productApiRequest.delete(id),
         onSuccess:() =>{
             queryClient.invalidateQueries({
                 queryKey: ['product']

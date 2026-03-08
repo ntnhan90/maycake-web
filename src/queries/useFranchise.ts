@@ -14,7 +14,7 @@ export const useGetFranchiseListQuery =() =>{
 export const useCreateFranchiseMutation = () =>{
     const queryClient = useQueryClient()
     return useMutation({
-        mutationFn: franchiseApiRequest.create,
+        mutationFn: (id: number) => franchiseApiRequest.delete(id),
         onSuccess:() =>{
             queryClient.invalidateQueries({
                 queryKey: ['franchise']

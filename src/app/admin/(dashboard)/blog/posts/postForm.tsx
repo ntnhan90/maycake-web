@@ -187,12 +187,10 @@ export default function PostForm({id}: Props){
                     />
                     )}
                 />
-              
 
                 <ImageUploadBox
                     name="image"
-                    setValue={setValue}
-                    watch={watch}
+                    control={control}
                 />
 
                 <TagInput

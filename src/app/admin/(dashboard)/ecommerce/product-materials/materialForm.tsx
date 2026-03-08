@@ -8,7 +8,6 @@ import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
 import { handleErrorApi } from "@/utils/lib";
-import SlugInput from "@/components/input/slugInput";
 type Props = {
     id? :number
 }

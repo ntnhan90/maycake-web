@@ -13,7 +13,7 @@ export const useGetDiscountListQuery =() =>{
 export const useCreateDiscountMutation = () =>{
     const queryClient = useQueryClient()
     return useMutation({
-        mutationFn: discountApiRequest.create,
+         mutationFn: (id: number) => discountApiRequest.delete(id),
         onSuccess:() =>{
             queryClient.invalidateQueries({
                 queryKey: ['discount']

@@ -1,10 +1,14 @@
 import { toast } from "react-toastify";
 import { UseFormSetError } from 'react-hook-form'
 import { EntityError } from "./http";
-import { Role,TokenPayload } from "@/types/jwt.type";
+import { TokenPayload } from "@/types/jwt.type";
 import { jwtDecode } from 'jwt-decode'
 import authApiRequest from "@/apiRequests/auth";
 import { io } from 'socket.io-client'
+import { CategoryItem } from "@/models/categoryManager";
+import { UseFormSetValue } from "react-hook-form";
+import { CreateBlogCateBodyType } from "@/models/blog/categoryModel";
+
 /**
  * Xóa đi ký tự `/` đầu tiên của path
  */
@@ -169,9 +173,40 @@ export function getPaginationPages(
     return pages
 }  
 
-
 export const mediaUrl = (path:string) =>{
     if(!path) return ''
     if(path.startsWith('http')) return path
     return `${process.env.NEXT_PUBLIC_URL}${path}`
 }
+
+
+export const getParentName = (
+    parentId: number,
+    categories: CategoryItem[]
+) => {
+    if (parentId === 0) return "None";
+
+    const parent = categories.find(c => c.id === parentId);
+    return parent ? parent.name : "Unknown";
+};
+
+interface SelectCategoryParams {
+    item: CategoryItem;
+    setSelected: (item: CategoryItem | null) => void;
+    setValue: UseFormSetValue<CreateBlogCateBodyType>;
+}
+
+export const onSelectCategory = ({
+  item,
+  setSelected,
+  setValue,
+}: SelectCategoryParams) => {
+    setSelected(item);
+
+    setValue("name", item.name);
+    setValue("parent_id", item.parent_id);
+    setValue("description", "");
+    setValue("is_featured", item.is_featured);
+    setValue("is_default", item.is_default);
+    setValue("image", item.image ?? "");
+};

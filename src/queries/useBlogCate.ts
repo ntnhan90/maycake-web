@@ -55,7 +55,7 @@ export const useUpdateBlogCateMutation = () =>{
 export const useDeleteBlogCateMutaion = () => {
     const queryClient = useQueryClient()
     return useMutation({
-        mutationFn: blogCategoryApiRequest.delete,
+        mutationFn: (id: number) => blogCategoryApiRequest.delete(id),
         onSuccess: () => {
             queryClient.invalidateQueries({
                 queryKey: ['blog-cate']

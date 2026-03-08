@@ -12,7 +12,7 @@ export const useGetContactListQuery = () =>{
 export const useCreateContactMutation = () =>{
     const queryClient = useQueryClient()
     return useMutation({
-        mutationFn: contactApiRequest.create,
+         mutationFn: (id: number) => contactApiRequest.delete(id),
         onSuccess:() =>{
             queryClient.invalidateQueries({
                 queryKey: ['role']

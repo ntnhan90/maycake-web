@@ -14,7 +14,7 @@ export const useGetContractListQuery =() =>{
 export const useCreateContractMutation = () =>{
     const queryClient = useQueryClient()
     return useMutation({
-        mutationFn: contractApiRequest.create,
+         mutationFn: (id: number) => contractApiRequest.delete(id),
         onSuccess:() =>{
             queryClient.invalidateQueries({
                 queryKey: ['contract']

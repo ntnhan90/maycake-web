@@ -2,7 +2,6 @@
 import { useState } from "react";
 import { DndContext, closestCenter } from "@dnd-kit/core";
 import { SortableContext, verticalListSortingStrategy, useSortable } from "@dnd-kit/sortable";
-import { CSS } from "@dnd-kit/utilities";
 import { CreateProCateBodyType , CreateProCateBody} from "@/models/product/categoryModel";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -15,78 +14,10 @@ import { handleErrorApi } from "@/utils/lib";
 import { CategoryWithCountType } from "@/models/blog/categoryModel";
 import FeatureToggle from "@/components/input/FeatureToggle";
 import { useCreateProductCateMutation, useUpdateProductCateMutation,useGetProductCateTreeQuery } from "@/queries/useProductCate";
-// ================= TYPES =================
-export interface CategoryItem {
-    id: number;
-    name: string;
-    count: number;
-    parent_id: number;
-    is_featured: number;
-    is_default: number;
-}
+import { CategoryItem } from "@/models/categoryManager";
+import { renderCategories ,renderParentOptions} from "@/utils/render";
+import { onSelectCategory } from "@/utils/lib";
 
-interface SortableItemProps {
-    item: CategoryItem;
-    depth: number;
-    hasChildren: boolean;
-    isExpanded: boolean;
-    onToggle: (id: number) => void;
-    onSelect: (item: CategoryItem) => void;
-}
-
-// ================= SORTABLE ITEM =================
-function SortableItem({
-    item,
-    depth,
-    hasChildren,
-    isExpanded,
-    onToggle,
-    onSelect,
-}: SortableItemProps) {
-    const { attributes, listeners, setNodeRef, transform, transition } =
-        useSortable({ id: item.id });
-
-    const style: React.CSSProperties = {
-        transform: CSS.Transform.toString(transform),
-        transition,
-        marginLeft: depth * 20,
-    };
-
-    return (
-        <div
-            ref={setNodeRef}
-            style={style}
-            className="d-flex align-items-center justify-content-between p-2 border rounded mb-1 bg-white"
-        >
-            <div className="d-flex align-items-center gap-2">
-                {hasChildren && (
-                <button
-                    type="button"
-                    className="btn btn-sm btn-light"
-                    onClick={() => onToggle(item.id)}
-                >
-                    {isExpanded ? "−" : "+"}
-                </button>
-                )}
-
-                <span
-                {...attributes}
-                {...listeners}
-                className="text-muted"
-                style={{ cursor: "grab" }}
-                >
-                ≡
-                </span>
-
-                <span role="button" onClick={() => onSelect(item)}>
-                    {item.name} <span className="text-primary">({item.count})</span>
-                </span>
-            </div>
-        </div>
-    );
-}
-
-// ================= MAIN COMPONENT =================
 export default function CategoryManager() {
     const router = useRouter()
     const createCateMutation = useCreateProductCateMutation();
@@ -106,70 +37,17 @@ export default function CategoryManager() {
         }));
     };
 
-    const renderCategories = (parentId: number, depth = 0) => {
-        return categories
-            .filter(c => c.parent_id === parentId)
-            .map(cat => {
-            const children = categories.filter(c => c.parent_id === cat.id);
-            const hasChildren = children.length > 0;
-            const isExpanded = !!expanded[cat.id];
-
-            return (
-                <div key={cat.id}>
-                    <SortableItem
-                        item={cat}
-                        depth={depth}
-                        hasChildren={hasChildren}
-                        isExpanded={isExpanded}
-                        onToggle={toggleExpand}
-                        onSelect={onSelectCategory}
-                    />
-
-                    {hasChildren && isExpanded && (
-                        <div>{renderCategories(cat.id, depth + 1)}</div>
-                    )}
-                </div>
-            );
+    const handleSelectCategory = (item: CategoryItem) => {
+        onSelectCategory({
+            item,
+            setSelected,
+            setValue
         });
     };
 
-    const getParentName = (
-        parentId: number,
-        categories: CategoryItem[]
-    ) => {
-        if (parentId === 0) return "None";
-
-        const parent = categories.find(c => c.id === parentId);
-        return parent ? parent.name : "Unknown";
-    };
-
-    const onSelectCategory = (item: CategoryItem) => {
-        setSelected(item);
-
-        setValue("name", item.name);
-        setValue("parent_id", item.parent_id);
-        setValue("description", "");
-        setValue("is_featured",item.is_featured);
-        setValue("is_default",item.is_default);
-    };
-
-    const renderParentOptions = (parentId = 0, depth = 0):  React.ReactNode[]  => {
-        return (categories ?? [])
-            .filter(c => c.parent_id === parentId)
-            .flatMap(cat => {
-            // Không cho chọn chính nó
-            if (selected && cat.id === selected.id) {
-                return [];
-            }
-
-            return [
-                <option key={cat.id} value={cat.id}>
-                {"— ".repeat(depth)} {cat.name}
-                </option>,
-                ...renderParentOptions(cat.id, depth + 1),
-            ];
-        });
-    };
+    const handleDeleteCategory = (id: number) => {
+        console.log("delete")
+    }
 
     const {
         register,
@@ -229,12 +107,10 @@ export default function CategoryManager() {
             console.error(err);
         }
     }
-          
     
     return (
         <div className="container-fluid">
             <div className="row g-4">
-                {/* LEFT */}
                 <div className="col-md-4">
                     <div className="card">
                         <div className="card-body">
@@ -244,7 +120,14 @@ export default function CategoryManager() {
                             items={categories.map(c => c.id)}
                             strategy={verticalListSortingStrategy}
                             >
-                            {renderCategories(0)}
+                                {renderCategories({
+                                    categories,
+                                    expanded,
+                                    toggleExpand,
+                                    onSelectCategory: handleSelectCategory,
+                                    onDeleteCategory: handleDeleteCategory,
+                                    parentId: 0,
+                                })}
                             </SortableContext>
                         </DndContext>
                         </div>
@@ -270,7 +153,10 @@ export default function CategoryManager() {
                                     <label className="form-label">Parent</label>
                                     <Form.Select {...register("parent_id", { valueAsNumber: true })}>
                                         <option value={0}>None</option>
-                                        {renderParentOptions()}
+                                        {renderParentOptions({
+                                            categories,
+                                            selected,
+                                        })}
                                     </Form.Select>
                                 </div>
 

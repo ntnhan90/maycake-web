@@ -12,7 +12,7 @@ export const useGetProductLabelListQuery =() =>{
 export const useCreateProductLabelMutation = () =>{
     const queryClient = useQueryClient()
     return useMutation({
-        mutationFn: labelsApiRequest.create,
+         mutationFn: (id: number) => labelsApiRequest.delete(id),
         onSuccess:() =>{
             queryClient.invalidateQueries({
                 queryKey: ['prodcut-labels']

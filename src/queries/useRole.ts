@@ -13,7 +13,7 @@ export const useGetRoleListQuery = () =>{
 export const useCreateRoleMutation = () =>{
     const queryClient = useQueryClient()
     return useMutation({
-        mutationFn: roleApiRequest.create,
+         mutationFn: (id: number) => roleApiRequest.delete(id),
         onSuccess:() =>{
             queryClient.invalidateQueries({
                 queryKey: ['role']

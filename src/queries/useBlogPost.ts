@@ -49,7 +49,7 @@ export const useUpdateBlogPostMutation = () =>{
 export const useDeleteBlogPostMutaion = () => {
     const queryClient = useQueryClient()
     return useMutation({
-        mutationFn: postApiRequest.delete,
+        mutationFn: (id: number) => postApiRequest.delete(id),
         onSuccess: () => {
             queryClient.invalidateQueries({
                 queryKey: ['blog-post']

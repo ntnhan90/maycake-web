@@ -26,7 +26,8 @@ export default function ColectionForm({id}:Props){
         reset,
         watch,
         setValue,
-        setError
+        setError,
+        control
     } = useForm<CreateProCollectionBodyType>({
         resolver: zodResolver(CreateProCollectionBody),
         defaultValues: {
@@ -145,8 +146,7 @@ export default function ColectionForm({id}:Props){
                     
                 <ImageUploadBox
                     name="image"
-                    setValue={setValue}
-                    watch={watch}
+                    control={control}
                 />
                 
             </div>

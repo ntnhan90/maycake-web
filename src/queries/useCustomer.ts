@@ -47,7 +47,7 @@ export const useUpdateCustomerMutation = () => {
 export const useDeleteCustomerCateMutaion = () => {
     const queryClient = useQueryClient()
     return useMutation({
-        mutationFn: customerApiRequest.delete,
+         mutationFn: (id: number) => customerApiRequest.delete(id),
         onSuccess: () => {
             queryClient.invalidateQueries({
                 queryKey: ['customer']

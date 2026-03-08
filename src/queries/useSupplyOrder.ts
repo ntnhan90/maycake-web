@@ -13,7 +13,7 @@ export const useGetSupplyOrderListQuery =() =>{
 export const useCreateSupplyOrderMutation = () =>{
     const queryClient = useQueryClient()
     return useMutation({
-        mutationFn: supplyOrderApiRequest.create,
+         mutationFn: (id: number) => supplyOrderApiRequest.delete(id),
         onSuccess:() =>{
             queryClient.invalidateQueries({
                 queryKey: ['supply-order']

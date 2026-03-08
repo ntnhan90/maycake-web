@@ -2,6 +2,7 @@ import blogTagApiRequest from "@/apiRequests/blog/tagApi";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { CreateBlogTagBodyType } from "@/models/blog/tagModel";
 import { QueryParams } from "@/types/query";
+import tagApiRequest from "@/apiRequests/product/tagApi";
 
 export const useGetBlogTagListQuery =(params?: QueryParams) =>{
     return useQuery({
@@ -15,7 +16,7 @@ export const useGetBlogTagListQuery =(params?: QueryParams) =>{
 export const useCreateBlogTagMutation = () =>{
     const queryClient = useQueryClient()
     return useMutation({
-        mutationFn: blogTagApiRequest.create,
+        mutationFn: (id: number) => tagApiRequest.delete(id),
         onSuccess:() =>{
             queryClient.invalidateQueries({
                 queryKey: ['blog-tags']
