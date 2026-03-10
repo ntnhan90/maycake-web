@@ -12,7 +12,7 @@ export const useGetProductCollectionListQuery = () =>{
 export const useCreateProductCollectionMutation = () => {
     const queryClient = useQueryClient()
     return useMutation({
-         mutationFn: (id: number) => collectionApiRequest.delete(id),
+        mutationFn : collectionApiRequest.create,
         onSuccess: () => {
             queryClient.invalidateQueries({
                 queryKey: ['product-collection']
@@ -39,7 +39,7 @@ export const useUpdateProductCollectionMutation = () =>{
 export const useDeleteProductCollectionMutation = () => {
     const queryClient = useQueryClient()
     return useMutation({
-        mutationFn : collectionApiRequest.delete,
+        mutationFn: (id: number) => collectionApiRequest.delete(id),
         onSuccess: () =>{
             queryClient.invalidateQueries({
                 queryKey: ['product-collection'],

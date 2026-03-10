@@ -14,7 +14,7 @@ export const useGetProductListQuery = () =>{
 export const useCreateProductMutation = () =>{
     const queryClient = useQueryClient()
     return useMutation({
-         mutationFn: (id: number) => productApiRequest.delete(id),
+        mutationFn: productApiRequest.create,
         onSuccess:() =>{
             queryClient.invalidateQueries({
                 queryKey: ['product']
@@ -48,7 +48,7 @@ export const useUpdateProductMutation = () =>{
 export const useDeleteProductMutaion = () => {
     const queryClient = useQueryClient()
     return useMutation({
-        mutationFn: productApiRequest.delete,
+        mutationFn: (id: number) => productApiRequest.delete(id),
         onSuccess: () => {
             queryClient.invalidateQueries({
                 queryKey: ['product']

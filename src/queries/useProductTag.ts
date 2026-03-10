@@ -13,7 +13,7 @@ export const useGetProductTagListQuery =() =>{
 export const useCreateProductTagMutation = () =>{
     const queryClient = useQueryClient()
     return useMutation({
-         mutationFn: (id: number) => tagApiRequest.delete(id),
+        mutationFn: tagApiRequest.create,
         onSuccess:() =>{
             queryClient.invalidateQueries({
                 queryKey: ['product-tags']
@@ -47,7 +47,7 @@ export const useUpdateProductTagMutation = () =>{
 export const useDeleteProductTagMutaion = () => {
     const queryClient = useQueryClient()
     return useMutation({
-        mutationFn: tagApiRequest.delete,
+        mutationFn: (id: number) => tagApiRequest.delete(id),
         onSuccess: () => {
             queryClient.invalidateQueries({
                 queryKey: ['product-tags']

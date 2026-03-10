@@ -14,7 +14,7 @@ export const useGetOrderListQuery =() =>{
 export const useCreateOrderMutation = () =>{
     const queryClient = useQueryClient()
     return useMutation({
-         mutationFn: (id: number) => orderApiRequest.delete(id),
+        mutationFn: orderApiRequest.create,
         onSuccess:() =>{
             queryClient.invalidateQueries({
                 queryKey: ['order']
@@ -48,7 +48,7 @@ export const useUpdateOrderMutation = () =>{
 export const useDeleteOrderCateMutaion = () => {
     const queryClient = useQueryClient()
     return useMutation({
-        mutationFn: orderApiRequest.delete,
+        mutationFn: (id: number) => orderApiRequest.delete(id),
         onSuccess: () => {
             queryClient.invalidateQueries({
                 queryKey: ['order']

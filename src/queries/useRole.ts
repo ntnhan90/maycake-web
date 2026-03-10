@@ -13,7 +13,7 @@ export const useGetRoleListQuery = () =>{
 export const useCreateRoleMutation = () =>{
     const queryClient = useQueryClient()
     return useMutation({
-         mutationFn: (id: number) => roleApiRequest.delete(id),
+        mutationFn: roleApiRequest.create,
         onSuccess:() =>{
             queryClient.invalidateQueries({
                 queryKey: ['role']
@@ -47,7 +47,7 @@ export const useUpdateRoleMutation = () =>{
 export const useDeleteRoleMutaion = () => {
     const queryClient = useQueryClient()
     return useMutation({
-        mutationFn: roleApiRequest.delete,
+        mutationFn: (id: number) => roleApiRequest.delete(id),
         onSuccess: () => {
             queryClient.invalidateQueries({
                 queryKey: ['role']

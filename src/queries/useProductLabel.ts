@@ -12,7 +12,8 @@ export const useGetProductLabelListQuery =() =>{
 export const useCreateProductLabelMutation = () =>{
     const queryClient = useQueryClient()
     return useMutation({
-         mutationFn: (id: number) => labelsApiRequest.delete(id),
+        mutationFn: labelsApiRequest.create,
+         
         onSuccess:() =>{
             queryClient.invalidateQueries({
                 queryKey: ['prodcut-labels']
@@ -46,7 +47,7 @@ export const useUpdateProductLabelMutation = () =>{
 export const useDeleteProductLabelMutaion = () => {
     const queryClient = useQueryClient()
     return useMutation({
-        mutationFn: labelsApiRequest.delete,
+        mutationFn: (id: number) => labelsApiRequest.delete(id),
         onSuccess: () => {
             queryClient.invalidateQueries({
                 queryKey: ['prodcut-labels']

@@ -13,7 +13,7 @@ export const useGetFaqsListQuery = () =>{
 export const useCreateFaqsMutation = () =>{
     const queryClient = useQueryClient()
     return useMutation({
-         mutationFn: (id: number) => faqApiRequest.delete(id),
+        mutationFn: faqApiRequest.create,
         onSuccess:() =>{
             queryClient.invalidateQueries({
                 queryKey: ['faqs']
@@ -47,7 +47,7 @@ export const useUpdateFaqsMutation = () =>{
 export const useDeleteFaqsMutaion = () => {
     const queryClient = useQueryClient()
     return useMutation({
-        mutationFn: faqApiRequest.delete,
+        mutationFn: (id: number) => faqApiRequest.delete(id),
         onSuccess: () => {
             queryClient.invalidateQueries({
                 queryKey: ['faqs']

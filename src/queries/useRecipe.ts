@@ -14,7 +14,7 @@ export const useGetRecipeListQuery = () =>{
 export const useCreateRecipeMutation = () =>{
     const queryClient = useQueryClient()
     return useMutation({
-         mutationFn: (id: number) => recipeApiRequest.delete(id),
+         mutationFn: recipeApiRequest.create,
         onSuccess:() =>{
             queryClient.invalidateQueries({
                 queryKey: ['recipe']
@@ -48,7 +48,7 @@ export const useUpdateRecipeMutation = () =>{
 export const useDeleteRecipelMutaion = () => {
     const queryClient = useQueryClient()
     return useMutation({
-        mutationFn: recipeApiRequest.delete,
+        mutationFn: (id: number) => recipeApiRequest.delete(id),
         onSuccess: () => {
             queryClient.invalidateQueries({
                 queryKey: ['recipe']

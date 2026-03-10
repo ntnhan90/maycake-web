@@ -15,7 +15,7 @@ export const useGetFaqCateListQuery = () =>{
 export const useCreateFaqCateMutation = () =>{
     const queryClient = useQueryClient()
     return useMutation({
-        mutationFn: (id: number) => faqCateApiRequest.delete(id),
+        mutationFn: faqCateApiRequest.create,
         onSuccess:() =>{
             queryClient.invalidateQueries({
                 queryKey: ['faq-cate']
@@ -49,7 +49,7 @@ export const useUpdateFaqCateMutation = () =>{
 export const useDeleteFaqCateMutaion = () => {
     const queryClient = useQueryClient()
     return useMutation({
-        mutationFn: faqCateApiRequest.delete,
+        mutationFn: (id: number) => faqCateApiRequest.delete(id),
         onSuccess: () => {
             queryClient.invalidateQueries({
                 queryKey: ['faq-cate']

@@ -12,7 +12,7 @@ export const useGetCurrencyListQuery = () =>{
 export const useCreateCurrencyMutation = () =>{
     const queryClient = useQueryClient()
     return useMutation({
-        mutationFn: (id: number) => currencyApiRequest.delete(id),
+        mutationFn: currencyApiRequest.create,
         onSuccess:() =>{
             queryClient.invalidateQueries({
                 queryKey: ['currencies']
@@ -45,7 +45,7 @@ export const useUpdateCurrencyMutation = () =>{
 export const useDeleteCurrencyMutaion = () => {
     const queryClient = useQueryClient()
     return useMutation({
-        mutationFn: currencyApiRequest.delete,
+        mutationFn: (id: number) => currencyApiRequest.delete(id),
         onSuccess: () => {
             queryClient.invalidateQueries({
                 queryKey: ['currencies']

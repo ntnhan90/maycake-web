@@ -14,7 +14,7 @@ export const useGetShopListQuery =() =>{
 export const useCreateShopMutation = () =>{
     const queryClient = useQueryClient()
     return useMutation({
-         mutationFn: (id: number) => shopApiRequest.delete(id),
+        mutationFn: shopApiRequest.create,
         onSuccess:() =>{
             queryClient.invalidateQueries({
                 queryKey: ['shop']
@@ -48,7 +48,7 @@ export const useUpdateShopMutation = () =>{
 export const useDeleteShopMutaion = () => {
     const queryClient = useQueryClient()
     return useMutation({
-        mutationFn: shopApiRequest.delete,
+        mutationFn: (id: number) => shopApiRequest.delete(id),
         onSuccess: () => {
             queryClient.invalidateQueries({
                 queryKey: ['shop']

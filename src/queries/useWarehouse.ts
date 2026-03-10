@@ -13,7 +13,7 @@ export const useGetWarehouseListQuery =() =>{
 export const useCreateWarehouseMutation = () =>{
     const queryClient = useQueryClient()
     return useMutation({
-        mutationFn: (id: number) => warehouseApiRequest.delete(id),
+        mutationFn: warehouseApiRequest.create,
         onSuccess:() =>{
             queryClient.invalidateQueries({
                 queryKey: ['warehouse']
@@ -47,7 +47,7 @@ export const useUpdateWarehouseMutation = () =>{
 export const useDeleteWarehouseMutaion = () => {
     const queryClient = useQueryClient()
     return useMutation({
-        mutationFn: warehouseApiRequest.delete,
+        mutationFn: (id: number) => warehouseApiRequest.delete(id),
         onSuccess: () => {
             queryClient.invalidateQueries({
                 queryKey: ['warehouse']

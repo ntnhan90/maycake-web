@@ -13,7 +13,7 @@ export const useGetProductAttributeListQuery = () =>{
 export const useCreateProductAttributeMutation = () =>{
     const queryClient = useQueryClient()
     return useMutation({
-         mutationFn: (id: number) => attributeApiRequest.delete(id),
+        mutationFn: attributeApiRequest.create, 
         onSuccess:() =>{
             queryClient.invalidateQueries({
                 queryKey: ['attributeSet']
@@ -46,7 +46,7 @@ export const useUpdateProductAttributeMutation = () =>{
 export const useDeleteProductAttributeMutaion = () => {
     const queryClient = useQueryClient()
     return useMutation({
-        mutationFn: attributeApiRequest.delete,
+        mutationFn: (id: number) => attributeApiRequest.delete(id),
         onSuccess: () => {
             queryClient.invalidateQueries({
                 queryKey: ['tax']

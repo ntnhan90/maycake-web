@@ -12,7 +12,7 @@ export const useGetTaxListQuery =() =>{
 export const useCreateTaxMutation = () =>{
     const queryClient = useQueryClient()
     return useMutation({
-         mutationFn: (id: number) => taxApiRequest.delete(id),
+         mutationFn: taxApiRequest.create,
         onSuccess:() =>{
             queryClient.invalidateQueries({
                 queryKey: ['tax']
@@ -46,7 +46,7 @@ export const useUpdateTaxMutation = () =>{
 export const useDeleteTaxMutaion = () => {
     const queryClient = useQueryClient()
     return useMutation({
-        mutationFn: taxApiRequest.delete,
+        mutationFn: (id: number) => taxApiRequest.delete(id),
         onSuccess: () => {
             queryClient.invalidateQueries({
                 queryKey: ['tax']
