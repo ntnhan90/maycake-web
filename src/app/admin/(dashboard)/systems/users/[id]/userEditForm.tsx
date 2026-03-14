@@ -2,7 +2,7 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useGetAccount, useUpdateAccountMutation} from "@/queries/useAccount"
-import { Card, CardBody , CardHeader, Button, Form} from "react-bootstrap";
+import { Card, CardBody , CardHeader, Button, Form,InputGroup} from "react-bootstrap";
 import {  UpdateAccountBody ,UpdateAccountBodyType} from "@/models/accountModel";
 import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -160,18 +160,17 @@ export default function UserEditForm({id}:{id?:number}) {
                                         <label className="form-label form-label" htmlFor="password">
                                             Password<span className="text-red-500">*</span>
                                         </label>
-                                        <div className="input-icon">
-                                            <input 
-                                                type={showPassword ? 'text' : 'password'}
-                                                className="form-control" placeholder="Enter password"  
+                                        <InputGroup>
+                                            <Form.Control type={showPassword ? 'text' : 'password'}
+                                                placeholder="Enter password" 
                                                 {...register("password")} 
                                             />
-                                            <span className="input-icon-addon ">
+                                            <InputGroup.Text>
                                                 <FontAwesomeIcon icon={showPassword ? faEye : faEyeSlash} 
                                                     onClick={togglePasswordVisibility}
                                                 />
-                                            </span>
-                                        </div>
+                                            </InputGroup.Text>
+                                        </InputGroup>
                                         
                                         {errors.password && <p className="text-red-500">{errors.password.message}</p>}
                                     </div>
@@ -182,20 +181,18 @@ export default function UserEditForm({id}:{id?:number}) {
                                         <label className="form-label form-label" htmlFor="password">
                                             Confirm Password<span className="text-red-500">*</span>
                                         </label>
-                                        <div className="input-icon">
-                                            <input 
-                                                type={showConPassword ? 'text' : 'password'}
-                                                className="form-control " placeholder="Enter password" 
-                                                {...register("confirmPassword")}
+                                        <InputGroup>
+                                            <Form.Control type={showConPassword ? 'text' : 'password'}
+                                                placeholder="Enter confirm password" 
+                                                {...register("confirmPassword")} 
                                             />
-
-                                            <span className="input-icon-addon ">
-                                                <FontAwesomeIcon icon={showConPassword ? faEye : faEyeSlash} 
+                                            <InputGroup.Text>
+                                                <FontAwesomeIcon icon={showPassword ? faEye : faEyeSlash} 
                                                     onClick={togglePasswordVisibility1}
                                                 />
-                                            </span>
-                                        </div>
-                                        
+                                            </InputGroup.Text>
+                                        </InputGroup>
+
                                         {errors.confirmPassword && <p className="text-red-500">{errors.confirmPassword.message}</p>}
                                     </div>
                                 </div>

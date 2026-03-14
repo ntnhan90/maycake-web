@@ -39,12 +39,16 @@ export const userListColumns: ColumnDef<AccountType>[] =[
 		accessorKey: "username",
 		header: "Username",
 	},
-	{
+    {
 		accessorKey: "email",
-		header: "Email",
+		header: "email",
+	},
+	{
+		accessorKey: "password",
+		header: "password",
 	},
     {
-		accessorKey: "avatar_id",
+		accessorKey: "avatar",
 		header: "Avatar",
 	},
     {
@@ -58,16 +62,6 @@ export const userListColumns: ColumnDef<AccountType>[] =[
             const {id} = info.row.original; 
             return(
                 <Fragment>
-                    <DasherTippy content="View">
-						<Button
-							href=""
-							variant="ghost btn-icon"
-							size="sm"
-							className="rounded-circle"
-							>
-							<IconEye size={16} />
-						</Button>
-					</DasherTippy>
                     <DasherTippy content="Edit">
                         <Button href={`/admin/systems/users/${id}`} variant="ghost btn-icon"
 							size="sm"

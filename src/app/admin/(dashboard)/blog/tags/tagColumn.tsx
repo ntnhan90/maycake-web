@@ -62,11 +62,11 @@ export const blogTagColumns: ColumnDef<BlogTagResType>[] = [
         accessorKey: "",
 		header: "Action",
         cell: info => {
-            const {id} = info.row.original;
+            const {id,slug} = info.row.original;
             return(
                 <Fragment>
                     <DasherTippy content="view">
-                        <Button href="" variant="ghost btn-icon"
+                        <Button href={`/tag/${slug}`} variant="ghost btn-icon"
 							size="sm" className="rounded-circle">
                             <IconEye size={16} />
                         </Button>

@@ -43,7 +43,7 @@ export const useUpdateTaxMutation = () =>{
     })
 }
 
-export const useDeleteTaxMutaion = () => {
+export const useDeleteTaxMutation = () => {
     const queryClient = useQueryClient()
     return useMutation({
         mutationFn: (id: number) => taxApiRequest.delete(id),
@@ -51,6 +51,9 @@ export const useDeleteTaxMutaion = () => {
             queryClient.invalidateQueries({
                 queryKey: ['tax']
             })
+        },
+        onError: (error) => {
+            console.error('Delete tax failed', error)
         }
     })
 }

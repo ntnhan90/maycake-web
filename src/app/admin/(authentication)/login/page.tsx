@@ -9,7 +9,6 @@ export const metadata: Metadata = {
     description: "Dasher - Responsive Bootstrap 5 Admin Dashboard",
 };
 
-
 export default async function LoginPage({ searchParams }: { searchParams: SearchParams }) {
     const { callbackUrl } = searchParams
     const dict = await getDictionary()
@@ -33,8 +32,7 @@ export default async function LoginPage({ searchParams }: { searchParams: Search
 
                             <LoginForm  />
                         </div>
-                </Col>
-               
+                    </Col>
                 </Row>
             </Col>
         </Row>

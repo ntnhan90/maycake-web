@@ -41,22 +41,38 @@ export const removeTokensFromLocalStorage = () => {
 }
 
 export const handleErrorApi = ({
-	error,
-	setError,
-	duration
+  error,
+  setError,
+  duration = 3000
 }: {
-	error: any
-	setError?: UseFormSetError<any>
-	duration?: number
+    error: any
+    setError?: UseFormSetError<any>
+    duration?: number
 }) => {
-	if (error instanceof EntityError && setError) {
-		console.log(error.payload);
-		
-	} else {
-		toast.error("Error" ,{
-            autoClose: duration, // ms
-        });
-	}
+
+  if (error instanceof EntityError) {
+
+    const errors = error.payload?.message
+
+    if (Array.isArray(errors) && setError) {
+        errors.forEach((item: any) => {
+            setError(item.path, {
+            type: "server",
+            message: item.message
+            })
+        })
+
+        return
+    }
+
+  }
+
+    toast.error(
+        error?.payload?.error ||
+        error?.payload?.message ||
+        "Có lỗi xảy ra",
+        { autoClose: duration }
+    )
 }
 
 

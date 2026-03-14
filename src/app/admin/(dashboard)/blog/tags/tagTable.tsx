@@ -6,7 +6,6 @@ import { blogTagColumns } from "./tagColumn"
 import { useState, useEffect } from "react"
 import blogTagApiRequest from "@/apiRequests/blog/tagApi"
 import { BlogTagListResType } from "@/models/blog/tagModel"
-import { tagColumns } from "../../ecommerce/product-tags/tagColumn"
 
 export default function BlogTagTable(){
      const [tableState, setTableState] = useState<{
@@ -71,7 +70,7 @@ export default function BlogTagTable(){
                 <div className="card-body">
                     <TanstackTableV2
                     data={data?.data ?? []}
-                    columns={tagColumns}
+                    columns={blogTagColumns}
                     loading={loading}
                     state={tableState}
                     showSearch

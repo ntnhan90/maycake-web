@@ -4,7 +4,7 @@ import Checkbox from "@/components/table/Checkbox";
 import { ColumnDef } from "@tanstack/react-table";
 import { Fragment } from "react";
 import { Button } from "react-bootstrap";
-import { IconEye, IconEdit, IconTrash } from "@tabler/icons-react";
+import {  IconEdit, IconTrash } from "@tabler/icons-react";
 
 export const faqCateColumns: ColumnDef<FaqCateResType>[] = [
     {
@@ -61,12 +61,6 @@ export const faqCateColumns: ColumnDef<FaqCateResType>[] = [
             const {id} = info.row.original;
             return(
                 <Fragment>
-                    <DasherTippy content="view">
-                        <Button href="" variant="ghost btn-icon"
-							size="sm" className="rounded-circle">
-                            <IconEye size={16} />
-                        </Button>
-                    </DasherTippy>
                     <DasherTippy content="Edit">
                         <Button href={`/admin/faqs-categories/${id}`} variant="ghost btn-icon"
 							size="sm" className="rounded-circle"

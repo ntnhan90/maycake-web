@@ -66,7 +66,26 @@ export default function CurrencyTable(){
 
     return (
         <div className="row">
-          
+            <div className="card">
+                <div className="card-body">
+                    <TanstackTableV2
+                    data={data?.data ?? []}
+                    columns={currencyColumns}
+                    loading={loading}
+                    state={tableState}
+                    showSearch
+                    onPageChange={(page) =>
+                        setTableState((s) => ({ ...s, page }))
+                    }
+                    onSearchChange={(search) =>
+                        setTableState((s) => ({ ...s, page: 1, search }))
+                    }
+                    onSortChange={(sorting) =>
+                        setTableState((s) => ({ ...s, page: 1, sorting }))
+                    }
+                    />
+                </div>
+            </div>
         </div>
     )
 }

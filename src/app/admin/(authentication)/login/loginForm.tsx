@@ -1,10 +1,6 @@
 'use client'
 
-import { Button, Col, Form,} from 'react-bootstrap'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser } from '@fortawesome/free-regular-svg-icons'
-import { faLock } from '@fortawesome/free-solid-svg-icons'
-import Link from 'next/link'
+import { Button, Form,} from 'react-bootstrap'
 import { useForm } from 'react-hook-form'
 import { LoginBody, LoginBodyType } from '@/models/authModel'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -25,8 +21,6 @@ export default function LoginForm() {
     const router = useRouter()
     
     const onSubmit = async(data: LoginBodyType) =>{
-        // Khi nhấn submit thì React hook form sẽ validate cái form bằng zod schema ở client trước
-        // Nếu không pass qua vòng này thì sẽ không gọi api
         if(loginMutation.isPending) return
         try {
             const result = await loginMutation.mutateAsync(data)
@@ -36,7 +30,6 @@ export default function LoginForm() {
             router.push("/admin/")
 
         } catch (error:any) {
-            console.log(error)
             handleErrorApi({
                 error,
                 setError: form.setError
@@ -76,8 +69,6 @@ export default function LoginForm() {
                     </p>
                     )}
                 </Form.Group>
-              
-                
                 <Button variant="primary" type="submit">
                     Login
                 </Button>

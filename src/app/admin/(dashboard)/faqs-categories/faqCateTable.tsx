@@ -57,7 +57,6 @@ export default function FaqCateTable(){
         if (data?.pagination) {
             setTableState((prev) => ({
                 ...prev,
-             //   limit: data.pagination.limit,
                 totalPages: data.pagination.totalPages,
             }));
         }

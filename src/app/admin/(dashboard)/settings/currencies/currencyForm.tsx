@@ -24,8 +24,6 @@ export default function CurrencyForm({id}: Props) {
         handleSubmit,
         formState: { errors },
         reset,
-        watch,
-        setValue,
         setError
     } = useForm<CreateCurrencyBodyType>({
         resolver: zodResolver(CreateCurrencyBody),
@@ -34,7 +32,6 @@ export default function CurrencyForm({id}: Props) {
             exchange_rate:0,
             is_prefix_symbol:1,
             decimals:0,
-          //  default:0,
         },
     });
     
@@ -47,10 +44,11 @@ export default function CurrencyForm({id}: Props) {
         }catch (error) {
             return <div>Something went wrong</div>
         }
-        
     }
+    
     useEffect(() => {
         if (currencyData) {
+            console.log(currencyData.exchange_rate)
             reset({
                 title: currencyData.title ?? "",
                 exchange_rate: currencyData.exchange_rate ?? 0,
@@ -60,7 +58,6 @@ export default function CurrencyForm({id}: Props) {
         }
     }, [currencyData, reset])
 
-
     const onSubmit = async(data: CreateCurrencyBodyType) =>{
         if(id){
             if(updateCurrencyMutaiton.isPending) return
@@ -69,7 +66,7 @@ export default function CurrencyForm({id}: Props) {
                     id: id as number,
                     ...data
                 }
-                const result = await updateCurrencyMutaiton.mutateAsync(body)
+                await updateCurrencyMutaiton.mutateAsync(body)
                 toast.success("update success");
                 router.push("/admin/settings/currencies")
             } catch (error) {
@@ -78,9 +75,7 @@ export default function CurrencyForm({id}: Props) {
                     setError:setError
                 })
             }
-            //console.log("update" + data);
         }else{
-            //console.log("create : " , data);
             if(createCurrencyMutation.isPending) return;
             let body = {
                 ...data,
