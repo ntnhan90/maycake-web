@@ -1,9 +1,6 @@
 'use client'
 import {Card, CardHeader, Button, Dropdown, DropdownToggle, DropdownMenu, DropdownItem} from "react-bootstrap"
 import Link from "next/link"
-import { useSearchParams } from "next/navigation"
-import { handleErrorApi } from "@/utils/lib"
-import { AccountResType } from "@/models/accountModel"
 import TanstackTable from "@/components/table/TanstackTable"
 import { userListColumns } from "./userListColumn"
 import { useGetAccountList } from "@/queries/useAccount"

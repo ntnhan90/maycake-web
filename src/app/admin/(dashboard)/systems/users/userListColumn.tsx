@@ -2,8 +2,7 @@ import { Fragment } from "react";
 import { ColumnDef } from "@tanstack/react-table";
 import { IconEdit, IconEye, IconTrash } from "@tabler/icons-react";
 import { Button } from "react-bootstrap";
-import Link from "next/link";
-
+import { mediaUrl } from "@/utils/lib";
 // types
 import { AccountType} from "@/models/accountModel";
 import DasherTippy from "@/components/common/DashTippy";
@@ -43,13 +42,25 @@ export const userListColumns: ColumnDef<AccountType>[] =[
 		accessorKey: "email",
 		header: "email",
 	},
-	{
-		accessorKey: "password",
-		header: "password",
-	},
     {
 		accessorKey: "avatar",
 		header: "Avatar",
+        cell: ({ row }) => {
+            const avatar = mediaUrl(row.original.avatar) || "/img/team/avatar.jpg";
+
+            return (
+            <img
+                src={avatar}
+                alt="avatar"
+                width={40}
+                height={40}
+                style={{
+                objectFit: "cover",
+                borderRadius: "50%",
+                }}
+            />
+            );
+        },
 	},
     {
 		accessorKey: "isActive",

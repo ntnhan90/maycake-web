@@ -189,12 +189,11 @@ export function getPaginationPages(
     return pages
 }  
 
-export const mediaUrl = (path:string) =>{
+export const mediaUrl = (path:string|null) =>{
     if(!path) return ''
     if(path.startsWith('http')) return path
     return `${process.env.NEXT_PUBLIC_URL}${path}`
 }
-
 
 export const getParentName = (
     parentId: number,
