@@ -3,19 +3,20 @@
 import React from "react"
 import { CKEditor, useCKEditorCloud } from "@ckeditor/ckeditor5-react"
 
-const CustomEditor: React.FC = () => {
+interface Props {
+    value?: string
+    onChange?: (data: string) => void
+}
+
+const CustomEditor: React.FC<Props> = ({ value, onChange }) => {
     const cloud = useCKEditorCloud({
         version: "47.6.0",
         premium: true
     })
 
-    if (cloud.status === "error") {
-        return <div>Error loading editor</div>
-    }
+    if (cloud.status === "error") {return <div>Error loading editor</div>}
 
-    if (cloud.status === "loading") {
-        return <div>Loading editor...</div>
-    }
+    if (cloud.status === "loading") {return <div>Loading editor...</div>}
 
     const {
         ClassicEditor,
@@ -42,7 +43,7 @@ const CustomEditor: React.FC = () => {
     return (
         <CKEditor
             editor={ClassicEditor}
-            data="<p>Start writing your blog...</p>"
+            data={value || ""}
             config={{
                 licenseKey: "<YOUR_LICENSE_KEY>",
 

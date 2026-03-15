@@ -62,9 +62,9 @@ export default function BlogCategoryManager() {
     const handleDeleteCategory = (id: number) => {
         if (deleteMutation.isPending) return
       //  if (!confirm("Delete this category?")) return
-
         deleteMutation.mutate(id)
     }
+    
     const onSubmit = useBlogCategorySubmit({
         selected,
         createMutation,

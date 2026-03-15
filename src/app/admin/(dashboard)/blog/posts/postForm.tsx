@@ -14,6 +14,7 @@ import ImageUploadBox from "@/components/Image/ImageUploadBox";
 import TagInput from "@/components/input/tagInput";
 import CategorySelect from "@/components/input/categorySelect";
 import { useAccountProfile } from '@/queries/useAccount'
+import CustomEditor from "@/components/custom-editor";
 
 type Props = {
     id? : number
@@ -142,7 +143,16 @@ export default function PostForm({id}: Props){
                                     Content 
                                 </label>
                                
-                                <textarea className="form-control " placeholder="Enter description"  {...register("content")} />
+                                <Controller
+                                    name="content"
+                                    control={control}
+                                    render={({ field }) => (
+                                    <CustomEditor
+                                        value={field.value ?? ""}
+                                        onChange={field.onChange}
+                                    />
+                                    )}
+                                />
                             </div>
                         </div>
                     </CardBody>

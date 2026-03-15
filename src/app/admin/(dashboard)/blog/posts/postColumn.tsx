@@ -100,11 +100,11 @@ export const postColumns: ColumnDef<PostResType>[] = [
         accessorKey: "",
 		header: "Action",
         cell: info => {
-            const {id} = info.row.original;
+            const {id,slug} = info.row.original;
             return(
                 <Fragment>
                     <DasherTippy content="view">
-                        <Button href="" variant="ghost btn-icon"
+                        <Button href={`/post/${slug}`} variant="ghost btn-icon"
 							size="sm" className="rounded-circle">
                             <IconEye size={16} />
                         </Button>

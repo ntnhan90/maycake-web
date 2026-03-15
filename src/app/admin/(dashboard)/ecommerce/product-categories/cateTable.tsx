@@ -13,7 +13,7 @@ import SlugInput from "@/components/input/slugInput";
 import { handleErrorApi } from "@/utils/lib";
 import { CategoryWithCountType } from "@/models/blog/categoryModel";
 import FeatureToggle from "@/components/input/FeatureToggle";
-import { useCreateProductCateMutation, useUpdateProductCateMutation,useGetProductCateTreeQuery } from "@/queries/useProductCate";
+import { useCreateProductCateMutation, useUpdateProductCateMutation,useGetProductCateTreeQuery, useDeleteProductCateMutation } from "@/queries/useProductCate";
 import { CategoryItem } from "@/models/categoryManager";
 import { renderCategories ,renderParentOptions} from "@/utils/render";
 import { onSelectCategory } from "@/utils/lib";
@@ -22,7 +22,8 @@ export default function CategoryManager() {
     const router = useRouter()
     const createCateMutation = useCreateProductCateMutation();
     const updateCateMutation = useUpdateProductCateMutation();
-    
+    const deleteMutation = useDeleteProductCateMutation()
+
     const cateListQuery = useGetProductCateTreeQuery();
     const raw = cateListQuery.data?.payload ?? [];
     const categories :CategoryWithCountType[] = Array.isArray(raw) ? raw : [];
@@ -46,7 +47,8 @@ export default function CategoryManager() {
     };
 
     const handleDeleteCategory = (id: number) => {
-        console.log("delete")
+        if (deleteMutation.isPending) return
+        deleteMutation.mutate(id)
     }
 
     const {
