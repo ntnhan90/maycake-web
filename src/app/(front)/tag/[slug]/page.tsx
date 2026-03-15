@@ -1,6 +1,5 @@
 import CustomEditor from "@/components/custom-editor";
 
-
 type Props = {
   params: {
     slug: string
