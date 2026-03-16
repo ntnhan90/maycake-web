@@ -21,7 +21,6 @@ export type MaterialListResType = z.TypeOf<typeof MaterialListRes>
 
 export const CreateMaterialBody = z.object({
     name: z.string(),
-   // sku: z.string(),
     unit: z.string(),
     category: z.string(),
     cost_price:z.string(),

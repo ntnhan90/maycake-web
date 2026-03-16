@@ -103,7 +103,7 @@ export default function ProductForm({id}:Props){
             console.log(err)
         })} className="row">
             <div className="col-md-9">
-                <Card>
+                <Card className="mb-3">
                     <CardBody>
                         <div className="form-body">
                             <SlugInput
@@ -138,6 +138,18 @@ export default function ProductForm({id}:Props){
 
                             
                         </div>
+                    </CardBody>
+                </Card>
+                <Card className="mb-3">
+                    <CardHeader className="d-flex justify-content-between align-items-center">
+                        <h5 className="mb-0 fw-semibold">Attributes</h5>
+
+                        <button className="btn border px-3 py-2 fw-medium">
+                            Add new attributes
+                        </button>
+                    </CardHeader>
+                    <CardBody>
+                        <p className="text-muted">Adding new attributes helps the product to have many options, such as size or color.</p>
                     </CardBody>
                 </Card>
             </div>

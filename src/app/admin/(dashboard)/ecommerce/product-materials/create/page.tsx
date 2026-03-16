@@ -11,7 +11,7 @@ export default function CreateMaterialPage(){
     return(
         <Container>
             <Card className="mb-4 border-0">
-                <MaterialForm></MaterialForm>
+                <MaterialForm />
             </Card>
         </Container>
     )

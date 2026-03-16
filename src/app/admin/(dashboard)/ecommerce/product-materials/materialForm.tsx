@@ -111,19 +111,19 @@ export default function MaterialForm({id}:Props){
                             Category<span className="text-red-500">*</span>
                         </label>
                         <Form.Select aria-label="Default select example" {...register("category")} >
-                            <option value="piece">Sponge</option>
-                            <option value="kg">Filling</option>
-                            <option value="lit">Topping</option>
-                            <option value="kg">Frosting</option>{/** lớp phủ */}
-                            <option value="lit">Packaging</option> {/** bao bi */}
+                            <option value="sponge">Sponge</option>{/** cốt bánh */}
+                            <option value="filling">Filling</option>{/** nhân */}
+                            <option value="topping">Topping</option>
+                            <option value="frosting">Frosting</option>{/** lớp phủ */}
+                            <option value="packaging">Packaging</option> {/** bao bi */}
                         </Form.Select>
                     </div>
 
                     <div className="mb-3 position-relative">
                         <label className="form-label form-label" htmlFor="first_name">
-                            Username <span className="text-red-500">*</span>
+                            Cost Price <span className="text-red-500">*</span>
                         </label>
-                        <input className="form-control " placeholder="Enter Username"  {...register("cost_price")} />
+                        <input className="form-control " placeholder="Enter Cost price"  {...register("cost_price")} />
                     </div>
                 </div>
             </div>

@@ -35,7 +35,6 @@ export default function ColectionForm({id}:Props){
             slug: "",
             description:"",
             image:"",
-            is_featured:0,
             status:"published",
         },
     });
@@ -58,37 +57,31 @@ export default function ColectionForm({id}:Props){
                 slug: collectionData.slug ?? 0,
                 description: collectionData.description ?? "",
                 image: collectionData.image ?? "",
-                is_featured: collectionData.is_featured ??  0,
                 status:collectionData.status ?? "published",
             })
         }
     }, [collectionData, reset])
 
     const onSubmit = async(data:CreateProCollectionBodyType) =>{
-        if(id){
-            if(updateProductCollectionMutation.isPending) return
-            try {
+        try {
+            if(id){
                 let body: CreateProCollectionBodyType & {id:number} ={
                     id: id as number,
                     ...data
                 }
-
+                await updateProductCollectionMutation.mutateAsync(body)
                 toast.success("update success");
-                router.push("/admin/ecommerce/product-collections")
-            } catch (error) {
-                handleErrorApi({
-                    error,
-                    setError:setError
-                })
+            }else{
+                if(createProductCollectionMutation.isPending) return
+                await createProductCollectionMutation.mutateAsync(data);
+                toast.success("add success");
             }
-            console.log("update" , data)
-        }else{
-            if(createProductCollectionMutation.isPending) return
-            let body = data;
-            const result = await createProductCollectionMutation.mutateAsync(body);
-            toast.success("add success");
             router.push("/admin/ecommerce/product-collections")
-            console.log("create" , data)
+        } catch (error) {
+            handleErrorApi({
+                error,
+                setError:setError
+            })
         }
     }
 

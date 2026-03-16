@@ -7,7 +7,6 @@ export const ProCollectionSchema = z.object({
     slug: z.string(),
     description:z.string(),
     image:z.string(),
-    is_featured:z.number(),
     status:z.string(),
 })
 export type ProCollectionResType = z.TypeOf<typeof ProCollectionSchema>
@@ -23,7 +22,6 @@ export const CreateProCollectionBody = z.object({
     slug: z.string(),
     description:z.string().nullable().optional(),
     image:z.string().nullable().optional(),
-    is_featured:z.number(),
     status:z.string(),
 })
 

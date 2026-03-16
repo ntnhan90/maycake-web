@@ -65,12 +65,6 @@ export const tagColumns: ColumnDef<ProTagResType>[] = [
             const {id} = info.row.original;
             return(
                 <Fragment>
-                    <DasherTippy content="view">
-                        <Button href="" variant="ghost btn-icon"
-							size="sm" className="rounded-circle">
-                            <IconEye size={16} />
-                        </Button>
-                    </DasherTippy>
                     <DasherTippy content="Edit">
                         <Button href={`/admin/ecommerce/product-tags/${id}`} variant="ghost btn-icon"
 							size="sm" className="rounded-circle"

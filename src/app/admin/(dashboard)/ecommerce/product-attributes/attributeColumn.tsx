@@ -49,13 +49,6 @@ export const attributeColumns: ColumnDef<AttributeSetResType>[] =[
             const {id} = info.row.original;
             return (
                 <Fragment>
-                    <DasherTippy content="View">
-                        <Button href="" variant="ghost btn-icon"
-							size="sm" className="rounded-circle"
-						>
-							<IconEye size={16} />
-						</Button>
-                    </DasherTippy>
                     <DasherTippy content="Edit">
                         <Button href={`/admin/ecommerce/product-attributes/${id}`} variant="ghost btn-icon"
 							size="sm" className="rounded-circle"
