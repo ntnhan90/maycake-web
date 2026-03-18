@@ -1,6 +1,6 @@
 import http from "@/utils/http";
 import { WarehouseListType, WarehouseResType, CreateWarehouseBodyType } from "@/models/franchise/warehouseModel";
-const prefix = '/warehouse'
+const prefix = '/warehouses'
 
 const warehouseApiRequest = {
     list:(params?: {

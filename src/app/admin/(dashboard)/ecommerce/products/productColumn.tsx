@@ -5,7 +5,7 @@ import { Button } from "react-bootstrap";
 import { ProductResType } from "@/models/product/productModel";
 import DasherTippy from "@/components/common/DashTippy";
 import Checkbox from "@/components/table/Checkbox";
-import Image from 'next/image';
+import { mediaUrl } from "@/utils/lib";
 const DEFAULT_IMAGE = '/img/placeholder.png';
 
 export const productColumns: ColumnDef<ProductResType>[] =[
@@ -42,17 +42,15 @@ export const productColumns: ColumnDef<ProductResType>[] =[
     {
 		accessorKey: "image",
 		header: "Image",
-        cell:({getValue}) =>{
-            const image = getValue<string | null>();
-            const src =    image && image.trim() !== ''  ? image   : DEFAULT_IMAGE;
+        cell:({row}) =>{
+            const avatar = mediaUrl(row.original.image) || DEFAULT_IMAGE;
             return (
-                 <Image 
-                    src={src}
-                    alt="Image"
-                    width={60}
-                    height={60}
-                    className="rounded object-cover"
-                />
+                <img
+                src={avatar}
+                alt="avatar"
+                width={40}
+                height={40}
+            />
             )
         }
 	},

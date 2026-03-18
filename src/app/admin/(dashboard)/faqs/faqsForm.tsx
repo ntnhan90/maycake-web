@@ -10,7 +10,6 @@ import { toast } from "react-toastify";
 import { useEffect } from "react";
 import { handleErrorApi } from "@/utils/lib";
 
-
 type Props = {
     id? : number
 }
@@ -37,7 +36,6 @@ export default function FaqsForm({id}: Props){
         },
     });
 
-
     let faqsData = null;
     if(id){
         const faqCateId = Number(id);
@@ -60,29 +58,26 @@ export default function FaqsForm({id}: Props){
     }, [faqsData, reset])
 
     const onSubmit = async(data: CreateFaqsBodyType) => {
-        if(id){
-            console.log("update : " , data)
-            if(updateFaqsMutation.isPending) return
-            try {
+        try {
+            if(id){
+                if(updateFaqsMutation.isPending) return
                 let body: CreateFaqsBodyType & {id:number} ={
                     id: id as number,
                     ...data
                 }
-                const result = await updateFaqsMutation.mutateAsync(body)
+                await updateFaqsMutation.mutateAsync(body)
                 toast.success("update success");
-                router.push("/admin/faqs")
-            } catch (error) {
-                handleErrorApi({
-                    error,
-                    setError:setError
-                })
+            }else{
+                if(createFaqsMutation.isPending) return
+                await createFaqsMutation.mutateAsync(data);
+                toast.success("add success");
             }
-        }else{
-            if(createFaqsMutation.isPending) true
-            let body = data;
-            const result = await createFaqsMutation.mutateAsync(body);
-            toast.success("add success");
             router.push("/admin/faqs")
+        } catch (error) {
+            handleErrorApi({
+                error,
+                setError:setError
+            })
         }
     }
 

@@ -4,7 +4,6 @@ import TanstackTableV2 from "@/components/table/TanstackTableV2"
 import { SortingState } from "@tanstack/react-table";
 import { franchiseColumns } from "./crmColumn";
 import { useState, useEffect } from "react"
-import faqCateApiRequest from "@/apiRequests/faqCateApi";
 import { FranchiseListResType } from "@/models/franchise/crmModel";
 import franchiseApiRequest from "@/apiRequests/franchise/franchiseApi";
 

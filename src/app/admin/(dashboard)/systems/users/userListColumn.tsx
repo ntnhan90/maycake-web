@@ -3,7 +3,6 @@ import { ColumnDef } from "@tanstack/react-table";
 import { IconEdit, IconEye, IconTrash } from "@tabler/icons-react";
 import { Button } from "react-bootstrap";
 import { mediaUrl } from "@/utils/lib";
-// types
 import { AccountType} from "@/models/accountModel";
 import DasherTippy from "@/components/common/DashTippy";
 import Checkbox from "@/components/table/Checkbox";

@@ -36,7 +36,7 @@ export const contractColumns: ColumnDef<ContractResType>[] = [
  
     {
 		accessorKey: "contract_code",
-		header: "contract code",
+		header: "Contract Code",
 	},
     {
 		accessorKey: "royalty_percent",

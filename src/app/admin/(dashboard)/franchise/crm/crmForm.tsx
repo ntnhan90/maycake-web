@@ -22,32 +22,56 @@ export default function CrmForm({id}: Props){
         handleSubmit,
         formState: { errors },
         reset,
-        watch,
-        setValue,
         setError,
-        control
     } = useForm<CreateFranchiseBodyType>({
         resolver: zodResolver(CreateFranchiseBody),
         defaultValues: {
             company_name: "",
             owner_name:"",
+            tax_code:"",
             email: "",
             phone: "",
         },
     });
 
+    let crmData = null;
+    if(id){
+        const crmId = Number(id);
+         try {
+            const { data, isLoading, error } = useGetFranchiseQuery(crmId);
+            crmData = data?.payload
+        } catch (error) {
+            return <div>Something went wrong</div>
+        }
+    }
+    useEffect(() => {
+        if (crmData) {
+            reset({
+                company_name: crmData.company_name ?? "",
+                owner_name: crmData.owner_name ?? "",
+                tax_code: crmData.tax_code ?? "",
+                email: crmData.email ?? "",
+                phone:crmData.phone  ?? "",
+            })
+        }
+    }, [crmData, reset])
+
     const onSubmit = async (data:CreateFranchiseBodyType) => {
         try {
             if(id){
+                if(updateFranchiseMutation.isPending) return
+                let body: CreateFranchiseBodyType & {id:number} ={
+                    id: id as number,
+                    ...data
+                }
+                await updateFranchiseMutation.mutateAsync(body)
                 toast.success('Update order success');
-                console.log(data)
             }else{
                 if(createFranchiseMutation.isPending) return
+                await createFranchiseMutation.mutateAsync(data)
                 toast.success('Create order success');
-                console.log(data)
             }
-
-           // router.push("/admin/franchise/crm")
+            router.push("/admin/franchise/crm")
         } catch (error) {
             handleErrorApi({
                 error,
@@ -60,7 +84,6 @@ export default function CrmForm({id}: Props){
         <form onSubmit={handleSubmit(onSubmit,(err) =>{
             console.log(err)
         })} className="row">
-
             <div className="col-md-9">
                 <div className="mb-3 position-relative">
                     <label className="form-label form-label" htmlFor="first_name">

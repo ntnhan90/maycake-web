@@ -9,7 +9,7 @@ export const ShopSchema = z.object({
     postal_code: z.string(),
     is_active: z.number(),
     status: z.string(),
-    franchiseId:z.number()
+    franchise_id:z.number()
 })
 export type ShopResType = z.TypeOf<typeof ShopSchema>
 
@@ -26,7 +26,7 @@ export const CreateShopBody = z.object({
     postal_code: z.string(),
     is_active: z.number(),
     status: z.string(),
-    franchiseId:z.number()
+    franchise_id:z.number()
 })
 
 export type CreateShopBodyType = z.TypeOf<typeof CreateShopBody>

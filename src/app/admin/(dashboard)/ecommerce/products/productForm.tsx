@@ -13,7 +13,7 @@ import FeatureToggle from "@/components/input/FeatureToggle";
 import ImageUploadBox from "@/components/Image/ImageUploadBox";
 import TagInput from "@/components/input/tagInput";
 import CategorySelect from "@/components/input/categorySelect";
-
+import CustomEditor from "@/components/custom-editor";
 type Props ={
     id?: number
 }
@@ -37,9 +37,7 @@ export default function ProductForm({id}:Props){
             name:"",
             status:"published",
             is_featured: 0,
-            price: 0,
             sale_price: 0,
-            views: 0,
             tags: [],
             categories: [],
         },
@@ -64,9 +62,7 @@ export default function ProductForm({id}:Props){
                 content: productData.content ??"",
                 is_featured: productData.is_featured ?? 0,
                 status:productData.status  ?? "published",
-                price: productData.price  ??0,
                 sale_price: productData.sale_price  ??0,
-               // views:productData.views  ?? 0,
                 tags: productData.tags?.map((t: any) => t.name) ?? [],
                 categories: productData.categories?.map((t: any) => t.id) ?? [],
             })
@@ -135,8 +131,6 @@ export default function ProductForm({id}:Props){
                                                            
                                 <textarea className="form-control " placeholder="Enter Content"  {...register("content")} />
                              </div>
-
-                            
                         </div>
                     </CardBody>
                 </Card>

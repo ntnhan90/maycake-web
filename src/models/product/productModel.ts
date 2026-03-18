@@ -52,9 +52,7 @@ export const CreateProductBody = z.object({
     images: z.string().nullable().optional(),
 
     is_featured: z.number().optional(),
-    price: z.number(),
     sale_price: z.number(),
-    views: z.number(),
     tags: z.array(z.string()),
     categories: z.array(z.coerce.number()),
 })

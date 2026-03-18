@@ -24,7 +24,6 @@ export default function OrderForm({ id }: Props) {
     const createOrderMutation = useCreateOrderMutation();
     const updateOrderMutation = useUpdateOrderMutation();
 
-  /* ================= FORM ================= */
     const {
         register,
         handleSubmit,
@@ -48,19 +47,16 @@ export default function OrderForm({ id }: Props) {
         },
     });
 
-  /* ================= WATCH MONEY (STRING → NUMBER) ================= */
     const sub = Number(watch('sub_amount') || 0);
     const tax = Number(watch('tax_amount') || 0);
     const discount = Number(watch('discount_amount') || 0);
     const total = Number(watch('total_amount') || 0);
 
-  /* ================= CALCULATE TOTAL ================= */
     useEffect(() => {
         const t = sub + tax - discount;
         setValue('total_amount', (t > 0 ? t : 0).toFixed(2));
     }, [sub, tax, discount, setValue]);
 
-    /* ================= SUBMIT ================= */
     const onSubmit = async (data: CreateOrderBodyType) => {
         try {
             if (isEdit && id) {
@@ -81,143 +77,152 @@ export default function OrderForm({ id }: Props) {
         }
     };
 
-    /* ================= RENDER ================= */
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <div className="row g-4">
-                {/* LEFT */}
                 <div className="col-lg-9">
-                <div className="card">
-                    <div className="card-header fw-semibold">
-                    Order information
-                    </div>
+                    <div className="card">
+                        <div className="card-header fw-semibold">
+                        Order information
+                        </div>
 
-                    <div className="card-body">
-                    {/* PRODUCT SELECTOR */}
-                    <ProductSelector
-                        setValue={setValue}
-                        onChangeSubtotal={(value) =>
-                        setValue('sub_amount', value.toFixed(2))
-                        }
-                    />
+                        <div className="card-body">
+                            {isEdit && (
+                                <div className="alert alert-secondary">
+                                    Products cannot be changed after order creation
+                                </div>
+                            )}
 
-                    <div className="row mt-4">
-                        {/* NOTE */}
-                        <div className="col-sm-6">
-                            <div className="mb-3">
-                                <label className="form-label">Note</label>
-                                <textarea
-                                {...register('note')}
-                                className="form-control"
-                                rows={4}
-                                placeholder="Note for order..."
+                            {!isEdit && (
+                                <ProductSelector
+                                    setValue={setValue}
+                                    onChangeSubtotal={(value) =>
+                                        setValue('sub_amount', value.toFixed(2))
+                                    }
                                 />
+                             )}
+                            <div className="row mt-4">
+                                <div className="col-sm-6">
+                                    <div className="mb-3">
+                                        <label className="form-label">Note</label>
+                                        <textarea
+                                        {...register('note')}
+                                        className="form-control"
+                                        rows={4}
+                                        placeholder="Note for order..."
+                                        />
+                                    </div>
+                                </div>
+
+                                {/* AMOUNT SUMMARY */}
+                                <div className="col-sm-6">
+                                <table className="table table-borderless text-end">
+                                    <tbody>
+                                    <tr>
+                                        <td>Sub total</td>
+                                        <td>
+                                        <strong>${sub.toFixed(2)}</strong>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Tax amount</td>
+                                        <td>
+                                        <strong>${tax.toFixed(2)}</strong>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Promotion amount</td>
+                                        <td>
+                                        <strong>${discount.toFixed(2)}</strong>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>
+                                        {!isEdit && (
+                                            <button
+                                            type="button"
+                                            className="btn btn-outline-primary btn-sm"
+                                            onClick={() =>
+                                                setValue('discount_amount', '50.00')
+                                            }
+                                            >
+                                            Add discount
+                                            </button>
+                                        )}
+                                        </td>
+                                        <td />
+                                    </tr>
+
+                                    <tr className="border-top">
+                                        <td>Total amount</td>
+                                        <td>
+                                        <strong>${total.toFixed(2)}</strong>
+                                        </td>
+                                    </tr>
+
+                                    {/* PAYMENT METHOD */}
+                                    <tr>
+                                        <td colSpan={2} className="pt-3">
+                                        <label className="form-label">
+                                            Payment method
+                                        </label>
+                                        <select
+                                            {...register('payment_method')}
+                                            className="form-select"
+                                        >
+                                            <option value="cod">
+                                            Cash on delivery (COD)
+                                            </option>
+                                            <option value="bank_transfer">
+                                            Bank transfer
+                                            </option>
+                                        </select>
+                                        </td>
+                                    </tr>
+
+                                    {/* PAYMENT STATUS */}
+                                    <tr>
+                                        <td colSpan={2}>
+                                        <label className="form-label">
+                                            Payment status
+                                        </label>
+                                        <select
+                                            {...register('payment_status')}
+                                            className="form-select"
+                                        >
+                                            <option value="pending">Pending</option>
+                                            <option value="paid">Paid</option>
+                                            <option value="failed">Failed</option>
+                                        </select>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                </div>
                             </div>
                         </div>
-
-                        {/* AMOUNT SUMMARY */}
-                        <div className="col-sm-6">
-                        <table className="table table-borderless text-end">
-                            <tbody>
-                            <tr>
-                                <td>Sub total</td>
-                                <td>
-                                <strong>${sub.toFixed(2)}</strong>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>Tax amount</td>
-                                <td>
-                                <strong>${tax.toFixed(2)}</strong>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>Promotion amount</td>
-                                <td>
-                                <strong>${discount.toFixed(2)}</strong>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                {!isEdit && (
-                                    <button
-                                    type="button"
-                                    className="btn btn-outline-primary btn-sm"
-                                    onClick={() =>
-                                        setValue('discount_amount', '50.00')
-                                    }
-                                    >
-                                    Add discount
-                                    </button>
-                                )}
-                                </td>
-                                <td />
-                            </tr>
-
-                            <tr className="border-top">
-                                <td>Total amount</td>
-                                <td>
-                                <strong>${total.toFixed(2)}</strong>
-                                </td>
-                            </tr>
-
-                            {/* PAYMENT METHOD */}
-                            <tr>
-                                <td colSpan={2} className="pt-3">
-                                <label className="form-label">
-                                    Payment method
-                                </label>
-                                <select
-                                    {...register('payment_method')}
-                                    className="form-select"
-                                >
-                                    <option value="cod">
-                                    Cash on delivery (COD)
-                                    </option>
-                                    <option value="bank_transfer">
-                                    Bank transfer
-                                    </option>
-                                </select>
-                                </td>
-                            </tr>
-
-                            {/* PAYMENT STATUS */}
-                            <tr>
-                                <td colSpan={2}>
-                                <label className="form-label">
-                                    Payment status
-                                </label>
-                                <select
-                                    {...register('payment_status')}
-                                    className="form-select"
-                                >
-                                    <option value="pending">Pending</option>
-                                    <option value="paid">Paid</option>
-                                    <option value="failed">Failed</option>
-                                </select>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                        </div>
                     </div>
+
+                    <div className="mt-3">
+                        <Button type="submit" variant="primary" className="w-100">
+                        Save
+                        </Button>
                     </div>
                 </div>
 
-                {/* SAVE */}
-                <div className="mt-3">
-                    <Button type="submit" variant="primary" className="w-100">
-                    Save
-                    </Button>
-                </div>
-                </div>
-
-                {/* RIGHT */}
                 <div className="col-lg-3">
-                <CustomerSelector2 setValue={setValue} />
+                    {isEdit && (
+                        <div className="alert alert-secondary">
+                        Info customer
+                        </div>
+                    )}
+
+                    {!isEdit && (
+                        <CustomerSelector2 setValue={setValue} />
+                    )}
                 </div>
             </div>
         </form>

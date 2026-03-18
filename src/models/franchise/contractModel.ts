@@ -10,7 +10,7 @@ export const ContractSchema = z.object({
     marketing_fee_percent: z.string(),
     payment_status: z.string(),
     contract_file_url: z.string(),
-    franchiseId:z.number()
+    franchise_id:z.number()
 })
 export type ContractResType = z.TypeOf<typeof ContractSchema>
 
@@ -28,7 +28,7 @@ export const CreateContractBody = z.object({
     marketing_fee_percent: z.string(),
     payment_status: z.string(),
     contract_file_url: z.string(),
-    franchiseId:z.number()
+    franchise_id:z.number()
 })
 
 export type CreateContractBodyType = z.TypeOf<typeof CreateContractBody>

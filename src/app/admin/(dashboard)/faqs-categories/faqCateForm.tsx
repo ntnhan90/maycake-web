@@ -58,33 +58,26 @@ export default function FaqCateForm({id}: Props){
 
 
     const onSubmit = async(data: CreateFaqCateBodyType) => {
-        if(id){
-            //console.log("update : " , data)
-            if(updateFaqCateMutation.isPending) return
-            try {
+        try {
+            if(id){
+                if(updateFaqCateMutation.isPending) return
                 let body: CreateFaqCateBodyType & {id:number} ={
                     id: id as number,
                     ...data
                 }
-                const result = await updateFaqCateMutation.mutateAsync(body)
+                await updateFaqCateMutation.mutateAsync(body)
                 toast.success("update success");
-                router.push("/admin/faqs-categories")
-            } catch (error) {
-                handleErrorApi({
-                    error,
-                    setError:setError
-                })
+            }else{
+                if(createFaqCateMutation.isPending) return
+                await createFaqCateMutation.mutateAsync(data);
+                toast.success("add success");
             }
-        }else{
-            if(createFaqCateMutation.isPending) return
-            let body = {
-                ...data,
-                order: 0
-            };
-            const result = await createFaqCateMutation.mutateAsync(body);
-            toast.success("add success");
-            router.push("/admin/faqs-categories")
-            //console.log("create : " , data)
+            router.push("/admin/faqs")
+        } catch (error) {
+            handleErrorApi({
+                error,
+                setError:setError
+            })
         }
     }
 

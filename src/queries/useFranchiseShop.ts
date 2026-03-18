@@ -27,7 +27,6 @@ export const useGetShopQuery = (id: number) =>{
     return useQuery({
         queryKey: ['shop', id],
         queryFn: () => shopApiRequest.get(id),
-   //     enabled
     })
 }
 

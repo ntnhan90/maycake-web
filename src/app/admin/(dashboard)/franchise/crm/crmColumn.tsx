@@ -46,7 +46,7 @@ export const franchiseColumns: ColumnDef<FranchiseResType>[] = [
 		header: "Email",
     },
     {
-        accessorKey: "Phone",
+        accessorKey: "phone",
 		header: "Phone",
     },
     {
@@ -56,14 +56,8 @@ export const franchiseColumns: ColumnDef<FranchiseResType>[] = [
             const {id} = info.row.original;
             return(
                 <Fragment>
-                    <DasherTippy content="view">
-                        <Button href="" variant="ghost btn-icon"
-							size="sm" className="rounded-circle">
-                            <IconEye size={16} />
-                        </Button>
-                    </DasherTippy>
                     <DasherTippy content="Edit">
-                        <Button href={`/admin/faqs-categories/${id}`} variant="ghost btn-icon"
+                        <Button href={`/admin/franchise/crm/${id}`} variant="ghost btn-icon"
 							size="sm" className="rounded-circle"
                         > 
                             <IconEdit size={16} />

@@ -27,7 +27,7 @@ export default function AdmninFranchiseContractsPage() {
                             </div>
                         </div>
                         <div>
-                            <Link role="button"  href="#" className=" d-md-flex align-items-center gap-2 btn btn-dark">
+                            <Link role="button"  href="/admin/franchise/contracts/create" className=" d-md-flex align-items-center gap-2 btn btn-dark">
                                 Create
                             </Link>
                         </div>

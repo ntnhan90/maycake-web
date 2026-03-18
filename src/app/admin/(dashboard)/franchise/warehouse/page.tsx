@@ -26,7 +26,7 @@ export default function AdmninFranchiseWarehousePage() {
                             </div>
                         </div>
                         <div>
-                            <Link role="button"  href="#" className=" d-md-flex align-items-center gap-2 btn btn-dark">
+                            <Link role="button"  href="/admin/franchise/warehouse/create" className=" d-md-flex align-items-center gap-2 btn btn-dark">
                                 Create
                             </Link>
                         </div>

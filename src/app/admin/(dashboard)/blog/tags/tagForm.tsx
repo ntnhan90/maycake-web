@@ -9,7 +9,6 @@ import { toast } from "react-toastify";
 import { useEffect } from "react";
 import { handleErrorApi } from "@/utils/lib";
 import SlugInput from "@/components/input/slugInput";
-// import RichTextEditor from "@/components/input/richTextEditor";
 
 type Props = {
     id? : number

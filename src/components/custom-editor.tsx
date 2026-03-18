@@ -11,7 +11,7 @@ interface Props {
 const CustomEditor: React.FC<Props> = ({ value, onChange }) => {
     const cloud = useCKEditorCloud({
         version: "47.6.0",
-        premium: true
+        premium: false
     })
 
     if (cloud.status === "error") {return <div>Error loading editor</div>}
@@ -45,8 +45,6 @@ const CustomEditor: React.FC<Props> = ({ value, onChange }) => {
             editor={ClassicEditor}
             data={value || ""}
             config={{
-                licenseKey: "<YOUR_LICENSE_KEY>",
-
                 plugins: [
                     Essentials,
                     Paragraph,

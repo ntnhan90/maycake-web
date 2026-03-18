@@ -4,7 +4,7 @@ import Link from 'next/link';
 import OrderTable from './orderTable';
 
 export const metadata: Metadata = {
-    title: "Product Collection List | Dasher - Responsive Bootstrap 5 Admin Dashboard",
+    title: "Order List | Dasher - Responsive Bootstrap 5 Admin Dashboard",
     description: "Dasher - Responsive Bootstrap 5 Admin Dashboard",
 };
 
