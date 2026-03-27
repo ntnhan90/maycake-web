@@ -8,6 +8,11 @@ import { io } from 'socket.io-client'
 import { CategoryItem } from "@/models/categoryManager";
 import { UseFormSetValue } from "react-hook-form";
 import { CreateBlogCateBodyType } from "@/models/blog/categoryModel";
+import * as XLSX from "xlsx";
+import { saveAs } from "file-saver";
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
+
 
 /**
  * Xóa đi ký tự `/` đầu tiên của path
@@ -224,4 +229,76 @@ export const onSelectCategory = ({
     setValue("is_featured", item.is_featured);
     setValue("is_default", item.is_default);
     setValue("image", item.image ?? "");
+};
+
+export const formatDateForInput = (date: string | Date | null) => {
+    if (!date) return "";
+
+    const d = new Date(date);
+    return d.toISOString().split("T")[0]; // YYYY-MM-DD
+};
+
+type Column = {
+    header : string;
+    accessorKey: string;
+}
+
+export const formatDataByColumns = ( data: any[], columns: Column[]) => {
+    return data.map((row) => {
+        const obj : any= {}
+        columns.forEach((col) => {
+            obj[col.header] = row[col.accessorKey];
+        });
+        return obj;
+    });
+};
+
+// csv
+export const exportCSV = (data:any[], columns: Column[], fileName = "data.csv") =>{
+    const formatted = formatDataByColumns(data, columns);
+
+    const worksheet = XLSX.utils.json_to_sheet(formatted);
+    const csv = XLSX.utils.sheet_to_csv(worksheet);
+
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+    saveAs(blob, fileName)
+}
+
+
+export const exportExcel = (data: any[], columns: Column[], fileName = "data.xlsx") => {
+  const formatted = formatDataByColumns(data, columns);
+
+  const worksheet = XLSX.utils.json_to_sheet(formatted);
+  const workbook = XLSX.utils.book_new();
+
+  XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
+
+  const buffer = XLSX.write(workbook, {
+    bookType: "xlsx",
+    type: "array",
+  });
+
+  saveAs(
+    new Blob([buffer], {
+      type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+    }),
+    fileName
+  );
+};
+
+// ✅ PDF
+export const exportPDF = (data: any[], columns: Column[], fileName = "data.pdf") => {
+    const doc = new jsPDF();
+
+    const headers = columns.map((c) => c.header);
+    const rows = data.map((row) =>
+        columns.map((c) => row[c.accessorKey])
+    );
+
+    autoTable(doc, {
+        head: [headers],
+        body: rows,
+    });
+
+    doc.save(fileName);
 };

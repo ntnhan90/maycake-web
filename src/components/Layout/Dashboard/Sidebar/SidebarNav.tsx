@@ -77,9 +77,8 @@ export default async function SidebarNav() {
                 <SidebarNavItem href="/admin/franchise/contracts" icon={faStore}>{dict.sidebar.items.contracts}</SidebarNavItem>
                 <SidebarNavItem href="/admin/franchise/warehouse" icon={faWarehouse}>{dict.sidebar.items.warehouse}</SidebarNavItem>
                 <SidebarNavItem href="/admin/franchise/shop" icon={faShop}>{dict.sidebar.items.shop_operation}</SidebarNavItem>
-               {/* <SidebarNavItem href="/admin/franchise/supply-chain" icon={faTruck}>{dict.sidebar.items.supply_chain}</SidebarNavItem>
+                <SidebarNavItem href="/admin/franchise/supply-chain" icon={faTruck}>{dict.sidebar.items.supply_chain}</SidebarNavItem>
                 <SidebarNavItem href="/admin/franchise/retail-order" icon={faReceipt}>{dict.sidebar.items.retail_order}</SidebarNavItem>
-                */}
             </SidebarNavGroup>
 
             <SidebarNavGroup toggleIcon={faNewspaper} toggleText= {dict.sidebar.items.blog}>

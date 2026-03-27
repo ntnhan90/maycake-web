@@ -1,11 +1,11 @@
 'use client'
-import TanstackTable from "@/components/table/TanstackTable";
 import TanstackTableV2 from "@/components/table/TanstackTableV2";
 import { SortingState } from "@tanstack/react-table";
 import { currencyColumns } from "./currencyColumn"
 import { useState, useEffect } from "react"
 import currencyApiRequest from "@/apiRequests/currencyApi";
-import { CurrencyResType, CurrencyListResType } from "@/models/currencyModel"
+import { CurrencyListResType } from "@/models/currencyModel"
+
 
 
 export default function CurrencyTable(){
@@ -64,6 +64,21 @@ export default function CurrencyTable(){
         }
     }, [data]);
 
+    const handleExportData = async () => {
+        const sortParam = tableState.sorting[0]
+            ? `${tableState.sorting[0].id}:${tableState.sorting[0].desc ? "desc" : "asc"}`
+            : undefined;
+
+        const res = await currencyApiRequest.list({
+            page: 1,
+            limit: 10000, // ⚠️ lấy full data
+            q: tableState.search,
+            order: sortParam,
+        });
+
+        return res.payload.data;
+    };
+
     return (
         <div className="row">
             <div className="card">
@@ -83,6 +98,8 @@ export default function CurrencyTable(){
                     onSortChange={(sorting) =>
                         setTableState((s) => ({ ...s, page: 1, sorting }))
                     }
+                    enableExport
+                    onExport={handleExportData}
                     />
                 </div>
             </div>

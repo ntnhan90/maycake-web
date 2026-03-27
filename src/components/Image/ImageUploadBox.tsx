@@ -29,7 +29,7 @@ export default function ImageUploadBox({ name, control}: Props) {
     }
     return (
         <>
-            <div className="border rounded p-3" style={{ maxWidth: 320 }}>
+            <div className="border rounded p-3 mt-4" style={{ maxWidth: 320 }}>
                 <div className="fw-semibold mb-2">Image</div>
 
                 <div

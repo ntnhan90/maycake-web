@@ -146,6 +146,26 @@ export default function ProductForm({id}:Props){
                         <p className="text-muted">Adding new attributes helps the product to have many options, such as size or color.</p>
                     </CardBody>
                 </Card>
+
+                <Card className="mb-3">
+                    <CardHeader className="d-flex justify-content-between align-items-center">
+                        <h5 className="mb-0 fw-semibold">Material</h5>
+
+                    </CardHeader>
+                    <CardBody>
+                        <p className="text-muted">Adding Material helps the product to have many options, such as size or color.</p>
+                    </CardBody>
+                </Card>
+
+                <Card className="mb-3">
+                    <CardHeader className="d-flex justify-content-between align-items-center">
+                        <h5 className="mb-0 fw-semibold">Recipes</h5>
+
+                    </CardHeader>
+                    <CardBody>
+                        <p className="text-muted">Adding Recipes helps the product to have many options, such as size or color.</p>
+                    </CardBody>
+                </Card>
             </div>
             <div className="col-md-3">
                 <Card >

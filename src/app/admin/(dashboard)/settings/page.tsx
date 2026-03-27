@@ -45,16 +45,6 @@ export default function SettingsPage() {
                                 <small className="text-secondary">Email templates using HTML & system variables</small>
                             </div>
                         </div>
-                        <div className="col-12 col-md-4">
-                            <div className="col">
-                                <div className="d-block mb-1 panel-section-item-title">
-                                    <a className="text-decoration-none text-primary" href="#">
-                                    Media
-                                    </a>
-                                </div>
-                                <small className="text-secondary">View and update your media settings.</small>
-                            </div>
-                        </div>
                     </Row>
                 </CardBody>
             </Card>

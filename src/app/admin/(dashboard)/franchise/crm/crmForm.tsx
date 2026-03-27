@@ -38,7 +38,7 @@ export default function CrmForm({id}: Props){
     if(id){
         const crmId = Number(id);
          try {
-            const { data, isLoading, error } = useGetFranchiseQuery(crmId);
+            const { data } = useGetFranchiseQuery(crmId);
             crmData = data?.payload
         } catch (error) {
             return <div>Something went wrong</div>

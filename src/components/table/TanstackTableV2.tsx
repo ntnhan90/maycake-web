@@ -1,7 +1,7 @@
 "use client";
 
-import React, { Fragment } from "react";
-import { Table } from "react-bootstrap";
+import React, { Fragment , useState} from "react";
+import { Row,Col, Table } from "react-bootstrap";
 import {
     ColumnDef,
     SortingState,
@@ -12,10 +12,7 @@ import {
 import { ChevronUp, ChevronDown } from "react-feather";
 import SearchInput from "../input/searchInput";
 import { getPaginationPages } from "@/utils/lib";
-
-/* =====================
-   TYPES
-===================== */
+import { exportCSV, exportExcel, exportPDF } from "@/utils/lib";
 
 export type ServerTableState = {
     page: number;
@@ -24,11 +21,11 @@ export type ServerTableState = {
     sorting?: SortingState;
     search?: string;
 };
+type ExportType = "csv" | "excel" | "pdf";
 
 interface TanstackTableProps<TData> {
     data: TData[];
     columns: ColumnDef<TData, unknown>[];
-
     state: ServerTableState;
 
     onPageChange: (page: number) => void;
@@ -40,6 +37,9 @@ interface TanstackTableProps<TData> {
     showSearch?: boolean;
     className?: string;
     tableClass?: string;
+    
+    enableExport?: boolean;
+    onExport?: () => Promise<TData[]>;
 }
 
 /* =====================
@@ -57,7 +57,10 @@ function TanstackTableV2<TData>({
     showSearch = true,
     className,
     tableClass,
+    enableExport = false,
+    onExport
 }: TanstackTableProps<TData>) {
+    const [exporting, setExporting] = useState(false);
     const table = useReactTable({
         data,
         columns,
@@ -88,17 +91,79 @@ function TanstackTableV2<TData>({
         },
     });
 
+    const handleExport = async (type: ExportType) =>{
+        try {
+            setExporting(true);
+            let exportData = data;
+
+            // neu co API thi goi
+            if(onExport){
+                exportData = await onExport();
+            }
+
+            const cols = columns.filter((c:any) => c.accessorKey)
+                        .map((c: any) => ({
+                            header:String(c.header ?? c.accessorKey),
+                            accessorKey: c.accessorKey,
+                        }))
+            
+            switch(type){
+                case "csv":
+                    exportCSV(exportData, cols, "table.csv");
+                    break;
+                case "excel":
+                    exportExcel(exportData, cols, "table.xlsx");
+                    break;
+                case "pdf":
+                    exportPDF(exportData, cols, "table.pdf");
+                    break;
+            }
+        } catch (error) {
+            console.error("export error", error)
+        }finally{
+            setExporting(false)
+        }
+    }
     return (
         <Fragment>
-            {/* 🔍 SEARCH */}
-            {showSearch && onSearchChange && (
-                <SearchInput 
-                    value={state.search ?? ""}
-                    onChange={onSearchChange}
-                    placeholder="Search... "
-                />
-            )}
-
+            <Row>
+                <Col md={6} xs={12}>
+                    {showSearch && onSearchChange && (
+                        <SearchInput 
+                            value={state.search ?? ""}
+                            onChange={onSearchChange}
+                            placeholder="Search... "
+                        />
+                    )}
+                </Col>
+                <Col md={6} xs={12} className="float-end">
+                    {enableExport && (
+                        <div className=" d-flex gap-2">
+                            <button
+                                className="btn btn-outline-success btn-sm"
+                                disabled={exporting}
+                                onClick={() => handleExport("excel")}
+                            >
+                                {exporting ? "..." : "Excel"}
+                            </button>
+                            <button
+                                className="btn btn-outline-primary btn-sm"
+                                disabled={exporting}
+                                onClick={() => handleExport("csv")}
+                            >
+                                CSV
+                            </button>
+                            <button
+                                className="btn btn-outline-danger btn-sm"
+                                disabled={exporting}
+                                onClick={() => handleExport("pdf")}
+                            >
+                                PDF
+                            </button>
+                        </div>
+                    )}
+                </Col>
+            </Row>
             {/* 📊 TABLE */}
             <div className={className ?? "table-responsive"}>
                 <Table
