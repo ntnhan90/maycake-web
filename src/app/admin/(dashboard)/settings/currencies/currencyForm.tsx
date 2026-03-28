@@ -1,6 +1,6 @@
 "use client"
 
-import { useForm } from "react-hook-form";
+import { useForm ,Controller} from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Card, CardBody, CardHeader, Button ,Form} from "react-bootstrap";
 import { useCreateCurrencyMutation,useGetCurrencyQuery, useUpdateCurrencyMutation } from "@/queries/useCurrency";
@@ -24,14 +24,15 @@ export default function CurrencyForm({id}: Props) {
         handleSubmit,
         formState: { errors },
         reset,
-        setError
+        setError,
+        control
     } = useForm<CreateCurrencyBodyType>({
         resolver: zodResolver(CreateCurrencyBody),
         defaultValues: {
             title:"",
             exchange_rate:0,
             is_prefix_symbol:1,
-            decimals:0,
+            default: 0
         },
     });
     
@@ -48,42 +49,37 @@ export default function CurrencyForm({id}: Props) {
     
     useEffect(() => {
         if (currencyData) {
-            console.log(currencyData.exchange_rate)
             reset({
                 title: currencyData.title ?? "",
                 exchange_rate: currencyData.exchange_rate ?? 0,
                 is_prefix_symbol:currencyData.is_prefix_symbol ?? 1,
-                decimals:currencyData.decimals ?? 0,
+                default:currencyData.default ?? 0,
             })
         }
     }, [currencyData, reset])
 
     const onSubmit = async(data: CreateCurrencyBodyType) =>{
-        if(id){
-            if(updateCurrencyMutaiton.isPending) return
-            try {
+        console.log(data)
+        try {
+            if(id){
+                if(updateCurrencyMutaiton.isPending) return
                 let body: CreateCurrencyBodyType & {id:number} ={
                     id: id as number,
                     ...data
                 }
                 await updateCurrencyMutaiton.mutateAsync(body)
                 toast.success("update success");
-                router.push("/admin/settings/currencies")
-            } catch (error) {
-                handleErrorApi({
-                    error,
-                    setError:setError
-                })
+            }else{
+                if(createCurrencyMutation.isPending) return
+                await createCurrencyMutation.mutateAsync(data);
+                toast.success("add success");
             }
-        }else{
-            if(createCurrencyMutation.isPending) return;
-            let body = {
-                ...data,
-                default: 0
-            }
-            const result =  await createCurrencyMutation.mutateAsync(body)
-            toast.success("add success");
             router.push("/admin/settings/currencies")
+        } catch (error) {
+            handleErrorApi({
+                error,
+                setError:setError
+            })
         }
     }
 
@@ -105,24 +101,6 @@ export default function CurrencyForm({id}: Props) {
 
                             <div className="mb-3 position-relative">
                                 <label className="form-label form-label" htmlFor="first_name">
-                                    Number of decimals <span className="text-red-500">*</span>
-                                </label>
-                                <input className="form-control" placeholder="Enter decimals" 
-                                    {...register("decimals",{
-                                        valueAsNumber:true,
-                                    })}
-                                    onKeyDown={(e) =>{
-                                        const allowed = ["Backspace", "Tab", "ArrowLeft", "ArrowRight"];
-                                        if (!/[0-9]/.test(e.key) && !allowed.includes(e.key)) {
-                                            e.preventDefault();
-                                        }
-                                    }}
-                                />
-                                {errors.decimals && <p className="text-red-500">{errors.decimals.message}</p>}
-                            </div>
-
-                            <div className="mb-3 position-relative">
-                                <label className="form-label form-label" htmlFor="first_name">
                                     Exchange Rate <span className="text-red-500">*</span>
                                 </label>
                                 <input className="form-control " placeholder="Enter decimals" 
@@ -140,6 +118,24 @@ export default function CurrencyForm({id}: Props) {
                                     }}
                                 />
                                 {errors.exchange_rate && <p className="text-red-500">{errors.exchange_rate.message}</p>}
+                            </div>
+
+                            <div className="mb-3 form-check form-switch">
+                                <Controller
+    name="default"
+    control={control}
+    render={({ field }) => (
+        <input
+            type="checkbox"
+            className="form-check-input"
+            checked={field.value === 1}
+            onChange={(e) => field.onChange(e.target.checked ? 1 : 0)}
+        />
+    )}
+/>
+                                <label className="form-check-label" htmlFor="is_default">
+                                    Set as default
+                                </label>
                             </div>
                         </div>
                     </CardBody>

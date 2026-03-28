@@ -22,7 +22,7 @@ export type CurrencyListResType = z.TypeOf<typeof CurrencyListRes>
 export const CreateCurrencyBody = z.object({
     title: z.string().min(1).max(256),
     is_prefix_symbol:z.number(),
-    decimals:z.number(),
+    default:z.number(),
     exchange_rate:z.number(),
 })
 export type CreateCurrencyBodyType = z.TypeOf<typeof CreateCurrencyBody>

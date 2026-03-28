@@ -1,7 +1,6 @@
 import { toast } from "react-toastify";
 import { handleErrorApi } from "@/utils/lib";
 import { CreateBlogCateBodyType } from "@/models/blog/categoryModel";
-import { CategoryItem } from "@/models/categoryManager";
 
 export function useBlogCategorySubmit({
     selected,
@@ -12,7 +11,6 @@ export function useBlogCategorySubmit({
     router,
     setError
 }: any) {
-
     return async (data: CreateBlogCateBodyType) => {
         try {
             if (selected) {
