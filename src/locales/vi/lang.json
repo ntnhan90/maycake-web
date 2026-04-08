@@ -121,8 +121,6 @@
         "listing": {
             "headers": {
                 "header1": "User",
-                "header2": "Usage",
-                "header3": "Payment Method",
                 "header4": "Activity"
             },
             "user_status": {

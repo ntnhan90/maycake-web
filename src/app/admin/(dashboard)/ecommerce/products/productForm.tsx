@@ -1,5 +1,5 @@
 "use client"
-import { useForm ,Controller} from "react-hook-form";
+import { useForm ,Controller,useFieldArray} from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Card, CardBody, CardHeader, Button ,Form} from "react-bootstrap";
 import { useRouter } from "next/navigation";
@@ -13,7 +13,8 @@ import FeatureToggle from "@/components/input/FeatureToggle";
 import ImageUploadBox from "@/components/Image/ImageUploadBox";
 import TagInput from "@/components/input/tagInput";
 import CategorySelect from "@/components/input/categorySelect";
-import CustomEditor from "@/components/custom-editor";
+import { useGetProductAttributeListQuery } from "@/queries/useProductAttribute";
+
 type Props ={
     id?: number
 }
@@ -40,6 +41,7 @@ export default function ProductForm({id}:Props){
             sale_price: 0,
             tags: [],
             categories: [],
+            product_attributes: [],
         },
     });
 
@@ -53,6 +55,10 @@ export default function ProductForm({id}:Props){
             return <div>Something went wrong</div>
         }
     }
+
+    const { data: attrData } = useGetProductAttributeListQuery();
+    const attributeSets = attrData?.payload?.data || [];
+
 
     useEffect(() => {
         if (productData) {
@@ -69,15 +75,19 @@ export default function ProductForm({id}:Props){
         }
     }, [productData, reset])
 
+   
+
     const onSubmit = async(data: CreateProductBodyType) => {
         try{
             if(id){
                 if(updateProductMutation.isPending ) return
+                console.log(data);
+                /*
                 await updateProductMutation.mutateAsync({
                     id: id as number,
                     ...data,
                 })
-
+                */
                 toast.success("Update success")
             }else{
                 if(createProductMutation.isPending)  return
@@ -109,7 +119,6 @@ export default function ProductForm({id}:Props){
                                 titleName="name"
                                 slugName="slug"
                             />
-                           
                         
                             <div className="mb-3 position-relative">
                                 <label className="form-label form-label" >
@@ -128,39 +137,55 @@ export default function ProductForm({id}:Props){
                                 <label className="form-label form-label" >
                                     Content 
                                 </label>
-                                                           
                                 <textarea className="form-control " placeholder="Enter Content"  {...register("content")} />
                              </div>
                         </div>
                     </CardBody>
                 </Card>
+
                 <Card className="mb-3">
-                    <CardHeader className="d-flex justify-content-between align-items-center">
+                    <CardHeader>
                         <h5 className="mb-0 fw-semibold">Attributes</h5>
-
-                        <button className="btn border px-3 py-2 fw-medium">
-                            Add new attributes
-                        </button>
                     </CardHeader>
+
                     <CardBody>
-                        <p className="text-muted">Adding new attributes helps the product to have many options, such as size or color.</p>
+                        {attributeSets.map((set: any, index: number) => {
+                        return (
+                            <div key={set.id} className="row mb-3 align-items-center">
+                            
+                                <div className="col-md-5">
+                                    <input
+                                    className="form-control"
+                                    value={set.name}
+                                    disabled
+                                    />
+                                </div>
+
+                                <div className="col-md-7">
+                                    <Form.Select
+                                    {...register(`product_attributes.${index}.attribute_id`, {
+                                        setValueAs: (v) => (v ? Number(v) : undefined),
+                                    })}
+                                    >
+                                    <option value="">Select value</option>
+                                    {set.attributes.map((attr: any) => (
+                                        <option key={attr.id} value={attr.id}>
+                                        {attr.title}
+                                        </option>
+                                    ))}
+                                    
+                                    </Form.Select>
+                                </div>
+                            </div>
+                        );
+                        })}
                     </CardBody>
                 </Card>
 
-                <Card className="mb-3">
-                    <CardHeader className="d-flex justify-content-between align-items-center">
-                        <h5 className="mb-0 fw-semibold">Material</h5>
-
-                    </CardHeader>
-                    <CardBody>
-                        <p className="text-muted">Adding Material helps the product to have many options, such as size or color.</p>
-                    </CardBody>
-                </Card>
 
                 <Card className="mb-3">
                     <CardHeader className="d-flex justify-content-between align-items-center">
                         <h5 className="mb-0 fw-semibold">Recipes</h5>
-
                     </CardHeader>
                     <CardBody>
                         <p className="text-muted">Adding Recipes helps the product to have many options, such as size or color.</p>
@@ -216,7 +241,6 @@ export default function ProductForm({id}:Props){
                     type="product"
                     label="Tags"
                 />
-
             </div>
         </form>
     )

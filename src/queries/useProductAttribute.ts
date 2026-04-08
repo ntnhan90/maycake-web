@@ -2,6 +2,7 @@ import attributeApiRequest from "@/apiRequests/product/attributeApi";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { CreateAttributeSetBodyType } from "@/models/product/attributeModel";
 import { QueryParams } from "@/types/query";
+
 export const useGetProductAttributeListQuery = () =>{
     return useQuery({
         queryKey: ['attributeSet'],

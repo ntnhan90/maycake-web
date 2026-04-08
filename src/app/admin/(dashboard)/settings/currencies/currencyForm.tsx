@@ -105,7 +105,7 @@ export default function CurrencyForm({id}: Props) {
                                 </label>
                                 <input className="form-control " placeholder="Enter decimals" 
                                     type="number"
-                                    step="0.01"
+                                    step="0.0001"
                                     {...register("exchange_rate",{
                                         valueAsNumber:true,
                                     })}
@@ -122,17 +122,17 @@ export default function CurrencyForm({id}: Props) {
 
                             <div className="mb-3 form-check form-switch">
                                 <Controller
-    name="default"
-    control={control}
-    render={({ field }) => (
-        <input
-            type="checkbox"
-            className="form-check-input"
-            checked={field.value === 1}
-            onChange={(e) => field.onChange(e.target.checked ? 1 : 0)}
-        />
-    )}
-/>
+                                    name="default"
+                                    control={control}
+                                    render={({ field }) => (
+                                        <input
+                                            type="checkbox"
+                                            className="form-check-input"
+                                            checked={field.value === 1}
+                                            onChange={(e) => field.onChange(e.target.checked ? 1 : 0)}
+                                        />
+                                    )}
+                                />
                                 <label className="form-check-label" htmlFor="is_default">
                                     Set as default
                                 </label>

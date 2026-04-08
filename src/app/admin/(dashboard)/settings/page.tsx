@@ -19,7 +19,7 @@ export default function SettingsPage() {
                             <div className="col">
                                 <div className="d-block mb-1 panel-section-item-title">
                                     <a className="text-decoration-none text-primary" href="#">
-                                    Genaral
+                                    General
                                     </a>
                                 </div>
                                 <small className="text-secondary">View and update your general settings</small>

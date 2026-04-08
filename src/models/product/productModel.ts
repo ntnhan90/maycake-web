@@ -1,5 +1,6 @@
 import z from 'zod'
 import { PaginationSchema } from '../pagination'
+import { AttributeItemSchema } from './attributeModel';
 
 export const TagResSchema = z.object({
     id: z.number(),
@@ -55,6 +56,8 @@ export const CreateProductBody = z.object({
     sale_price: z.number(),
     tags: z.array(z.string()),
     categories: z.array(z.coerce.number()),
+
+    product_attributes: z.array(AttributeItemSchema).optional(),
 })
 
 export type CreateProductBodyType = z.infer<typeof CreateProductBody>

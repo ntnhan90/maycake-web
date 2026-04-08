@@ -2,10 +2,12 @@ import z from 'zod'
 import { PaginationSchema } from '../pagination';
 
 export const AttributeItemSchema = z.object({
-   // id:z.number(),
-    title: z.string().min(1, 'Attribute title is required'),
+    attribute_set_id: z.number().optional(),
+    attribute_id: z.number(),
+    title: z.string().optional(),
     color: z.string().nullable().optional(),
     image: z.string().nullable().optional(),
+    price: z.coerce.number().optional(),
 })
 
 export const AttributeSetSchema = z.object({

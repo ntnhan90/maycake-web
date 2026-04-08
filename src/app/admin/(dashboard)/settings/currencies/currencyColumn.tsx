@@ -1,8 +1,7 @@
 import { Fragment } from "react";
 import { ColumnDef } from "@tanstack/react-table";
-import { IconEdit, IconEye, IconTrash } from "@tabler/icons-react";
+import { IconEdit, IconTrash } from "@tabler/icons-react";
 import { Button } from "react-bootstrap";
-import Link from "next/link";
 import { CurrencyResType } from "@/models/currencyModel";
 import DasherTippy from "@/components/common/DashTippy";
 import Checkbox from "@/components/table/Checkbox";
@@ -41,6 +40,11 @@ export const currencyColumns : ColumnDef<CurrencyResType>[] = [
     {
 		accessorKey: "exchange_rate",
 		header: "exchange_rate",
+        cell: ({ getValue }) => {
+            const value = getValue<number>();
+            return new Intl.NumberFormat("en-US").format(value || 0);
+            //return new Intl.NumberFormat("vi-VN").format(value || 0);
+        },
 	},
     {
 		accessorKey: "default",

@@ -1,5 +1,4 @@
 "use client"
-import { useState } from 'react'
 import { CreateAttributeSetBody, CreateAttributeSetBodyType } from "@/models/product/attributeModel";
 import { useForm, useFieldArray } from 'react-hook-form'
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -10,8 +9,6 @@ import { toast } from "react-toastify";
 import { useEffect } from "react";
 import { handleErrorApi } from "@/utils/lib";
 import { Trash } from 'react-bootstrap-icons'
-import { AttributeType } from "@/types/attribute";
-import SlugInput from '@/components/input/slugInput';
 
 type Props ={
     id?: number
@@ -29,7 +26,6 @@ export default function ProAttributeForm({id}: Props){
         control,
         reset,
         watch,
-        setValue,
         setError
     } = useForm<CreateAttributeSetBodyType>({
         resolver: zodResolver(CreateAttributeSetBody),
@@ -66,6 +62,7 @@ export default function ProAttributeForm({id}: Props){
                     title: attr.title,
                     color: attr.color ?? "#000000",
                     image: attr.image ?? null,
+                    price: attr.price ?? null,
                 })),
         });
     }, [attributeData, reset]);
@@ -117,6 +114,7 @@ export default function ProAttributeForm({id}: Props){
                                 title: '',
                                 color: '#333333',
                                 image: null,
+                                price: 0.00
                             })
                         }>
                             Add new attribute
@@ -131,6 +129,7 @@ export default function ProAttributeForm({id}: Props){
                                     <th>Title</th>
                                     <th>Color</th>
                                     <th>Image</th>
+                                    <th>Price</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -142,7 +141,6 @@ export default function ProAttributeForm({id}: Props){
                                 return(
                                     <tr key={field.id}>
                                         <td>{index + 1}</td>
-                                       
                                         <td>
                                             <Form.Control
                                                 {...register(
@@ -190,24 +188,21 @@ export default function ProAttributeForm({id}: Props){
                                                 </div>
                                                 )}
 
-                                                <Button
-                                                variant="link"
-                                                size="sm"
-                                                onClick={() => {
-                                                    const url = prompt(
-                                                    'Enter image URL'
-                                                    )
-                                                    if (url)
-                                                    setValue(
-                                                        `attributes.${index}.image`,
-                                                        url
-                                                    )
-                                                }}
-                                                >
-                                                Add from URL
-                                                </Button>
                                             </div>
                                         </td>
+                                        <td>
+                                            <Form.Control
+                                                type="number"
+                                                step="0.01"
+                                                {...register(`attributes.${index}.price`, {
+                                                valueAsNumber: true, // 🔥 QUAN TRỌNG
+                                                })}
+                                                isInvalid={!!errors.attributes?.[index]?.price}
+                                            />
+                                            <Form.Control.Feedback type="invalid">
+                                                {errors.attributes?.[index]?.price?.message}
+                                            </Form.Control.Feedback>
+                                            </td>
                                         <td>
                                             <Button
                                                 variant="link"
