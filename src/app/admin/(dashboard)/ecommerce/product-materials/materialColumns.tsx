@@ -82,7 +82,7 @@ export const materialColumns: ColumnDef<MaterialResType>[] =[
             return (
                 <Fragment>
                     <DasherTippy content="Edit">
-                        <Button href={`/admin/ecommerce/products/${id}`} variant="ghost btn-icon"
+                        <Button href={`/admin/ecommerce/product-materials/${id}`} variant="ghost btn-icon"
 							size="sm" className="rounded-circle"
                         > 
                             <IconEdit size={16} />

@@ -19,16 +19,6 @@ export default function SettingsPage() {
                             <div className="col">
                                 <div className="d-block mb-1 panel-section-item-title">
                                     <a className="text-decoration-none text-primary" href="#">
-                                    General
-                                    </a>
-                                </div>
-                                <small className="text-secondary">View and update your general settings</small>
-                            </div>
-                        </div>
-                        <div className="col-12 col-md-4">
-                            <div className="col">
-                                <div className="d-block mb-1 panel-section-item-title">
-                                    <a className="text-decoration-none text-primary" href="#">
                                     Email
                                     </a>
                                 </div>
@@ -43,6 +33,17 @@ export default function SettingsPage() {
                                     </a>
                                 </div>
                                 <small className="text-secondary">Email templates using HTML & system variables</small>
+                            </div>
+                        </div>
+                        <div className="col-12 col-md-4">
+                            <div className="col">
+                                <div className="d-block mb-1 panel-section-item-title">
+                                    <a className="text-decoration-none text-primary" href="#">
+                                    Google Analytics
+                                    </a>
+                                </div>
+                                <small className="text-secondary">Config Credentials for Google Analytics
+</small>
                             </div>
                         </div>
                     </Row>

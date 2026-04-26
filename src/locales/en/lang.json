@@ -168,10 +168,8 @@
         "message": "You have {{total}} notifications",
         "items": {
             "new_user": "New user registered",
-            "deleted_user": "User deleted",
-            "sales_report": "Sales report is ready",
-            "new_client": "New client",
-            "server_overloaded": "Server overloaded"
+            "sales_report": "Sales report",
+            "order" : "Order"
         }
     },
     "messages": {
@@ -306,8 +304,8 @@
             "faqs" :" FAQs",
             "faqs_categories" :" FAQs Categories",
             "media" : "Media",
-            "settings" : "Setting",
-            "admin" : "Admin",
+            "settings" : "Settings",
+            "admin" : "Systems",
             "franchise" : "Franchise",
             "franchise_crm" : "Franchise CRM",
             "contracts" : "Contracts",

@@ -54,7 +54,9 @@ export default async function SidebarNav() {
         <ul className="list-unstyled">
             <SidebarNavItem icon={faHome} href="/admin">
                 {dict.sidebar.items.dashboard}
-                <small className="ms-auto"><Badge bg="info" className="ms-auto">NEW</Badge></small>
+                {/**
+                * <small className="ms-auto"><Badge bg="info" className="ms-auto">NEW</Badge></small>
+                */} 
             </SidebarNavItem>
 
             <SidebarNavGroup toggleIcon={faCartPlus} toggleText={dict.sidebar.items.ecommerce}>

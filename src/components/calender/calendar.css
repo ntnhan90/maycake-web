@@ -1,0 +1,65 @@
+.calendar-wrapper {
+  background: #f8f9fa;
+  border-radius: 12px;
+}
+
+/* navigation */
+.nav-btn {
+  cursor: pointer;
+  font-size: 20px;
+}
+
+/* months */
+.months {
+  display: flex;
+  justify-content: space-between;
+  color: #6c757d;
+}
+
+.months span.active {
+  color: #e64980;
+  font-weight: 600;
+}
+
+/* GRID CHUẨN 7 CỘT */
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+}
+
+/* cell */
+.cell {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* day */
+.day {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.day:hover {
+  background: #f1f3f5;
+}
+
+.day.active {
+  background: #e64980;
+  color: white;
+}
+
+/* button */
+.add-btn {
+  background: #e64980;
+  color: white;
+  padding: 10px 30px;
+  border-radius: 25px;
+}

@@ -12,10 +12,9 @@ export default function DropdownAvatar() {
     return(
         <DropdownToggle variant="link" bsPrefix="hide-caret" className="py-0 px-2 rounded-0" id="dropdown-profile">
             <div className="avatar position-relative">
-                 
                 <img
                     src={preview}
-                    className="img-fluid 12"
+                    className="img-fluid rounded-circle"
                     style={{ maxHeight: '100%' }}
                     />
             </div>

@@ -108,7 +108,7 @@ export default function DiscountForm({id}: Props){
                         </div>
                     </CardBody>
                 </Card>
-                <Card >
+                <Card className="mt-3">
                     <CardHeader>
                         <h5 className="card-title">Puslish</h5>
                     </CardHeader>

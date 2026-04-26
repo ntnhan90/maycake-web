@@ -37,6 +37,9 @@ export default function SystemPage() {
                                 <small className="text-secondary">View and update your roles and permissions</small>
                             </div>
                         </div>
+                        {/**
+                         * 
+                        
                         <div className="col-12 col-md-4">
                             <div className="col">
                                 <div className="d-block mb-1 panel-section-item-title">
@@ -67,6 +70,7 @@ export default function SystemPage() {
                                 <small className="text-secondary">Cronjob allow you to automate certain commands or scripts on your site.</small>
                             </div>
                         </div>
+                         */}
                     </Row>
                 </CardBody>
             </Card>

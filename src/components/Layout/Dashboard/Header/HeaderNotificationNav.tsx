@@ -64,13 +64,7 @@ export default async function HeaderNotificationNav() {
                                 </ItemWithIcon>
                             </DropdownItem>
                         </Link>
-                        <Link href="#" passHref legacyBehavior>
-                            <DropdownItem>
-                                <ItemWithIcon icon={faUserMinus}>
-                                {dict.notification.items.deleted_user}
-                                </ItemWithIcon>
-                            </DropdownItem>
-                        </Link>
+                        
                         <Link href="#" passHref legacyBehavior>
                             <DropdownItem>
                                 <ItemWithIcon icon={faChartBar}>
@@ -81,21 +75,14 @@ export default async function HeaderNotificationNav() {
                         <Link href="#" passHref legacyBehavior>
                             <DropdownItem>
                                 <ItemWithIcon icon={faBasketShopping}>
-                                {dict.notification.items.new_client}
-                                </ItemWithIcon>
-                            </DropdownItem>
-                        </Link>
-                        <Link href="#" passHref legacyBehavior>
-                            <DropdownItem>
-                                <ItemWithIcon icon={faGaugeHigh}>
-                                {dict.notification.items.server_overloaded}
+                                {dict.notification.items.order}
                                 </ItemWithIcon>
                             </DropdownItem>
                         </Link>
                     </DropdownMenu>
                 </Dropdown>
             </NavItem>
-
+            {/**
             <NavItem className="d-none d-sm-block">
                 <Dropdown>
                     <DropdownToggle className="px-2 mx-1 px-sm-3 mx-sm-0" as={NavLink} bsPrefix="hide-caret" id="dropdown-mail">
@@ -169,6 +156,7 @@ export default async function HeaderNotificationNav() {
                     </DropdownMenu>
                 </Dropdown>
             </NavItem>
+            */}
             <NavItem>
                 <HeaderLocale currentLocale={getLocale()} />
             </NavItem>

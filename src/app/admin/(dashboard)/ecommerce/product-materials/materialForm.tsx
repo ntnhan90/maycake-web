@@ -41,10 +41,12 @@ export default function MaterialForm({id}:Props){
         try {
             const { data, isLoading, error } = useGetMaterialQuery(tagId);
             materialData = data?.payload
+            console.log("materialData ," + materialData)
         } catch (error) {
             return <div>Something went wrong</div>
         }
     }
+
     useEffect(() => {
         if (materialData) {
             reset({

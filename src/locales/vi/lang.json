@@ -168,10 +168,8 @@
         "message": "Bạn có {{total}} thông báo",
         "items": {
             "new_user": "New user registered",
-            "deleted_user": "User deleted",
-            "sales_report": "Sales report is ready",
-            "new_client": "New client",
-            "server_overloaded": "Server overloaded"
+            "sales_report": "Sales report",
+            "order" : "Don hang"
         }
     },
     "messages": {
@@ -307,7 +305,7 @@
             "faqs_categories" :" FAQs Categories",
             "media" : "Thư viện",
             "settings" : "Cài đặt",
-            "admin" : "Admin",
+            "admin" : "Hệ thống",
             "franchise" : "Nhượng quyền",
             "franchise_crm" : "Nhượng quyền CRM",
             "contracts" : "Hợp đồng",
