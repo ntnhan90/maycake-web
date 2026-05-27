@@ -39,7 +39,7 @@ export default function ImageUploadBox({ name, control}: Props) {
                 {preview ? (
                     <img
                     src={preview}
-                    className="img-fluid 12"
+                    className="img-fluid"
                     style={{ maxHeight: '100%' }}
                     />
                 ) : (

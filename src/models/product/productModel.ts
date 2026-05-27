@@ -57,7 +57,7 @@ export const CreateProductBody = z.object({
     tags: z.array(z.string()),
     categories: z.array(z.coerce.number()),
 
-    product_attributes: z.array(AttributeItemSchema).optional(),
+    attributes: z.array(AttributeItemSchema).optional(),
 })
 
 export type CreateProductBodyType = z.infer<typeof CreateProductBody>

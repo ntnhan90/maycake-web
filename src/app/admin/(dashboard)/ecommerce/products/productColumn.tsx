@@ -59,10 +59,6 @@ export const productColumns: ColumnDef<ProductResType>[] =[
 		header: "Name",
 	},
     {
-		accessorKey: "price",
-		header: "Price",
-	},
-    {
 		accessorKey: "sku",
 		header: "sku",
 	},

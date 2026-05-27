@@ -3,244 +3,510 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { UseFormSetValue } from 'react-hook-form';
 import { CreateOrderBodyType } from '@/models/product/orderModel';
+import productApiRequest from "@/apiRequests/product/productApi";
+import { mediaUrl } from "@/utils/lib";
+
+type Attribute = {
+  id: number;
+  title: string;
+  price: number;
+  color?: string;
+  image?: string;
+};
 
 type Product = {
   id: number;
   name: string;
   price: number;
   image: string;
-  option?: string;
+  attributes: Attribute[];
 };
 
 type SelectedProduct = {
   product_id: number;
   name: string;
-  price: number;
   qty: number;
   image: string;
-  option?: string;
+
+  attributes: Attribute[];
 };
 
 type Props = {
-    setValue: UseFormSetValue<CreateOrderBodyType>;
-    onChangeSubtotal: (value: number) => void;
+  setValue: UseFormSetValue<CreateOrderBodyType>;
+
+  onChangeSubtotal: (value: number) => void;
 };
 
-export default function ProductSelector({ setValue ,onChangeSubtotal}: Props) {
-    const [open, setOpen] = useState(false);
-    const [products, setProducts] = useState<Product[]>([]);
-    const [selected, setSelected] = useState<SelectedProduct[]>([]);
-    const wrapperRef = useRef<HTMLDivElement>(null);
+export default function ProductSelector({
+  setValue,
+  onChangeSubtotal,
+}: Props) {
+  const [open, setOpen] = useState(false);
 
-    /* ================= MOCK API ================= */
-    useEffect(() => {
-        setProducts([
-        {
-            id: 1,
-            name: 'Smart Home Speaker',
-            price: 861,
-            image:
-            'https://shopwise.botble.com/storage/products/1-2-150x150.jpg',
-            option: 'Color: Red, Size: S',
-        },
-        {
-            id: 2,
-            name: 'Wireless Headphones',
-            price: 350,
-            image:
-            'https://shopwise.botble.com/storage/products/2-2-150x150.jpg',
-        },
-        {
-            id: 3,
-            name: 'Smart Watch Pro',
-            price: 590,
-            image:
-            'https://shopwise.botble.com/storage/products/3-2-150x150.jpg',
-        },
-        ]);
-    }, []);
+  const [products, setProducts] = useState<Product[]>(
+    [],
+  );
 
-    /* ================= CLICK OUTSIDE ================= */
-    useEffect(() => {
-        const handleOutside = (e: MouseEvent) => {
-        if (
-            wrapperRef.current &&
-            !wrapperRef.current.contains(e.target as Node)
-        ) {
-            setOpen(false);
-        }
-        };
-        document.addEventListener('mousedown', handleOutside);
-        return () => document.removeEventListener('mousedown', handleOutside);
-    }, []);
+  const [selected, setSelected] = useState<
+    SelectedProduct[]
+  >([]);
 
-  /* ================= SYNC TO FORM ================= */
-    useEffect(() => {
-        setValue(
-        'products',
-        selected.map(p => ({
-            product_id: p.product_id,
-            price: p.price,
-            qty: p.qty,
-        })),
-        );
-    }, [selected, setValue]);
+  const wrapperRef = useRef<HTMLDivElement>(null);
 
-    /* ================= ADD PRODUCT ================= */
-    function addProduct(p: Product) {
-        if (selected.find(x => x.product_id === p.id)) {
+  /* ================= FETCH PRODUCTS ================= */
+
+  useEffect(() => {
+    async function fetchProducts() {
+      try {
+        const res =
+          await productApiRequest.list({
+            page: 1,
+            limit: 50,
+            order: 'DESC',
+          });
+
+        const mapped: Product[] =
+          res.payload.data.map((item: any) => ({
+            id: Number(item.id),
+
+            name: item.name,
+
+            price: Number(item.price),
+
+            image: item.image,
+
+            attributes:
+              item.attributes || [],
+          }));
+
+        setProducts(mapped);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    fetchProducts();
+  }, []);
+
+  /* ================= CLICK OUTSIDE ================= */
+
+  useEffect(() => {
+    const handleOutside = (
+      e: MouseEvent,
+    ) => {
+      if (
+        wrapperRef.current &&
+        !wrapperRef.current.contains(
+          e.target as Node,
+        )
+      ) {
         setOpen(false);
-        return;
-        }
+      }
+    };
 
-        setSelected(prev => [
-        ...prev,
-        {
-            product_id: p.id,
-            name: p.name,
-            price: p.price,
-            qty: 1,
-            image: p.image,
-            option: p.option,
-        },
-        ]);
-
-        setOpen(false);
-    }
-
-    /* ================= UPDATE QTY ================= */
-    function updateQty(id: number, qty: number) {
-        setSelected(prev =>
-        prev.map(p =>
-            p.product_id === id
-            ? { ...p, qty: qty < 1 ? 1 : qty }
-            : p,
-        ),
-        );
-    }
-
-    /* ================= REMOVE ================= */
-    function removeProduct(id: number) {
-        setSelected(prev => prev.filter(p => p.product_id !== id));
-    }
-
-    /* ================= TOTAL ================= */
-    const subTotal = useMemo(
-        () => selected.reduce((s, p) => s + p.qty * p.price, 0),
-        [selected],
+    document.addEventListener(
+      'mousedown',
+      handleOutside,
     );
 
-    const prevSubRef = useRef<number>(0);
+    return () => {
+      document.removeEventListener(
+        'mousedown',
+        handleOutside,
+      );
+    };
+  }, []);
 
-    useEffect(() => {
-        if (subTotal !== prevSubRef.current) {
-            // gửi number cho UI
-            onChangeSubtotal(subTotal);
+  /* ================= ADD PRODUCT ================= */
 
-            // gửi string cho react-hook-form (BE)
-            setValue('sub_amount', subTotal.toFixed(2) as any);
+  function addProduct(product: Product) {
+    const exists = selected.find(
+      (x) =>
+        x.product_id === product.id,
+    );
 
-            prevSubRef.current = subTotal;
-        }
-    }, [subTotal, onChangeSubtotal, setValue]);
+    if (exists) {
+      setOpen(false);
+      return;
+    }
 
-    return (
-        <div ref={wrapperRef} className="">
-            <div className="card-body position-relative">
-                {/* SEARCH INPUT 
-                 {selected.length === 0 && (*/}
-                <input
-                    className="form-control"
-                    placeholder="Search or select products"
-                    onFocus={() => setOpen(true)}
-                />
-              {/* )}(*/}
+    setSelected((prev) => [
+      ...prev,
+      {
+        product_id: product.id,
 
-                    {/* DROPDOWN */}
-                {open && (
-                    <div className="dropdown-list position-absolute w-100 bg-white border rounded shadow-sm mt-2 z-3">
-                        {products.map(p => (
-                        <button
-                            key={p.id}
-                            type="button"
-                            className="dropdown-item d-flex align-items-center gap-2"
-                            onClick={() => addProduct(p)}
-                        >
-                            <img src={p.image} width={40} height={40} />
-                            <div className="text-start">
-                            <div className="fw-semibold">{p.name}</div>
-                            <small className="text-muted">
-                                ${p.price.toFixed(2)}
-                            </small>
-                            </div>
-                        </button>
-                        ))}
-                    </div>
-                    )}
+        name: product.name,
 
-                {/* TABLE SELECTED PRODUCTS */}
-                {selected.length > 0 && (
-                <div className="table-responsive mt-3">
-                    <table className="table table-bordered align-middle">
-                    <thead>
-                        <tr>
-                        <th></th>
-                        <th>Product name</th>
-                        <th>Price</th>
-                        <th style={{ width: 120 }}>Quantity</th>
-                        <th>Total</th>
-                        <th style={{ width: 60 }}></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {selected.map(p => (
-                        <tr key={p.product_id}>
-                            <td>
-                                <img src={p.image} width={50} />
-                            </td>
-                            <td>
-                                <strong className="text-primary">{p.name}</strong>
-                                {p.option && (
-                                    <div className="text-muted small">
-                                    ({p.option})
-                                    </div>
-                                )}
-                            </td>
-                            <td>${p.price.toFixed(2)}</td>
-                            <td>
-                            <input
-                                type="number"
-                                min={1}
-                                className="form-control form-control-sm"
-                                value={p.qty}
-                                onChange={e =>
-                                updateQty(
-                                    p.product_id,
-                                    Number(e.target.value),
-                                )
+        qty: 1,
+
+        image: product.image,
+
+        attributes:
+          product.attributes || [],
+      },
+    ]);
+
+    setOpen(false);
+  }
+
+  /* ================= UPDATE QTY ================= */
+
+  function updateQty(
+    productId: number,
+    qty: number,
+  ) {
+    setSelected((prev) =>
+      prev.map((item) =>
+        item.product_id === productId
+          ? {
+              ...item,
+
+              qty:
+                qty < 1 ? 1 : qty,
+            }
+          : item,
+      ),
+    );
+  }
+
+  /* ================= REMOVE PRODUCT ================= */
+
+  function removeProduct(
+    productId: number,
+  ) {
+    setSelected((prev) =>
+      prev.filter(
+        (item) =>
+          item.product_id !==
+          productId,
+      ),
+    );
+  }
+
+  /* ================= SYNC FORM ================= */
+
+  useEffect(() => {
+    const payload = selected.flatMap(
+      (product) =>
+        product.attributes.map(
+          (attr) => ({
+            product_id:
+              product.product_id,
+
+            attribute_id: attr.id,
+
+            price: attr.price,
+
+            qty: product.qty,
+          }),
+        ),
+    );
+
+    setValue(
+      'products',
+      payload as any,
+    );
+  }, [selected, setValue]);
+
+  /* ================= TOTAL ================= */
+
+  const subTotal = useMemo(() => {
+    return selected.reduce(
+      (sum, product) => {
+        const totalAttributePrice =
+          product.attributes.reduce(
+            (s, attr) =>
+              s +
+              Number(attr.price),
+            0,
+          );
+
+        return (
+          sum +
+          totalAttributePrice *
+            product.qty
+        );
+      },
+      0,
+    );
+  }, [selected]);
+
+  const prevSubRef =
+    useRef<number>(0);
+
+  useEffect(() => {
+    if (
+      subTotal !==
+      prevSubRef.current
+    ) {
+      onChangeSubtotal(subTotal);
+
+      setValue(
+        'sub_amount',
+        subTotal.toFixed(2) as any,
+      );
+
+      prevSubRef.current =
+        subTotal;
+    }
+  }, [
+    subTotal,
+    onChangeSubtotal,
+    setValue,
+  ]);
+
+  return (
+    <div ref={wrapperRef}>
+      <div className="card-body position-relative">
+        {/* SEARCH INPUT */}
+
+        <input
+          className="form-control"
+          placeholder="Search or select products"
+          onFocus={() =>
+            setOpen(true)
+          }
+        />
+
+        {/* DROPDOWN */}
+
+        {open && (
+          <div
+            className="position-absolute w-100 bg-white border rounded shadow-sm mt-2 z-3 overflow-auto"
+            style={{
+              maxHeight: 400,
+            }}
+          >
+            {products.map(
+              (product) => (
+                <button
+                  key={product.id}
+                  type="button"
+                  className="dropdown-item border-bottom p-2"
+                  onClick={() =>
+                    addProduct(
+                      product,
+                    )
+                  }
+                >
+                  <div className="d-flex gap-2 align-items-start">
+                    <img
+                      src={mediaUrl(
+                        product.image,
+                      )}
+                      width={50}
+                      height={50}
+                      alt={
+                        product.name
+                      }
+                      className="rounded"
+                    />
+
+                    <div className="text-start">
+                      <div className="fw-semibold">
+                        {
+                          product.name
+                        }
+                      </div>
+
+                      {product
+                        .attributes
+                        .length >
+                        0 && (
+                        <div className="mt-1 d-flex flex-wrap gap-1">
+                          {product.attributes.map(
+                            (
+                              attr,
+                            ) => (
+                              <span
+                                key={
+                                  attr.id
                                 }
-                            />
-                            </td>
-                            <td>${(p.qty * p.price).toFixed(2)}</td>
-                            <td className="text-center">
-                            <button
-                                type="button"
-                                className="btn btn-link text-danger"
-                                onClick={() => removeProduct(p.product_id)}
-                            >
-                                ✕
-                            </button>
-                            </td>
-                        </tr>
-                        ))}
+                                className="badge bg-light text-dark border"
+                              >
+                                {
+                                  attr.title
+                                }
+                                {' - $'}
+                                {Number(
+                                  attr.price,
+                                ).toFixed(
+                                  2,
+                                )}
+                              </span>
+                            ),
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </button>
+              ),
+            )}
+          </div>
+        )}
 
-                      
-                    </tbody>
-                    </table>
+        {/* TABLE */}
 
-                </div>
+        {selected.length >
+          0 && (
+          <div className="table-responsive mt-3">
+            <table className="table table-bordered align-middle">
+              <thead>
+                <tr>
+                  <th></th>
+
+                  <th>
+                    Product
+                  </th>
+
+                  <th>
+                    Attributes
+                  </th>
+
+                  <th>
+                    Qty
+                  </th>
+
+                  <th>
+                    Total
+                  </th>
+
+                  <th></th>
+                </tr>
+              </thead>
+
+              <tbody>
+                {selected.map(
+                  (item) => {
+                    const total =
+                      item.attributes.reduce(
+                        (
+                          s,
+                          attr,
+                        ) =>
+                          s +
+                          Number(
+                            attr.price,
+                          ),
+                        0,
+                      ) *
+                      item.qty;
+
+                    return (
+                      <tr
+                        key={
+                          item.product_id
+                        }
+                      >
+                        <td>
+                          <img
+                            src={mediaUrl(
+                              item.image,
+                            )}
+                            width={
+                              50
+                            }
+                            alt={
+                              item.name
+                            }
+                          />
+                        </td>
+
+                        <td>
+                          <div className="fw-semibold text-primary">
+                            {
+                              item.name
+                            }
+                          </div>
+                        </td>
+
+                        <td>
+                          <div className="d-flex flex-wrap gap-1">
+                            {item.attributes.map(
+                              (
+                                attr,
+                              ) => (
+                                <span
+                                  key={
+                                    attr.id
+                                  }
+                                  className="badge bg-light text-dark border"
+                                >
+                                  {
+                                    attr.title
+                                  }
+                                  {' - $'}
+                                  {Number(
+                                    attr.price,
+                                  ).toFixed(
+                                    2,
+                                  )}
+                                </span>
+                              ),
+                            )}
+                          </div>
+                        </td>
+
+                        <td>
+                          <input
+                            type="number"
+                            min={1}
+                            className="form-control form-control-sm"
+                            value={
+                              item.qty
+                            }
+                            onChange={(
+                              e,
+                            ) =>
+                              updateQty(
+                                item.product_id,
+                                Number(
+                                  e
+                                    .target
+                                    .value,
+                                ),
+                              )
+                            }
+                          />
+                        </td>
+
+                        <td>
+                          $
+                          {total.toFixed(
+                            2,
+                          )}
+                        </td>
+
+                        <td className="text-center">
+                          <button
+                            type="button"
+                            className="btn btn-link text-danger"
+                            onClick={() =>
+                              removeProduct(
+                                item.product_id,
+                              )
+                            }
+                          >
+                            ✕
+                          </button>
+                        </td>
+                      </tr>
+                    );
+                  },
                 )}
+              </tbody>
+            </table>
+
+            <div className="text-end fw-bold fs-5">
+              Subtotal: $
+              {subTotal.toFixed(
+                2,
+              )}
             </div>
-        </div>
+          </div>
+        )}
+      </div>
+    </div>
   );
 }

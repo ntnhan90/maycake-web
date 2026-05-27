@@ -2,40 +2,22 @@ import {
     faAddressCard, 
     faFileLines, 
     faStar,
-    faTruck,
 } from '@fortawesome/free-regular-svg-icons'
 import {
     faHome,
     faBug,
     faRightToBracket,
     faCartPlus,
-    faChartArea,
-    faBasketShopping,
-    faCube,
-    faArchive,
-    faTag,
-    faTags,
-    faGrip,
-    faUsers,
-    faPercent,
     faNewspaper,
     faEnvelope,
     faImage,
     faGear,
     faUserGear,
     faBullseye,
-    faBagShopping,
-    faStore,
-    faShop,
-    faWarehouse,
-    faReceipt,
-    faUserTie,
-    faChartPie,
-    faCubes,faCalendar
+    faCalendar
 } from '@fortawesome/free-solid-svg-icons'
 import { faCcPaypal } from '@fortawesome/free-brands-svg-icons'
 import React, { PropsWithChildren } from 'react'
-import { Badge } from 'react-bootstrap'
 import SidebarNavGroup from '@/components/Layout/Dashboard/Sidebar/SidebarNavGroup'
 import SidebarNavItem from '@/components/Layout/Dashboard/Sidebar/SidebarNavItem'
 import { getDictionary } from '@/locales/dictionary'
@@ -60,27 +42,27 @@ export default async function SidebarNav() {
             </SidebarNavItem>
 
             <SidebarNavGroup toggleIcon={faCartPlus} toggleText={dict.sidebar.items.ecommerce}>
-                <SidebarNavItem href="/admin/ecommerce/reports" icon={faChartArea}>{dict.sidebar.items.reports}</SidebarNavItem>
-                <SidebarNavItem href="/admin/ecommerce/orders" icon={faBasketShopping}>{dict.sidebar.items.orders} </SidebarNavItem>
-                <SidebarNavItem href="/admin/ecommerce/products" icon={faCube}> {dict.sidebar.items.products}</SidebarNavItem>
-                <SidebarNavItem href="/admin/ecommerce/product-categories" icon={faArchive}>{dict.sidebar.items.products_categories}</SidebarNavItem>
-                <SidebarNavItem href="/admin/ecommerce/product-tags" icon={faTag}>{dict.sidebar.items.products_tags} </SidebarNavItem>
-                <SidebarNavItem href="/admin/ecommerce/product-attributes" icon={faGrip}> {dict.sidebar.items.products_atributes} </SidebarNavItem>
-                <SidebarNavItem href="/admin/ecommerce/product-collections" icon={faBagShopping}> {dict.sidebar.items.products_collections} </SidebarNavItem>
-                <SidebarNavItem href="/admin/ecommerce/product-labels" icon={faTags}>{dict.sidebar.items.products_labels}</SidebarNavItem>
-                <SidebarNavItem href="/admin/ecommerce/discounts" icon={faPercent}>{dict.sidebar.items.discounts}  </SidebarNavItem>
-                <SidebarNavItem href="/admin/ecommerce/customers" icon={faUsers}> {dict.sidebar.items.customers}</SidebarNavItem>
-                <SidebarNavItem href="/admin/ecommerce/product-materials" icon={faCubes}>{dict.sidebar.items.product_material}  </SidebarNavItem>
+                <SidebarNavItem href="/admin/ecommerce/reports">{dict.sidebar.items.reports}</SidebarNavItem>
+                <SidebarNavItem href="/admin/ecommerce/orders">{dict.sidebar.items.orders} </SidebarNavItem>
+                <SidebarNavItem href="/admin/ecommerce/products" > {dict.sidebar.items.products}</SidebarNavItem>
+                <SidebarNavItem href="/admin/ecommerce/product-categories" >{dict.sidebar.items.products_categories}</SidebarNavItem>
+                <SidebarNavItem href="/admin/ecommerce/product-tags" >{dict.sidebar.items.products_tags} </SidebarNavItem>
+                <SidebarNavItem href="/admin/ecommerce/product-attributes" > {dict.sidebar.items.products_atributes} </SidebarNavItem>
+                <SidebarNavItem href="/admin/ecommerce/product-collections"> {dict.sidebar.items.products_collections} </SidebarNavItem>
+                <SidebarNavItem href="/admin/ecommerce/product-labels" >{dict.sidebar.items.products_labels}</SidebarNavItem>
+                <SidebarNavItem href="/admin/ecommerce/discounts" >{dict.sidebar.items.discounts}  </SidebarNavItem>
+                <SidebarNavItem href="/admin/ecommerce/customers"> {dict.sidebar.items.customers}</SidebarNavItem>
+                <SidebarNavItem href="/admin/ecommerce/product-materials" >{dict.sidebar.items.product_material}  </SidebarNavItem>
             </SidebarNavGroup>
 
             <SidebarNavGroup toggleIcon={faBullseye} toggleText= {dict.sidebar.items.franchise}>
-                <SidebarNavItem href="/admin/franchise/dashboard"  icon={faChartPie}>{dict.sidebar.items.dashboard}</SidebarNavItem>
-                <SidebarNavItem href="/admin/franchise/crm" icon={faUserTie}>{dict.sidebar.items.franchise_crm}</SidebarNavItem>
-                <SidebarNavItem href="/admin/franchise/contracts" icon={faStore}>{dict.sidebar.items.contracts}</SidebarNavItem>
-                <SidebarNavItem href="/admin/franchise/warehouse" icon={faWarehouse}>{dict.sidebar.items.warehouse}</SidebarNavItem>
-                <SidebarNavItem href="/admin/franchise/shop" icon={faShop}>{dict.sidebar.items.shop_operation}</SidebarNavItem>
-                <SidebarNavItem href="/admin/franchise/supply-chain" icon={faTruck}>{dict.sidebar.items.supply_chain}</SidebarNavItem>
-                <SidebarNavItem href="/admin/franchise/retail-order" icon={faReceipt}>{dict.sidebar.items.retail_order}</SidebarNavItem>
+                <SidebarNavItem href="/admin/franchise/dashboard">{dict.sidebar.items.dashboard}</SidebarNavItem>
+                <SidebarNavItem href="/admin/franchise/crm">{dict.sidebar.items.franchise_crm}</SidebarNavItem>
+                <SidebarNavItem href="/admin/franchise/contracts" >{dict.sidebar.items.contracts}</SidebarNavItem>
+                <SidebarNavItem href="/admin/franchise/warehouse" >{dict.sidebar.items.warehouse}</SidebarNavItem>
+                <SidebarNavItem href="/admin/franchise/shop" >{dict.sidebar.items.shop_operation}</SidebarNavItem>
+                <SidebarNavItem href="/admin/franchise/supply-chain" >{dict.sidebar.items.supply_chain}</SidebarNavItem>
+                <SidebarNavItem href="/admin/franchise/retail-order">{dict.sidebar.items.retail_order}</SidebarNavItem>
             </SidebarNavGroup>
 
             <SidebarNavGroup toggleIcon={faNewspaper} toggleText= {dict.sidebar.items.blog}>

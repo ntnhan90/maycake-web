@@ -18,12 +18,15 @@ export default function PaymentsPage() {
                             <label className="form-label">
                                 Default payment method
                             </label>
-                            <Form.Select className="form-select" aria-label="Default select example">
-                                <option value="cod" selected>Cash on delivery (COD)</option>
+                            <Form.Select
+                                className="form-select"
+                                defaultValue="cod"
+                                aria-label="Default select example"
+                                >
+                                <option value="cod">Cash on delivery (COD)</option>
                                 <option value="bank_transfer">Bank Transfer</option>
                                 <option value="paypal">Paypal</option>
                             </Form.Select>
-                            
                         </div>
                     </CardBody>
                 </Card>

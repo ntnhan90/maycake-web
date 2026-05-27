@@ -1,5 +1,5 @@
 "use client"
-import { useForm ,Controller,useFieldArray} from "react-hook-form";
+import { useForm ,Controller} from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Card, CardBody, CardHeader, Button ,Form} from "react-bootstrap";
 import { useRouter } from "next/navigation";
@@ -41,7 +41,7 @@ export default function ProductForm({id}:Props){
             sale_price: 0,
             tags: [],
             categories: [],
-            product_attributes: [],
+            attributes: [],
         },
     });
 
@@ -49,7 +49,7 @@ export default function ProductForm({id}:Props){
     if(id){
         const postId = Number(id);
         try {
-            const { data, isLoading, error } = useGetProductQuery(postId);
+            const { data, } = useGetProductQuery(postId);
             productData = data?.payload
         } catch (error) {
             return <div>Something went wrong</div>
@@ -58,7 +58,6 @@ export default function ProductForm({id}:Props){
 
     const { data: attrData } = useGetProductAttributeListQuery();
     const attributeSets = attrData?.payload?.data || [];
-
 
     useEffect(() => {
         if (productData) {
@@ -69,6 +68,7 @@ export default function ProductForm({id}:Props){
                 is_featured: productData.is_featured ?? 0,
                 status:productData.status  ?? "published",
                 sale_price: productData.sale_price  ??0,
+                image: productData.image ?? "",
                 tags: productData.tags?.map((t: any) => t.name) ?? [],
                 categories: productData.categories?.map((t: any) => t.id) ?? [],
             })
@@ -82,12 +82,10 @@ export default function ProductForm({id}:Props){
             if(id){
                 if(updateProductMutation.isPending ) return
                 console.log(data);
-                /*
                 await updateProductMutation.mutateAsync({
                     id: id as number,
                     ...data,
                 })
-                */
                 toast.success("Update success")
             }else{
                 if(createProductMutation.isPending)  return
@@ -163,7 +161,7 @@ export default function ProductForm({id}:Props){
 
                                 <div className="col-md-7">
                                     <Form.Select
-                                    {...register(`product_attributes.${index}.attribute_id`, {
+                                    {...register(`attributes.${index}.attribute_id`, {
                                         setValueAs: (v) => (v ? Number(v) : undefined),
                                     })}
                                     >
