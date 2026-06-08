@@ -12,7 +12,7 @@ export default function UpdateOrderPage({params}: {params:{id:number}}) {
     return (
         <Container>
             <Card className="mb-4 border-0">
-                <OrderForm id={id}/>
+                <OrderForm />
             </Card>
         </Container>
     );
