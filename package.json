@@ -39,6 +39,7 @@
     "@types/file-saver": "^2.0.7",
     "@vercel/analytics": "^1.5.0",
     "bootstrap": "^5.3.8",
+    "bootstrap-icons": "^1.13.1",
     "chart.js": "^4.4.8",
     "classnames": "^2.5.1",
     "file-saver": "^2.0.5",

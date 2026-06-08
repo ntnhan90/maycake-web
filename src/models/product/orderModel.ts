@@ -15,23 +15,13 @@ const DecimalString = z
 
 /* ================= ORDER PRODUCT ================= */
 
-export const OrderProductItem =
-  z.object({
-    product_id: z
-      .number()
-      .min(1),
+export const OrderProductItem = z.object({
+  product_id: z.number().min(1),
+  attribute_ids: z.array(z.number()),
+  qty: z.number().min(1),
+  price: z.number().nonnegative(),
 
-    attribute_id: z
-      .number()
-      .optional()
-      .nullable(),
-
-    qty: z.number().min(1),
-
-    price: z
-      .number()
-      .nonnegative(),
-  });
+});
 
 export type OrderProductItemType =
   z.TypeOf<

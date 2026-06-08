@@ -1,511 +1,294 @@
 'use client';
 
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { UseFormSetValue } from 'react-hook-form';
+
 import { CreateOrderBodyType } from '@/models/product/orderModel';
-import productApiRequest from "@/apiRequests/product/productApi";
-import { mediaUrl } from "@/utils/lib";
+import productApiRequest from '@/apiRequests/product/productApi';
+
+import AttributeSelect from './attrSelect';
+
+/* ================= TYPES ================= */
 
 type Attribute = {
   id: number;
   title: string;
   price: number;
-  color?: string;
-  image?: string;
+  attributeSet: {
+    id: number;
+    name: string;
+  };
 };
 
 type Product = {
   id: number;
   name: string;
-  price: number;
-  image: string;
+  image: string | null;
   attributes: Attribute[];
 };
 
+type SelectedGroup = {
+  groupId: number;
+  groupName: string;
+  selected: Attribute;
+  options: Attribute[];
+};
+
 type SelectedProduct = {
-  product_id: number;
+  productId: number;
   name: string;
   qty: number;
-  image: string;
-
-  attributes: Attribute[];
+  groups: SelectedGroup[];
 };
 
 type Props = {
   setValue: UseFormSetValue<CreateOrderBodyType>;
-
-  onChangeSubtotal: (value: number) => void;
 };
 
-export default function ProductSelector({
-  setValue,
-  onChangeSubtotal,
-}: Props) {
+/* ================= COMPONENT ================= */
+
+export default function ProductSelector({ setValue }: Props) {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [selected, setSelected] = useState<SelectedProduct[]>([]);
+
+  const [search, setSearch] = useState('');
   const [open, setOpen] = useState(false);
-
-  const [products, setProducts] = useState<Product[]>(
-    [],
-  );
-
-  const [selected, setSelected] = useState<
-    SelectedProduct[]
-  >([]);
-
-  const wrapperRef = useRef<HTMLDivElement>(null);
 
   /* ================= FETCH PRODUCTS ================= */
 
   useEffect(() => {
     async function fetchProducts() {
       try {
-        const res =
-          await productApiRequest.list({
-            page: 1,
-            limit: 50,
-            order: 'DESC',
-          });
+        const res = await productApiRequest.list({
+          page: 1,
+          limit: 50,
+          order: 'DESC',
+        });
 
-        const mapped: Product[] =
-          res.payload.data.map((item: any) => ({
-            id: Number(item.id),
+        const list: Product[] = (res.payload.data || []).map((p: any) => ({
+          id: p.id,
+          name: p.name,
+          image: p.image ?? null,
+          attributes: (p.attributes || []).map((a: any) => ({
+            id: a.id,
+            title: a.title,
+            price: Number(a.price || 0),
+            attributeSet: {
+              id: a.attributeSet?.id ?? 0,
+              name: a.attributeSet?.name ?? 'Unknown',
+            },
+          })),
+        }));
 
-            name: item.name,
-
-            price: Number(item.price),
-
-            image: item.image,
-
-            attributes:
-              item.attributes || [],
-          }));
-
-        setProducts(mapped);
-      } catch (error) {
-        console.error(error);
+        setProducts(list);
+      } catch (err) {
+        console.error('Product fetch error:', err);
       }
     }
 
     fetchProducts();
   }, []);
 
-  /* ================= CLICK OUTSIDE ================= */
+  /* ================= FILTER SEARCH ================= */
 
-  useEffect(() => {
-    const handleOutside = (
-      e: MouseEvent,
-    ) => {
-      if (
-        wrapperRef.current &&
-        !wrapperRef.current.contains(
-          e.target as Node,
-        )
-      ) {
-        setOpen(false);
-      }
-    };
+  const filteredProducts = useMemo(() => {
+    if (!search) return products;
 
-    document.addEventListener(
-      'mousedown',
-      handleOutside,
+    return products.filter((p) =>
+      p.name.toLowerCase().includes(search.toLowerCase())
     );
-
-    return () => {
-      document.removeEventListener(
-        'mousedown',
-        handleOutside,
-      );
-    };
-  }, []);
+  }, [search, products]);
 
   /* ================= ADD PRODUCT ================= */
 
   function addProduct(product: Product) {
-    const exists = selected.find(
-      (x) =>
-        x.product_id === product.id,
-    );
+    setSelected((prev) => {
+      if (prev.some((p) => p.productId === product.id)) return prev;
 
-    if (exists) {
-      setOpen(false);
-      return;
-    }
+      const groupsMap: Record<number, SelectedGroup> = {};
 
-    setSelected((prev) => [
-      ...prev,
-      {
-        product_id: product.id,
+      product.attributes.forEach((attr) => {
+        const gid = attr.attributeSet.id;
 
-        name: product.name,
+        if (!groupsMap[gid]) {
+          groupsMap[gid] = {
+            groupId: gid,
+            groupName: attr.attributeSet.name,
+            options: [],
+            selected: attr,
+          };
+        }
 
-        qty: 1,
+        groupsMap[gid].options.push(attr);
+      });
 
-        image: product.image,
-
-        attributes:
-          product.attributes || [],
-      },
-    ]);
-
-    setOpen(false);
+      return [
+        ...prev,
+        {
+          productId: product.id,
+          name: product.name,
+          qty: 1,
+          groups: Object.values(groupsMap),
+        },
+      ];
+    });
   }
 
-  /* ================= UPDATE QTY ================= */
+  function removeProduct(productId: number) {
+    setSelected((prev) =>{
+      const next = prev.filter((p) => p.productId !== productId);
+      return next;
+    });
+  }
+  /* ================= CHANGE ATTRIBUTE ================= */
 
-  function updateQty(
+  function changeOption(
     productId: number,
-    qty: number,
+    groupId: number,
+    attrId: number
   ) {
     setSelected((prev) =>
-      prev.map((item) =>
-        item.product_id === productId
-          ? {
-              ...item,
+      prev.map((p) => {
+        if (p.productId !== productId) return p;
 
-              qty:
-                qty < 1 ? 1 : qty,
-            }
-          : item,
-      ),
+        return {
+          ...p,
+          groups: p.groups.map((g) =>
+            g.groupId !== groupId
+              ? g
+              : {
+                  ...g,
+                  selected:
+                    g.options.find((o) => o.id === attrId)!,
+                }
+          ),
+        };
+      })
     );
   }
-
-  /* ================= REMOVE PRODUCT ================= */
-
-  function removeProduct(
-    productId: number,
-  ) {
-    setSelected((prev) =>
-      prev.filter(
-        (item) =>
-          item.product_id !==
-          productId,
-      ),
-    );
-  }
-
-  /* ================= SYNC FORM ================= */
-
-  useEffect(() => {
-    const payload = selected.flatMap(
-      (product) =>
-        product.attributes.map(
-          (attr) => ({
-            product_id:
-              product.product_id,
-
-            attribute_id: attr.id,
-
-            price: attr.price,
-
-            qty: product.qty,
-          }),
-        ),
-    );
-
-    setValue(
-      'products',
-      payload as any,
-    );
-  }, [selected, setValue]);
 
   /* ================= TOTAL ================= */
 
   const subTotal = useMemo(() => {
-    return selected.reduce(
-      (sum, product) => {
-        const totalAttributePrice =
-          product.attributes.reduce(
-            (s, attr) =>
-              s +
-              Number(attr.price),
-            0,
-          );
+    return selected.reduce((sum, p) => {
+      const productTotal =
+        p.groups.reduce((s, g) => s + g.selected.price, 0) * p.qty;
 
-        return (
-          sum +
-          totalAttributePrice *
-            product.qty
-        );
-      },
-      0,
-    );
+      return sum + productTotal;
+    }, 0);
   }, [selected]);
 
-  const prevSubRef =
-    useRef<number>(0);
+  /* ================= SYNC FORM ================= */
 
   useEffect(() => {
-    if (
-      subTotal !==
-      prevSubRef.current
-    ) {
-      onChangeSubtotal(subTotal);
+    const payload = selected.flatMap((p) =>
+      p.groups.map((g) => ({
+        product_id: p.productId,
+        attribute_id: g.selected.id,
+        qty: p.qty,
+        price: g.selected.price,
+      }))
+    );
 
-      setValue(
-        'sub_amount',
-        subTotal.toFixed(2) as any,
-      );
+    setValue('products', payload as any);
+    setValue('sub_amount', subTotal.toFixed(2));
+  }, [selected, subTotal, setValue]);
 
-      prevSubRef.current =
-        subTotal;
-    }
-  }, [
-    subTotal,
-    onChangeSubtotal,
-    setValue,
-  ]);
+  /* ================= UI ================= */
 
   return (
-    <div ref={wrapperRef}>
-      <div className="card-body position-relative">
-        {/* SEARCH INPUT */}
+    <div className="card">
+      <div className="card-header">Products</div>
 
-        <input
-          className="form-control"
-          placeholder="Search or select products"
-          onFocus={() =>
-            setOpen(true)
-          }
-        />
+      <div className="card-body">
 
-        {/* DROPDOWN */}
-
-        {open && (
-          <div
-            className="position-absolute w-100 bg-white border rounded shadow-sm mt-2 z-3 overflow-auto"
-            style={{
-              maxHeight: 400,
+        {/* ================= SEARCH SELECT ================= */}
+        <div
+          className="mb-3 position-relative"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <input
+            className="form-control"
+            placeholder="Search product..."
+            value={search}
+            onChange={(e) => {
+              setSearch(e.target.value);
+              setOpen(true);
             }}
-          >
-            {products.map(
-              (product) => (
-                <button
-                  key={product.id}
-                  type="button"
-                  className="dropdown-item border-bottom p-2"
-                  onClick={() =>
-                    addProduct(
-                      product,
-                    )
-                  }
+            onFocus={() => setOpen(true)}
+          />
+
+          {open && filteredProducts.length > 0 && (
+            <div
+              className="border rounded bg-white position-absolute w-100 mt-1 shadow-sm"
+              style={{
+                zIndex: 1000,
+                maxHeight: 250,
+                overflowY: 'auto',
+              }}
+            >
+              {filteredProducts.map((p) => (
+                <div
+                  key={p.id}
+                  className="px-3 py-2"
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => {
+                    addProduct(p);
+                    setSearch('');
+                    setOpen(false);
+                  }}
                 >
-                  <div className="d-flex gap-2 align-items-start">
-                    <img
-                      src={mediaUrl(
-                        product.image,
-                      )}
-                      width={50}
-                      height={50}
-                      alt={
-                        product.name
-                      }
-                      className="rounded"
-                    />
-
-                    <div className="text-start">
-                      <div className="fw-semibold">
-                        {
-                          product.name
-                        }
-                      </div>
-
-                      {product
-                        .attributes
-                        .length >
-                        0 && (
-                        <div className="mt-1 d-flex flex-wrap gap-1">
-                          {product.attributes.map(
-                            (
-                              attr,
-                            ) => (
-                              <span
-                                key={
-                                  attr.id
-                                }
-                                className="badge bg-light text-dark border"
-                              >
-                                {
-                                  attr.title
-                                }
-                                {' - $'}
-                                {Number(
-                                  attr.price,
-                                ).toFixed(
-                                  2,
-                                )}
-                              </span>
-                            ),
-                          )}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </button>
-              ),
-            )}
-          </div>
-        )}
-
-        {/* TABLE */}
-
-        {selected.length >
-          0 && (
-          <div className="table-responsive mt-3">
-            <table className="table table-bordered align-middle">
-              <thead>
-                <tr>
-                  <th></th>
-
-                  <th>
-                    Product
-                  </th>
-
-                  <th>
-                    Attributes
-                  </th>
-
-                  <th>
-                    Qty
-                  </th>
-
-                  <th>
-                    Total
-                  </th>
-
-                  <th></th>
-                </tr>
-              </thead>
-
-              <tbody>
-                {selected.map(
-                  (item) => {
-                    const total =
-                      item.attributes.reduce(
-                        (
-                          s,
-                          attr,
-                        ) =>
-                          s +
-                          Number(
-                            attr.price,
-                          ),
-                        0,
-                      ) *
-                      item.qty;
-
-                    return (
-                      <tr
-                        key={
-                          item.product_id
-                        }
-                      >
-                        <td>
-                          <img
-                            src={mediaUrl(
-                              item.image,
-                            )}
-                            width={
-                              50
-                            }
-                            alt={
-                              item.name
-                            }
-                          />
-                        </td>
-
-                        <td>
-                          <div className="fw-semibold text-primary">
-                            {
-                              item.name
-                            }
-                          </div>
-                        </td>
-
-                        <td>
-                          <div className="d-flex flex-wrap gap-1">
-                            {item.attributes.map(
-                              (
-                                attr,
-                              ) => (
-                                <span
-                                  key={
-                                    attr.id
-                                  }
-                                  className="badge bg-light text-dark border"
-                                >
-                                  {
-                                    attr.title
-                                  }
-                                  {' - $'}
-                                  {Number(
-                                    attr.price,
-                                  ).toFixed(
-                                    2,
-                                  )}
-                                </span>
-                              ),
-                            )}
-                          </div>
-                        </td>
-
-                        <td>
-                          <input
-                            type="number"
-                            min={1}
-                            className="form-control form-control-sm"
-                            value={
-                              item.qty
-                            }
-                            onChange={(
-                              e,
-                            ) =>
-                              updateQty(
-                                item.product_id,
-                                Number(
-                                  e
-                                    .target
-                                    .value,
-                                ),
-                              )
-                            }
-                          />
-                        </td>
-
-                        <td>
-                          $
-                          {total.toFixed(
-                            2,
-                          )}
-                        </td>
-
-                        <td className="text-center">
-                          <button
-                            type="button"
-                            className="btn btn-link text-danger"
-                            onClick={() =>
-                              removeProduct(
-                                item.product_id,
-                              )
-                            }
-                          >
-                            ✕
-                          </button>
-                        </td>
-                      </tr>
-                    );
-                  },
-                )}
-              </tbody>
-            </table>
-
-            <div className="text-end fw-bold fs-5">
-              Subtotal: $
-              {subTotal.toFixed(
-                2,
-              )}
+                  {p.name}
+                </div>
+              ))}
             </div>
-          </div>
-        )}
+          )}
+        </div>
+
+        {/* ================= SELECTED PRODUCTS ================= */}
+
+        <table className="table">
+          <tbody>
+            {selected.map((p) => (
+              <tr key={p.productId}>
+                <td>{p.name}</td>
+
+                <td>
+                  {p.groups.map((g) => (
+                    <div key={g.groupId} className="mb-2">
+                      <div className="fw-bold">{g.groupName}</div>
+
+                      <AttributeSelect
+                        value={g.selected.id}
+                        options={g.options}
+                        onChange={(id) =>
+                          changeOption(p.productId, g.groupId, id)
+                        }
+                      />
+                    </div>
+                  ))}
+                </td>
+                
+                <td>
+                  <div className="d-flex justify-content-between align-items-center">
+                    <button
+                      type="button"
+                      className="btn btn-sm btn-outline-danger ms-2"
+                      onClick={() => removeProduct(p.productId)}
+                    >
+                      ✕
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+
+        <div className="text-end fw-bold">
+          Subtotal: ${subTotal.toFixed(2)}
+        </div>
+
       </div>
     </div>
   );
