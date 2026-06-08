@@ -1,7 +1,6 @@
 import { Card , Container } from 'react-bootstrap';
 import { Metadata } from "next";
 import CrmForm from '../crmForm';
-import { param } from 'cypress/types/jquery';
 
 export const metadata: Metadata = {
     title: "Update Blog Franchise | Maycake",

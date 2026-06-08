@@ -61,6 +61,17 @@ export default function ProAttributeForm({id}: Props){
         });
     }, [attributeData, reset]);
 
+     {/**
+                 
+            attributes: attributeData.attributes
+                .map(attr => ({
+                    title: attr.title,
+                    color: attr.color ?? "#000000",
+                    image: attr.image ?? null,
+                    price: attr.price ?? null,
+                })),
+            */}
+
     const onSubmit = async(data:CreateAttributeSetBodyType) => {
         try {
             let body = data;
@@ -104,8 +115,7 @@ export default function ProAttributeForm({id}: Props){
                     <CardHeader className='d-flex justify-content-between'>
                         <strong>Attributes list</strong>
                         {/**
-                         * 
-                         * <Button size="sm"  type="button" onClick={() =>
+                         *   <Button size="sm"  type="button" onClick={() =>
                             append({
                                 title: '',
                                 color: '#333333',
@@ -116,7 +126,7 @@ export default function ProAttributeForm({id}: Props){
                             Add new attribute
                         </Button>
                          */}
-                        
+                      
                     </CardHeader>
                     
                     <div className="table-responsive">

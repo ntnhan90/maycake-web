@@ -1,8 +1,7 @@
-import { NextRequestWithAuth, withAuth } from 'next-auth/middleware'
 import { type NextFetchEvent, NextRequest, NextResponse } from 'next/server'
 import { match } from '@formatjs/intl-localematcher'
+
 import Negotiator from 'negotiator'
-import { NextMiddlewareResult } from 'next/dist/server/web/types'
 import { getLocales } from '@/locales/dictionary'
 import { defaultLocale } from '@/locales/config'
 import jwt from 'jsonwebtoken'
