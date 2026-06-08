@@ -57,13 +57,7 @@ export default function ProAttributeForm({id}: Props){
         reset({
             name: attributeData.name ?? "",
             status: attributeData.status?? "",
-            attributes: attributeData.attributes
-                .map(attr => ({
-                    title: attr.title,
-                    color: attr.color ?? "#000000",
-                    image: attr.image ?? null,
-                    price: attr.price ?? null,
-                })),
+           
         });
     }, [attributeData, reset]);
 
@@ -109,7 +103,9 @@ export default function ProAttributeForm({id}: Props){
                 <Card className='mt-3'>
                     <CardHeader className='d-flex justify-content-between'>
                         <strong>Attributes list</strong>
-                        <Button size="sm"  type="button" onClick={() =>
+                        {/**
+                         * 
+                         * <Button size="sm"  type="button" onClick={() =>
                             append({
                                 title: '',
                                 color: '#333333',
@@ -119,6 +115,8 @@ export default function ProAttributeForm({id}: Props){
                         }>
                             Add new attribute
                         </Button>
+                         */}
+                        
                     </CardHeader>
                     
                     <div className="table-responsive">

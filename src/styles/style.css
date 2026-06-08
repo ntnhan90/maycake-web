@@ -1375,7 +1375,6 @@ ul,ol {
   position: relative;
 }
 .shop__option__search form .nice-select {
-  float: left;
   border: none;
   background: transparent;
   display: inline-block;
