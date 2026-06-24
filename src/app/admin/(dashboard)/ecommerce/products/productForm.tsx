@@ -10,7 +10,6 @@ import { CreateProductBodyType, CreateProductBody } from "@/models/product/produ
 import { useCreateProductMutation, useGetProductQuery, useUpdateProductMutation } from "@/queries/useProduct";
 import SlugInput from "@/components/input/slugInput";
 import FeatureToggle from "@/components/input/FeatureToggle";
-import ImageUploadBox from "@/components/Image/ImageUploadBox";
 import TagInput from "@/components/input/tagInput";
 import CategorySelect from "@/components/input/categorySelect";
 import { useGetProductAttributeListQuery } from "@/queries/useProductAttribute";
@@ -145,51 +144,53 @@ export default function ProductForm({id}:Props){
                     <CardHeader>
                         <h5 className="mb-0 fw-semibold">Attributes</h5>
                     </CardHeader>
-
-                    <CardBody>
-                        {attributeSets.map((set: any, index: number) => {
-                        return (
-                            <div key={set.id} className="row mb-3 align-items-center">
-                            
-                                <div className="col-md-5">
-                                    <input
-                                    className="form-control"
-                                    value={set.name}
-                                    disabled
-                                    />
-                                </div>
-
-                                <div className="col-md-7">
-                                    <Form.Select
-                                    {...register(`attributes.${index}.attribute_id`, {
-                                        setValueAs: (v) => (v ? Number(v) : undefined),
-                                    })}
-                                    >
-                                    <option value="">Select value</option>
-                                    {set.attributes.map((attr: any) => (
-                                        <option key={attr.id} value={attr.id}>
-                                        {attr.title}
-                                        </option>
-                                    ))}
+                    <div className="row">
+                        <div className="col-md-8">
+                            <CardBody>
+                                {attributeSets.map((set: any, index: number) => {
+                                return (
+                                    <div key={set.id} className="row mb-3 align-items-center">
                                     
-                                    </Form.Select>
-                                </div>
+                                        <div className="col-md-5">
+                                            <input
+                                            className="form-control"
+                                            value={set.name}
+                                            disabled
+                                            />
+                                        </div>
+
+                                        <div className="col-md-7">
+                                            <Form.Select
+                                            {...register(`attributes.${index}.attribute_id`, {
+                                                setValueAs: (v) => (v ? Number(v) : undefined),
+                                            })}
+                                            >
+                                            <option value="">Select value</option>
+                                            {set.attributes.map((attr: any) => (
+                                                <option key={attr.id} value={attr.id}>
+                                                {attr.title}
+                                                </option>
+                                            ))}
+                                            
+                                            </Form.Select>
+                                        </div>
+                                    </div>
+                                );
+                                })}
+                            </CardBody>
+                        </div>
+                        <div className="col-md-4">
+                            <div className="cake-preview">
+                                Images
                             </div>
-                        );
-                        })}
-                    </CardBody>
+                        </div>
+                    </div>
+                   
                 </Card>
 
 
-                <Card className="mb-3">
-                    <CardHeader className="d-flex justify-content-between align-items-center">
-                        <h5 className="mb-0 fw-semibold">Recipes</h5>
-                    </CardHeader>
-                    <CardBody>
-                        <p className="text-muted">Adding Recipes helps the product to have many options, such as size or color.</p>
-                    </CardBody>
-                </Card>
             </div>
+            {/** */}
             <div className="col-md-3">
                 <Card >
                     <CardHeader>
@@ -226,11 +227,6 @@ export default function ProductForm({id}:Props){
                         onChange={field.onChange}
                     />
                     )}
-                />
-
-                <ImageUploadBox
-                    name="image"
-                    control={control}
                 />
 
                 <TagInput

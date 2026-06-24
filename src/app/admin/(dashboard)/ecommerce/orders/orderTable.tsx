@@ -1,6 +1,5 @@
 'use client'
 
-import TanstackTable from "@/components/table/TanstackTable"
 import TanstackTableV2 from "@/components/table/TanstackTableV2"
 import { SortingState } from "@tanstack/react-table";
 import { orderColumns } from "./orderColums"

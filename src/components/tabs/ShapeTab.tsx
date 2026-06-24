@@ -4,16 +4,15 @@ type Props ={
     id?: number
 }
 
-export default function FlavorTab({id}: Props) {
+export default function ShapeTab({id}: Props) {
   const attributeId = id ? Number(id) : 0;
   const attributeQuery = useGetProductAttributeQuery(attributeId);
   const attributeData = id ? attributeQuery.data?.payload : null;
   const attributes = attributeData?.attributes ?? [];
-
   return (
     <>
       <h5 className="mt-4">
-        Hương vị
+        Shape
       </h5>
 
       <div className="row g-2">
@@ -28,7 +27,7 @@ export default function FlavorTab({id}: Props) {
               </button>
             </div>
           ))
-        }
+        } 
       </div>
     </>
   );

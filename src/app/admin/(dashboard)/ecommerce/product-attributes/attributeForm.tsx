@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 import { useEffect } from "react";
 import { handleErrorApi } from "@/utils/lib";
 import { Trash } from 'react-bootstrap-icons'
+import ImageUploadBoxMini from "@/components/Image/ImageUploadBoxMini";
 
 type Props ={
     id?: number
@@ -57,20 +58,18 @@ export default function ProAttributeForm({id}: Props){
         reset({
             name: attributeData.name ?? "",
             status: attributeData.status?? "",
-           
-        });
-    }, [attributeData, reset]);
-
-     {/**
-                 
             attributes: attributeData.attributes
                 .map(attr => ({
+                    id: attr.attribute_id,
                     title: attr.title,
                     color: attr.color ?? "#000000",
                     image: attr.image ?? null,
-                    price: attr.price ?? null,
+                    price: attr.price == null ? 0: Number(attr.price),
                 })),
-            */}
+        });
+    }, [attributeData, reset]);
+
+   
 
     const onSubmit = async(data:CreateAttributeSetBodyType) => {
         try {
@@ -114,7 +113,6 @@ export default function ProAttributeForm({id}: Props){
                 <Card className='mt-3'>
                     <CardHeader className='d-flex justify-content-between'>
                         <strong>Attributes list</strong>
-                        {/**
                          *   <Button size="sm"  type="button" onClick={() =>
                             append({
                                 title: '',
@@ -125,7 +123,6 @@ export default function ProAttributeForm({id}: Props){
                         }>
                             Add new attribute
                         </Button>
-                         */}
                       
                     </CardHeader>
                     
@@ -176,34 +173,21 @@ export default function ProAttributeForm({id}: Props){
                                            
                                         </td>
                                         <td>
-                                            <div className="d-flex align-items-center gap-2">
-                                                {image ? (
-                                                <img
-                                                    src={image}
-                                                    width={40}
-                                                    height={40}
-                                                    className="border rounded"
-                                                />
-                                                ) : (
-                                                <div
-                                                    className="border rounded d-flex align-items-center justify-content-center"
-                                                    style={{
-                                                    width: 40,
-                                                    height: 40,
-                                                    }}
-                                                >
-                                                    ✕
+                                            <td>
+                                                <div className="d-flex flex-column gap-2">
+                                                    <ImageUploadBoxMini
+                                                        name="image"
+                                                        control={control}
+                                                    />
                                                 </div>
-                                                )}
-
-                                            </div>
+                                            </td>
                                         </td>
                                         <td>
                                             <Form.Control
                                                 type="number"
                                                 step="0.01"
                                                 {...register(`attributes.${index}.price`, {
-                                                valueAsNumber: true, // 🔥 QUAN TRỌNG
+                                                valueAsNumber: true, 
                                                 })}
                                                 isInvalid={!!errors.attributes?.[index]?.price}
                                             />

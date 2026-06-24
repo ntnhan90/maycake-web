@@ -3,32 +3,25 @@
 import { useState } from "react";
 
 import CakePreview from "../cake/CakePreview";
-import SizeBaseTab from "./SizeBaseTab";
+import ShapeTab from "./ShapeTab";
 import FlavorTab from "./FlavorTab";
 import ToppingTab from "./ToppingTab";
+import ColorTab from "./ColorTab";
 import CustomerTab from "./CustomerTab";
-import ReviewTab from "./ReviewTab";
 
 export default function CakeDesigner() {
   const [tab, setTab] = useState("size");
 
   return (
     <div className="designer-container">
-
       <div className="row">
-
         <div className="col-md-5">
           <CakePreview />
         </div>
-
         <div className="col-md-7">
-
           <div className="card">
-
             <div className="card-body">
-
               <div className="d-flex">
-
                 <div
                   className={`config-tab ${
                     tab === "size"
@@ -39,10 +32,10 @@ export default function CakeDesigner() {
                     setTab("size")
                   }
                 >
-                  SIZE & BASE
+                  Shape
                 </div>
-
-                <div
+                
+                 <div
                   className={`config-tab ${
                     tab === "flavor"
                       ? "active"
@@ -52,7 +45,20 @@ export default function CakeDesigner() {
                     setTab("flavor")
                   }
                 >
-                  COLOR & FLAVOR
+                  FLAVOR
+                </div>
+
+                <div
+                  className={`config-tab ${
+                    tab === "color"
+                      ? "active"
+                      : ""
+                  }`}
+                  onClick={() =>
+                    setTab("color")
+                  }
+                >
+                  COLOR
                 </div>
 
                 <div
@@ -80,46 +86,29 @@ export default function CakeDesigner() {
                 >
                   CUSTOMER
                 </div>
-
-                <div
-                  className={`config-tab ${
-                    tab === "review"
-                      ? "active"
-                      : ""
-                  }`}
-                  onClick={() =>
-                    setTab("review")
-                  }
-                >
-                  REVIEW
-                </div>
-
               </div>
 
               <div className="mt-4">
-
                 {tab === "size" && (
-                  <SizeBaseTab />
+                  <ShapeTab id={1} />
                 )}
 
                 {tab === "flavor" && (
-                  <FlavorTab />
+                  <FlavorTab id={2} />
+                )}
+
+                {tab === "color" && (
+                  <ColorTab id={3}/>
                 )}
 
                 {tab === "topping" && (
-                  <ToppingTab />
+                  <ToppingTab id={4} />
                 )}
 
                 {tab === "customer" && (
                   <CustomerTab />
                 )}
-
-                {tab === "review" && (
-                  <ReviewTab />
-                )}
-
               </div>
-
             </div>
 
           </div>

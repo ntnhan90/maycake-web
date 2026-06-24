@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import OrderForm from '../orderForm';
 
 export const metadata: Metadata = {
-    title: "Create Product | Maycake",
+    title: "Create Order | Maycake",
     description: "Dasher - Responsive Bootstrap 5 Admin Dashboard",
 };
 
