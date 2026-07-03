@@ -6,8 +6,11 @@ import { UseFormSetValue } from 'react-hook-form';
 import { CreateOrderBodyType } from '@/models/product/orderModel';
 import productApiRequest from '@/apiRequests/product/productApi';
 
-import AttributeSelect from './attrSelect';
-
+import ShapeTab from '../tabs/ShapeTab';
+import FlavorTab from "../tabs/FlavorTab";
+import ToppingTab from "../tabs/ToppingTab";
+import ColorTab from "../tabs/ColorTab";
+import CustomerTab from "../tabs/CustomerTab";
 /* ================= TYPES ================= */
 
 type Attribute = {
@@ -50,7 +53,7 @@ type Props = {
 export default function ProductSelector({ setValue }: Props) {
   const [products, setProducts] = useState<Product[]>([]);
   const [selected, setSelected] = useState<SelectedProduct[]>([]);
-
+  const [tab, setTab] = useState("size");
   const [search, setSearch] = useState('');
   const [open, setOpen] = useState(false);
 
@@ -199,14 +202,8 @@ export default function ProductSelector({ setValue }: Props) {
   return (
     <div className="card">
       <div className="card-header">Products</div>
-
       <div className="card-body">
-
-        {/* ================= SEARCH SELECT ================= */}
-        <div
-          className="mb-3 position-relative"
-          onClick={(e) => e.stopPropagation()}
-        >
+        <div className="mb-3 position-relative" onClick={(e) => e.stopPropagation()} >
           <input
             className="form-control"
             placeholder="Search product..."
@@ -245,50 +242,103 @@ export default function ProductSelector({ setValue }: Props) {
           )}
         </div>
 
-        {/* ================= SELECTED PRODUCTS ================= */}
+        {selected.map((p) => {
+          const shapeGroup = p.groups.find((g) => g.groupId === 1);
+          const flavorGroup = p.groups.find((g) => g.groupId === 2);
+          const colorGroup = p.groups.find((g) => g.groupId === 3);
+          const toppingGroup = p.groups.find((g) => g.groupId === 4);
 
-        <table className="table">
-          <tbody>
-            {selected.map((p) => (
-              <tr key={p.productId}>
-                <td>{p.name}</td>
+          return (
+            <div key={p.productId}>
+              <div>
+                <span>{p.name}</span>
 
-                <td>
+                <div>
                   {p.groups.map((g) => (
                     <div key={g.groupId} className="mb-2">
                       <div className="fw-bold">{g.groupName}</div>
-
-                      <AttributeSelect
-                        value={g.selected.id}
-                        options={g.options}
-                        onChange={(id) =>
-                          changeOption(p.productId, g.groupId, id)
-                        }
-                      />
+                      <div>
+                        {g.selected.title}
+                      </div>
                     </div>
                   ))}
-                </td>
-                
-                <td>
-                  <div className="d-flex justify-content-between align-items-center">
-                    <button
-                      type="button"
-                      className="btn btn-sm btn-outline-danger ms-2"
-                      onClick={() => removeProduct(p.productId)}
-                    >
-                      ✕
-                    </button>
+                </div>
+
+                <div className="d-flex justify-content-between align-items-center">
+                  <button
+                    type="button"
+                    className="btn btn-sm btn-outline-danger ms-2"
+                    onClick={() => removeProduct(p.productId)}
+                  >
+                    ✕
+                  </button>
+                </div>
+              </div>
+
+              <div className="attributes">
+                <div className="d-flex">
+                  <div
+                    className={`config-tab ${tab === "size" ? "active" : ""}`}
+                    onClick={() => setTab("size")}
+                  >
+                    Shape
                   </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
 
+                  <div
+                    className={`config-tab ${tab === "flavor" ? "active" : ""}`}
+                    onClick={() => setTab("flavor")}
+                  >
+                    FLAVOR
+                  </div>
+
+                  <div
+                    className={`config-tab ${tab === "color" ? "active" : ""}`}
+                    onClick={() => setTab("color")}
+                  >
+                    COLOR
+                  </div>
+
+                  <div
+                    className={`config-tab ${tab === "topping" ? "active" : ""}`}
+                    onClick={() => setTab("topping")}
+                  >
+                    TOPPINGS
+                  </div>
+
+                  <div
+                    className={`config-tab ${tab === "customer" ? "active" : ""}`}
+                    onClick={() => setTab("customer")}
+                  >
+                    CUSTOMER
+                  </div>
+                </div>
+
+                <div className="mt-4">
+                  {tab === "size" && (
+                    <ShapeTab id={1} attr_id={shapeGroup?.selected.id} />
+                  )}
+
+                  {tab === "flavor" && (
+                    <FlavorTab id={2} attr_id={flavorGroup?.selected.id}  />
+                  )}
+
+                  {tab === "color" && (
+                    <ColorTab id={3} attr_id={colorGroup?.selected.id}/>
+                  )}
+
+                  {tab === "topping" && (
+                    <ToppingTab id={4} attr_id={toppingGroup?.selected.id} />
+                  )}
+
+                  {tab === "customer" && <CustomerTab />}
+                </div>
+              </div>
+            </div>
+          );
+        })}
         <div className="text-end fw-bold">
-          Subtotal: ${subTotal.toFixed(2)}
+            Subtotal: ${subTotal.toFixed(2)}
         </div>
-
       </div>
     </div>
   );

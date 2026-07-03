@@ -3,15 +3,12 @@ export default function CakePreview() {
     <div className="card">
       <div className="card-body">
         <div className="preview-area mt-3">
-          <img
-            src="/img/cake.png"
-            alt=""
-          />
+          {/**
+           * 
+           */}
+          <img src="/img/Standard.png" alt="" />
         </div>
-        <input
-          className="form-control mt-3"
-          placeholder="Chúc mừng..."
-        />
+        <input className="form-control mt-3"  placeholder="Chúc mừng..." />
       </div>
     </div>
   );

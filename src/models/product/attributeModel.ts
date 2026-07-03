@@ -2,6 +2,7 @@ import z from 'zod'
 import { PaginationSchema } from '../pagination';
 
 export const AttributeItemSchema = z.object({
+    id: z.number().optional(),
     attribute_set_id: z.number().optional(),
     attribute_id: z.number().optional(),
     title: z.string().optional(),
