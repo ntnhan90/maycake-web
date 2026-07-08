@@ -1,9 +1,9 @@
 'use client';
 
 import { useState } from "react";
-import { toppings } from "@/data/topping";
 import CategoryTabs from "./CategoryTabs";
 import ToppingCard from "./ToppingCard";
+import { toppings } from "@/data/topping";
 
 export default function ToppingConfigurator() {
   const [category, setCategory] =
@@ -15,13 +15,10 @@ export default function ToppingConfigurator() {
 
   return (
     <div className="card border-0 shadow-sm">
-
       <div className="card-body">
-
         <h4 className="fw-bold mb-3">
           Advanced Topping Configurator
         </h4>
-
         <CategoryTabs
           selected={category}
           onChange={setCategory}
