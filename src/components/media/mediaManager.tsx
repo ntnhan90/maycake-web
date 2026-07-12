@@ -37,6 +37,7 @@ const fetchMediaTree = async (): Promise<MediaTreeType> => {
 
 export default function MediaManager({ onSelect }: MediaManagerProps) {
     /* ---------- QUERY ---------- */
+    console.log(process.env.NEXT_PUBLIC_API_URL);
     const { data, isLoading, error } = useQuery<MediaTreeType>({
         queryKey: ['media'],
         queryFn: fetchMediaTree,
