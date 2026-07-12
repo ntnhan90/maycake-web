@@ -266,7 +266,7 @@ export default function MediaManager({ onSelect }: MediaManagerProps) {
                                         <div className="card-body d-flex flex-column justify-content-center align-items-center">
                                             {item.type === 'folder' ? (
                                                 <Folder size={36} />
-                                            ) : (
+                                            ) : (  
                                                 <img
                                                     src={`${process.env.NEXT_PUBLIC_URL}${item.url}`}
                                                     alt={item.name}
