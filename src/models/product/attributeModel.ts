@@ -4,10 +4,11 @@ import { PaginationSchema } from '../pagination';
 export const AttributeItemSchema = z.object({
     id: z.number().optional(),
     attribute_set_id: z.number().optional(),
-    attribute_id: z.number().optional(),
+    attribute_id: z.coerce.number().optional(),
     title: z.string().optional(),
     color: z.string().nullable().optional(),
     image: z.string().nullable().optional(),
+    group: z.string().nullable().optional(),
     price: z.coerce.number().optional(),
 })
 

@@ -18,10 +18,8 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  	const dictionary = await getDictionary()
-
+  const dictionary = await getDictionary()
 	const gaMeasurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID ?? ''
-	//const googleAdsenseId = process.env.NEXT_PUBLIC_GOOGLE_ADSENSE_ID ?? ''
 
 	return (
 		<html lang="en" data-bs-theme={getTheme()}>
@@ -34,8 +32,7 @@ export default async function RootLayout({
 					<ToastProvider />
 				</AppProvider>
 			</body>
-			{gaMeasurementId !== '' && <GoogleAnalytics gaId={gaMeasurementId} />}
-			
+			{gaMeasurementId !== '' && <GoogleAnalytics gaId={gaMeasurementId} />} 
 		</html>
 	)
 }

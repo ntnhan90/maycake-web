@@ -38,6 +38,7 @@ export default function ProAttributeForm({id}: Props){
             title: '',
             color: '#333333',
             image: null,
+            price: 0,
           },
         ],
       },
@@ -59,17 +60,18 @@ export default function ProAttributeForm({id}: Props){
         name: attributeData.name ?? "",
         status: attributeData.status?? "",
         attributes: attributeData.attributes
-                .map(attr => ({
-                    id: attr.attribute_id,
-                    title: attr.title,
-                    color: attr.color ?? "#000000",
-                    image: attr.image ?? null,
-                    price: attr.price == null ? 0: Number(attr.price),
-                })),
+          .map(attr => ({
+            attribute_id: attr.attribute_id,
+            title: attr.title,
+            color: attr.color ?? "#000000",
+            image: attr.image ?? null,
+            price: attr.price == null ? 0: Number(attr.price),
+          })),
       });
     }, [attributeData, reset]);
 
     const onSubmit = async(data:CreateAttributeSetBodyType) => {
+      console.log("Submit data:", JSON.stringify(data, null, 2));
       try {
         let body = data;
         if (id) {
@@ -88,7 +90,7 @@ export default function ProAttributeForm({id}: Props){
           setError:setError
         })
       }
-      router.push("/admin/ecommerce/product-attributes")
+      //router.push("/admin/ecommerce/product-attributes")
     }
 
     return(
@@ -130,6 +132,7 @@ export default function ProAttributeForm({id}: Props){
                       <th>Title</th>
                       <th>Color</th>
                       <th>Image</th>
+                      <th>Group</th>
                       <th>Price</th>
                       <th></th>
                     </tr>
@@ -139,7 +142,13 @@ export default function ProAttributeForm({id}: Props){
                       const image = watch(`attributes.${index}.image`)
                       return(
                         <tr key={field.id}>
-                          <td>{index + 1}</td>
+                          <td>
+                            <input
+                              type="hidden"
+                              {...register(`attributes.${index}.attribute_id`)}
+                            />
+                            {index + 1}
+                            </td>
                           <td>
                             <Form.Control {...register(  `attributes.${index}.title`  )}
                                 isInvalid={ !!errors.attributes?.[index]?.title }
@@ -157,6 +166,9 @@ export default function ProAttributeForm({id}: Props){
                             <div className="d-flex flex-column gap-2">
                               <ImageUploadBoxMini name={`attributes.${index}.image`} control={control}  />
                             </div>
+                          </td>
+                          <td>
+                            Group
                           </td>
                           <td>
                             <Form.Control type="number" step="0.01"

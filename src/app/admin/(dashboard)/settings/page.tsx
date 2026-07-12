@@ -42,8 +42,7 @@ export default function SettingsPage() {
                                     Google Analytics
                                     </a>
                                 </div>
-                                <small className="text-secondary">Config Credentials for Google Analytics
-</small>
+                                <small className="text-secondary">Config Credentials for Google Analytics</small>
                             </div>
                         </div>
                     </Row>
