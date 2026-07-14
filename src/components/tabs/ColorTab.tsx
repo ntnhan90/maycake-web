@@ -1,15 +1,25 @@
-import { useGetProductAttributeQuery,  } from '@/queries/useProductAttribute';
+import { useGetProductAttributeQuery } from '@/queries/useProductAttribute';
+
+type ProductAttributeItem = {
+  id?: number;
+  attribute_id?: number;
+  title?: string;
+  color?: string | null;
+  image?: string | null;
+  price?: number;
+};
 
 type Props ={
   id?: number,
-  attr_id?: number
+  attr_id?: number,
+  setColor: (color: string) => void;
 }
 
-export default function ColorTab({id,attr_id}: Props) {
+export default function ColorTab({id,attr_id,setColor}: Props) {
   const attributeId = id ? Number(id) : 0;
   const attributeQuery = useGetProductAttributeQuery(attributeId);
   const attributeData = id ? attributeQuery.data?.payload : null;
-  const attributes = attributeData?.attributes ?? [];
+  const attributes : ProductAttributeItem[]= attributeData?.attributes ?? [];
   return (
     <>
       <h5>Màu sắc</h5>
@@ -26,6 +36,10 @@ export default function ColorTab({id,attr_id}: Props) {
                   ? "btn-primary border border-3 border-danger rounded-pill"
                     : "btn-outline-secondary"
                 }`}
+                onClick={() => {
+                  console.log("Selected color:", item.color);
+                  setColor(item.color ?? "#112123");
+                }}
               >
                 {item.title} 
               </button>

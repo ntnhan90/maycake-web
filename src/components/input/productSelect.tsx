@@ -46,11 +46,12 @@ type SelectedProduct = {
 
 type Props = {
   setValue: UseFormSetValue<CreateOrderBodyType>;
+  setColor: (color: string) => void;
 };
 
 /* ================= COMPONENT ================= */
 
-export default function ProductSelector({ setValue }: Props) {
+export default function ProductSelector({ setValue,setColor }: Props) {
   const [products, setProducts] = useState<Product[]>([]);
   const [selected, setSelected] = useState<SelectedProduct[]>([]);
   const [tab, setTab] = useState("size");
@@ -255,12 +256,12 @@ export default function ProductSelector({ setValue }: Props) {
 
                 <div>
                   {p.groups.map((g) => (
-                    <div key={g.groupId} className="mb-2">
+                    <span key={g.groupId} className="mb-2">
                       <div className="fw-bold">{g.groupName}</div>
                       <div>
                         {g.selected.title}
                       </div>
-                    </div>
+                    </span>
                   ))}
                 </div>
 
@@ -323,7 +324,7 @@ export default function ProductSelector({ setValue }: Props) {
                   )}
 
                   {tab === "color" && (
-                    <ColorTab id={3} attr_id={colorGroup?.selected.id}/>
+                    <ColorTab id={3} attr_id={colorGroup?.selected.id} setColor={setColor}/>
                   )}
 
                   {tab === "topping" && (

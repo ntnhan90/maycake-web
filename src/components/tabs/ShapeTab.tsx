@@ -11,7 +11,6 @@ export default function ShapeTab({id,attr_id}: Props) {
   const attributeQuery = useGetProductAttributeQuery(attributeId);
   const attributeData = id ? attributeQuery.data?.payload : null;
   const attributes = attributeData?.attributes ?? [];
-  console.log('attr_id:', attributes);
   return (
     <>
       <h5 className="mt-4">
@@ -44,7 +43,7 @@ export default function ShapeTab({id,attr_id}: Props) {
                     }}
                   />
                 )}
-                {attr_id} -{item.title} - {item.id}
+                {item.title} 
               </button>
             </div>
           ))
