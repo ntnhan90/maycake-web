@@ -5,51 +5,44 @@
   min-height: 100vh;
   padding: 20px;
 }
-
 .cake-wrap {
   position: relative;
   width: 90%;
   max-width: 400px;
   margin: 20px auto;
 }
-
 .dish {
   width: 100%;
   display: block;
 }
-
 .cake-container {
   position: absolute;
   inset: 0;
   width: 100%;
 }
-
 .cake {
   width: 100%;
   display: block;
 }
-
 .color-layer {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-
   opacity: 0.85;
   mix-blend-mode: multiply;
   pointer-events: none;
-
-  -webkit-mask-image: url('/img/vuong-16x9cm-base.png');
+  //-webkit-mask-image: url('/img/vuong-16x9cm-base.png');
+  -webkit-mask-image: var(--mask-image);
   -webkit-mask-size: contain;
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-position: center;
-
-  mask-image: url('/img/vuong-16x9cm-base.png');
+  //mask-image: url('/img/vuong-16x9cm-base.png');
+  mask-image: var(--mask-image);
   mask-size: contain;
   mask-repeat: no-repeat;
   mask-position: center;
 }
-
 .controls {
   button {
     margin: 5px;
@@ -58,7 +51,6 @@
     cursor: pointer;
   }
 }
-
 .color-picker {
   margin-top: 15px;
   width: 80px;
