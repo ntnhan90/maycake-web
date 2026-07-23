@@ -47,11 +47,12 @@ type SelectedProduct = {
 type Props = {
   setValue: UseFormSetValue<CreateOrderBodyType>;
   setColor: (color: string) => void;
+  setShape: (shape: string) => void;
 };
 
 /* ================= COMPONENT ================= */
 
-export default function ProductSelector({ setValue,setColor }: Props) {
+export default function ProductSelector({ setValue, setColor, setShape}: Props) {
   const [products, setProducts] = useState<Product[]>([]);
   const [selected, setSelected] = useState<SelectedProduct[]>([]);
   const [tab, setTab] = useState("size");
@@ -144,35 +145,8 @@ export default function ProductSelector({ setValue,setColor }: Props) {
       return next;
     });
   }
-  /* ================= CHANGE ATTRIBUTE ================= */
-
-  function changeOption(
-    productId: number,
-    groupId: number,
-    attrId: number
-  ) {
-    setSelected((prev) =>
-      prev.map((p) => {
-        if (p.productId !== productId) return p;
-
-        return {
-          ...p,
-          groups: p.groups.map((g) =>
-            g.groupId !== groupId
-              ? g
-              : {
-                  ...g,
-                  selected:
-                    g.options.find((o) => o.id === attrId)!,
-                }
-          ),
-        };
-      })
-    );
-  }
 
   /* ================= TOTAL ================= */
-
   const subTotal = useMemo(() => {
     return selected.reduce((sum, p) => {
       const productTotal =
@@ -183,7 +157,6 @@ export default function ProductSelector({ setValue,setColor }: Props) {
   }, [selected]);
 
   /* ================= SYNC FORM ================= */
-
   useEffect(() => {
     const payload = selected.flatMap((p) =>
       p.groups.map((g) => ({
@@ -199,7 +172,6 @@ export default function ProductSelector({ setValue,setColor }: Props) {
   }, [selected, subTotal, setValue]);
 
   /* ================= UI ================= */
-
   return (
     <div className="card">
       <div className="card-header">Products</div>
@@ -253,7 +225,6 @@ export default function ProductSelector({ setValue,setColor }: Props) {
             <div key={p.productId}>
               <div>
                 <span>{p.name}</span>
-
                 <div>
                   {p.groups.map((g) => (
                     <span key={g.groupId} className="mb-2">
@@ -316,7 +287,7 @@ export default function ProductSelector({ setValue,setColor }: Props) {
 
                 <div className="mt-4">
                   {tab === "size" && (
-                    <ShapeTab id={1} attr_id={shapeGroup?.selected.id} />
+                    <ShapeTab id={1} attr_id={shapeGroup?.selected.id} setShape={setShape}/>
                   )}
 
                   {tab === "flavor" && (

@@ -22,8 +22,6 @@ export default function ColorTab({id,attr_id,setColor}: Props) {
   const attributes : ProductAttributeItem[]= attributeData?.attributes ?? [];
   return (
     <>
-      <h5>Màu sắc</h5>
-
       <div className="row g-2">
         {
           attributes?.map((item) => (

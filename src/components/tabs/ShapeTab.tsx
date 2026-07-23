@@ -2,21 +2,17 @@ import { useGetProductAttributeQuery,  } from '@/queries/useProductAttribute';
 import { mediaUrl } from '@/utils/lib';
 type Props ={
   id?: number,
-  attr_id?: number
+  attr_id?: number,
+  setShape: (shape: string) => void;
 }
 
-export default function ShapeTab({id,attr_id}: Props) {
-  
+export default function ShapeTab({id,attr_id,setShape}: Props) {
   const attributeId = id ? Number(id) : 0;
   const attributeQuery = useGetProductAttributeQuery(attributeId);
   const attributeData = id ? attributeQuery.data?.payload : null;
   const attributes = attributeData?.attributes ?? [];
   return (
     <>
-      <h5 className="mt-4">
-        Shape
-      </h5>
-
       <div className="row g-2">
         {
           attributes?.map((item) => (
@@ -29,6 +25,12 @@ export default function ShapeTab({id,attr_id}: Props) {
                   ? "btn-primary border border-3 border-danger rounded-pill"
                     : "btn-outline-secondary"
                 }`}
+                onClick={() => {
+                  console.log("Selected shape:", item.image);
+                  const baseUrl = process.env.NEXT_PUBLIC_URL ?? "";
+                  const imagePath = item.image ?? "/img/vuong-16x9cm-base.png";
+                  setShape(`${baseUrl}${imagePath}`);
+                }}
               >
                 {item.image && (
                   <img

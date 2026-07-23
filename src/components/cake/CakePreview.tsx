@@ -1,15 +1,16 @@
 import Image from "next/image";
 type Props = {
   color: string;
+  shape: string
 };
 type CSSVars = React.CSSProperties & {
   '--mask-image'?: string;
 };
 
-export default function CakePreview({ color }: Props) {
+export default function CakePreview({ color, shape }: Props) {
   const style: CSSVars = {
     backgroundColor: color,
-    '--mask-image': "url('/img/vuong-16x9cm-base.png')",
+    '--mask-image': `url('${shape}')`,
   };
 
   return (
@@ -21,7 +22,7 @@ export default function CakePreview({ color }: Props) {
 
         <div className="cake-container">
           <Image
-            src="/img/vuong-16x9cm-base.png" className="cake"
+            src={shape} className="cake"
             alt="Cake base" width={400} height={400}
           />
 
